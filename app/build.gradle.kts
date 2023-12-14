@@ -9,6 +9,9 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+
+    // Run-Task automatically downloads a Paper server and runs it
+    id("xyz.jpenilla.run-paper") version "2.2.0"
 }
 
 repositories {

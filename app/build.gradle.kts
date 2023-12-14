@@ -17,6 +17,9 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+
+    // PaperMC repo
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {

@@ -34,7 +34,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("au.plugin.App")
+    mainClass.set("io.papermc.aup.Main")
 }
 
 tasks.named<Test>("test") {

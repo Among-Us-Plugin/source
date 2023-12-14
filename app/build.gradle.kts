@@ -22,6 +22,14 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
+
+    // Paper dependency
+    compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
+}
+
+// Required by Paper
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 application {

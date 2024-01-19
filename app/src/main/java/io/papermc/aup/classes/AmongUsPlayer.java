@@ -4,8 +4,14 @@ import org.bukkit.entity.Player;
 
 public class AmongUsPlayer {
 
-    public AmongUsPlayer(Player player) {
+    private boolean isAlive;
 
+    public AmongUsPlayer(Player player) {
+        isAlive = true;
+    }
+
+    public boolean isALive() {
+        return isAlive;
     }
 
 }

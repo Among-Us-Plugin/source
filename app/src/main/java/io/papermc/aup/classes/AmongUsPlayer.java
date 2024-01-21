@@ -4,10 +4,11 @@ import org.bukkit.entity.Player;
 
 public class AmongUsPlayer {
 
-    private Player player;
+    private String playerName;
     private boolean isAlive;
 
     public AmongUsPlayer(Player player) {
+        playerName = player.getDisplayName();
         isAlive = true;
     }
 
@@ -15,12 +16,16 @@ public class AmongUsPlayer {
         isAlive = false;
     }
 
-    public Player getPlayer() {
-        return player;
+    public String getPlayer() {
+        return playerName;
     }
 
     public boolean isALive() {
         return isAlive;
+    }
+
+    public String toString() {
+        return playerName;
     }
 
 }

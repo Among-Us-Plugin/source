@@ -1,6 +1,8 @@
 package io.papermc.aup.commands;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -8,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.papermc.aup.Helper;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
@@ -27,12 +30,12 @@ public class CommandStartGame implements CommandExecutor {
 
         // Choose a random AU player and cast it as an Impostor
         int r = (int)(Math.random() * (amongUsPlayers.length));
-        amongUsPlayers[r] = new Impostor(amongUsPlayers[r].getPlayer());
+        amongUsPlayers[r] = new Impostor(Helper.getPlayerByDisplayName(amongUsPlayers[r].getPlayer()));
 
         // Cast the rest of the AU players as Crewmate
         for (int i = 0; i < amongUsPlayers.length; i++) {
             if(i != r) {
-                amongUsPlayers[i] = new Crewmate(amongUsPlayers[i].getPlayer());
+                amongUsPlayers[i] = new Crewmate(Helper.getPlayerByDisplayName(amongUsPlayers[i].getPlayer()));
             }
         }
 

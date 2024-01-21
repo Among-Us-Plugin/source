@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 public class AmongUsPlayer {
 
+    private Player player;
     private boolean isAlive;
 
     public AmongUsPlayer(Player player) {
@@ -12,6 +13,10 @@ public class AmongUsPlayer {
 
     public void death() {
         isAlive = false;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public boolean isALive() {

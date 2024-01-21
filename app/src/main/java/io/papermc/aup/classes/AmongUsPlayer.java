@@ -10,6 +10,10 @@ public class AmongUsPlayer {
         isAlive = true;
     }
 
+    public void death() {
+        isAlive = false;
+    }
+
     public boolean isALive() {
         return isAlive;
     }

@@ -12,11 +12,24 @@ import io.papermc.aup.Helper;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
+import net.kyori.adventure.text.Component;
 
 public class CommandStartGame implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+        // Check if game is already running
+        // Set gameRunning accordingly
+        if (!Helper.gameRunning) {
+            Helper.gameRunning = true;
+            Component c = Component.text("Game started by " + sender.getName());
+            Bukkit.broadcast(c);
+        }
+        else {
+            Component c = Component.text("Game is already running");
+            sender.sendMessage(c);
+        }
 
         // Get all online players and add them to an array
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
@@ -36,7 +49,6 @@ public class CommandStartGame implements CommandExecutor {
                 amongUsPlayers[i] = new Crewmate(Helper.getPlayerByDisplayName(amongUsPlayers[i].getPlayer()));
             }
         }
-
 
         return true;
     }

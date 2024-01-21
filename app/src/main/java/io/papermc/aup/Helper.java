@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class Helper {
+
+    public static boolean gameRunning = false;
     
     public static Player getPlayerByDisplayName(String displayName) {
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {

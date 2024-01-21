@@ -10,3 +10,6 @@ commands:
   startgame:
     description: Start the Among Us game
     usage: /startgame
+  endgame:
+    description: End the Among Us game
+    usage: /endgame

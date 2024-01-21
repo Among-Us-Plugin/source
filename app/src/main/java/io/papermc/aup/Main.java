@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.papermc.aup.commands.CommandStartGame;
+import io.papermc.aup.commands.*;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -16,6 +16,7 @@ public class Main extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
 
         this.getCommand("startgame").setExecutor(new CommandStartGame());
+        this.getCommand("endgame").setExecutor(new CommandEndGame());
     }
 
     @EventHandler

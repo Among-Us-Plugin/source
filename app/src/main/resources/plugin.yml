@@ -6,3 +6,7 @@ author: pairnon
 contributors: [enlxmfflsdis34, kionmanesh, Quitous, SuleymanEfe]
 website: https://github.com/pairnon/AU-Plugin
 api-version: '1.20'
+commands:
+  startgame:
+    description: Start the Among Us game
+    usage: /startgame

@@ -27,12 +27,12 @@ public class CommandStartGame implements CommandExecutor {
 
         // Choose a random AU player and cast it as an Impostor
         int r = (int)(Math.random() * (amongUsPlayers.length));
-        amongUsPlayers[r] = (Impostor)amongUsPlayers[r];
+        amongUsPlayers[r] = new Impostor(amongUsPlayers[r].getPlayer());
 
         // Cast the rest of the AU players as Crewmate
         for (int i = 0; i < amongUsPlayers.length; i++) {
             if(i != r) {
-                amongUsPlayers[i] = (Crewmate)amongUsPlayers[i];;
+                amongUsPlayers[i] = new Crewmate(amongUsPlayers[i].getPlayer());
             }
         }
 

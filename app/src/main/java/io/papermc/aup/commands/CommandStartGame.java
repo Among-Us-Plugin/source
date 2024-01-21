@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.papermc.aup.GameLogic;
 import io.papermc.aup.Helper;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
@@ -54,10 +55,8 @@ public class CommandStartGame implements CommandExecutor {
         // Store array of AU players publicly
         Helper.amongUsPlayers = amongUsPlayers;
 
-        // Game logic loop
-        while (Helper.gameRunning) {
-            break;
-        }
+        // Game logic
+        GameLogic.run();
 
         return true;
     }

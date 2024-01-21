@@ -13,6 +13,7 @@ import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CommandStartGame implements CommandExecutor {
     
@@ -23,11 +24,11 @@ public class CommandStartGame implements CommandExecutor {
         // Set gameRunning accordingly
         if (!Helper.gameRunning) {
             Helper.gameRunning = true;
-            Component c = Component.text("Game started by " + sender.getName());
+            Component c = Component.text("Game started by " + sender.getName(), NamedTextColor.GREEN);
             Bukkit.broadcast(c);
         }
         else {
-            Component c = Component.text("Game is already running");
+            Component c = Component.text("Game is already running", NamedTextColor.GOLD);
             sender.sendMessage(c);
         }
 

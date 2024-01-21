@@ -1,6 +1,7 @@
 package io.papermc.aup;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -17,16 +18,18 @@ public class GameLogic {
     public static void run() {
 
         // Create and add Players to appropriate role BossBars
-        BossBar crewmates = Bukkit.createBossBar("You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
-        BossBar impostors = Bukkit.createBossBar("You are an Impostor!", BarColor.RED, BarStyle.SOLID);
+        BossBar crewmates = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
+        BossBar impostors = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
             if (a instanceof Crewmate) {
                 Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 crewmates.addPlayer(p);
+                p.sendTitle(ChatColor.GREEN + "You are a Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);
             }
             else if (a instanceof Impostor) {
                 Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 impostors.addPlayer(p);
+                p.sendTitle(ChatColor.RED + "You are an Impostor!", ChatColor.RED + "Kill as many crewmates as possible without getting caught!", 10, 40, 10);
             }
         }
 

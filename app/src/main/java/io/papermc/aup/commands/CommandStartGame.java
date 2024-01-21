@@ -1,8 +1,6 @@
 package io.papermc.aup.commands;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

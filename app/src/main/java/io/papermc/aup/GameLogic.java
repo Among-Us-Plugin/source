@@ -19,11 +19,11 @@ public class GameLogic {
         BossBar impostors = Bukkit.createBossBar("You are an Impostor!", BarColor.RED, BarStyle.SOLID);
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
             if (a instanceof Crewmate) {
-                Player p = Helper.getPlayerByDisplayName(a.getPlayer());
+                Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 crewmates.addPlayer(p);
             }
             else if (a instanceof Impostor) {
-                Player p = Helper.getPlayerByDisplayName(a.getPlayer());
+                Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 impostors.addPlayer(p);
             }
         }

@@ -16,7 +16,7 @@ public class AmongUsPlayer {
         isAlive = false;
     }
 
-    public String getPlayer() {
+    public String getPlayerName() {
         return playerName;
     }
 

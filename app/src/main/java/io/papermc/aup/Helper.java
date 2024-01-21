@@ -10,6 +10,7 @@ public class Helper {
     public static boolean gameRunning = false;
     public static AmongUsPlayer[] amongUsPlayers;
     
+    // Return Player object based on friendly username
     public static Player getPlayerByDisplayName(String displayName) {
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             if (p.getDisplayName().equals(displayName)) {

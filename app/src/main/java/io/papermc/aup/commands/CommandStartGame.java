@@ -31,6 +31,7 @@ public class CommandStartGame implements CommandExecutor {
         else {
             Component c = Component.text("Game is already running", NamedTextColor.GOLD);
             sender.sendMessage(c);
+            return true;
         }
 
         // Get all online players and add them to an array

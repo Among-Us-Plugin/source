@@ -5,6 +5,8 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
@@ -29,9 +31,18 @@ public class GameLogic {
         }
 
 
-        while (Helper.gameRunning) {
-            break;
-        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if(!Helper.gameRunning) {
+                    // Remove Players from role BossBars if game is over
+                    crewmates.removeAll();
+                    impostors.removeAll();
+                    this.cancel();
+                }
+            }
+
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
 
     }
 

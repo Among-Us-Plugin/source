@@ -8,12 +8,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
+import io.papermc.aup.listeners.DamagePrevention;
 
 public class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new DamagePrevention(), this);
 
         this.getCommand("startgame").setExecutor(new CommandStartGame());
         this.getCommand("endgame").setExecutor(new CommandEndGame());

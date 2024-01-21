@@ -51,6 +51,14 @@ public class CommandStartGame implements CommandExecutor {
             }
         }
 
+        // Store array of AU players publicly
+        Helper.amongUsPlayers = amongUsPlayers;
+
+        // Game logic loop
+        while (Helper.gameRunning) {
+            break;
+        }
+
         return true;
     }
 }

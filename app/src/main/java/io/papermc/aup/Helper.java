@@ -20,4 +20,14 @@ public class Helper {
         return null;
     }
 
+    // Return AmongUsPlayer object based on friendly username
+    public static AmongUsPlayer getAmongUsPlayerByDisplayName(String displayName) {
+        for (AmongUsPlayer a : amongUsPlayers) {
+            if (a.getPlayerName().equals(displayName)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
 }

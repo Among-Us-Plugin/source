@@ -33,7 +33,7 @@ public class GameLogic {
             }
         }
 
-
+        // Game logic that executes every period, in ticks
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -44,7 +44,8 @@ public class GameLogic {
                     this.cancel();
                 }
             }
-
+            
+        // 20 ticks = 1 second, under normal circumstances
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
 
     }

@@ -4,6 +4,8 @@ import org.bukkit.entity.Player;
 
 public class AmongUsPlayer {
 
+    // Stores a String playerName, NOT a Player object
+    // Why? Player objects store everything about a player and are subject to change; location, ping, etc.
     private String playerName;
     private boolean isAlive;
 

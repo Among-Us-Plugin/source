@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
 import io.papermc.aup.listeners.DamagePrevention;
+import io.papermc.aup.listeners.PlayerLeaveHandling;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin implements Listener {
 
         // Custom AUP listeners
         getServer().getPluginManager().registerEvents(new DamagePrevention(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLeaveHandling(), this);
 
         // Plugin commands
         // See plugin.yml file

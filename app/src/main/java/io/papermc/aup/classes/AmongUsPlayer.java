@@ -2,6 +2,7 @@ package io.papermc.aup.classes;
 
 import org.bukkit.entity.Player;
 
+@SuppressWarnings("deprecation")
 public class AmongUsPlayer {
 
     // Stores a String playerName, NOT a Player object

@@ -13,6 +13,7 @@ import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
 
+@SuppressWarnings("deprecation")
 public class GameLogic {
     
     public static void run() {

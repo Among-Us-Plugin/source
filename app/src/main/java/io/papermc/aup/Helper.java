@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
 
+@SuppressWarnings("deprecation")
 public class Helper {
 
     public static boolean gameRunning = false;

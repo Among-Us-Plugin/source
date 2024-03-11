@@ -10,9 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
-import io.papermc.aup.listeners.ChatPrevention;
-import io.papermc.aup.listeners.DamagePrevention;
-import io.papermc.aup.listeners.PlayerLeaveHandling;
+import io.papermc.aup.listeners.*;
 
 public class Main extends JavaPlugin implements Listener {
 

@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
+import io.papermc.aup.listeners.ChatPrevention;
 import io.papermc.aup.listeners.DamagePrevention;
 import io.papermc.aup.listeners.PlayerLeaveHandling;
 
@@ -20,6 +21,7 @@ public class Main extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
 
         // Custom AUP listeners
+        getServer().getPluginManager().registerEvents(new ChatPrevention(), this);
         getServer().getPluginManager().registerEvents(new DamagePrevention(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveHandling(), this);
 

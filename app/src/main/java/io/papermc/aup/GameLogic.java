@@ -21,17 +21,25 @@ public class GameLogic {
         // Create and add Players to appropriate role BossBars
         BossBar crewmates = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
         BossBar impostors = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
+
+        // Create and add all Players to the task progress BossBar
+        BossBar taskBar = Bukkit.createBossBar(ChatColor.BLUE + "Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
+        taskBar.setProgress(0.0);
+
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
+
+            Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
+
             if (a instanceof Crewmate) {
-                Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 crewmates.addPlayer(p);
                 p.sendTitle(ChatColor.GREEN + "You are Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);
             }
             else if (a instanceof Impostor) {
-                Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 impostors.addPlayer(p);
                 p.sendTitle(ChatColor.RED + "You are Impostor!", ChatColor.RED + "Foil the crewmates' progress!", 10, 40, 10);
             }
+
+            taskBar.addPlayer(p);
         }
 
         // Game logic that executes every period, in ticks

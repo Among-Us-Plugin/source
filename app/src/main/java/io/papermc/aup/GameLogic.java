@@ -25,12 +25,12 @@ public class GameLogic {
             if (a instanceof Crewmate) {
                 Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 crewmates.addPlayer(p);
-                p.sendTitle(ChatColor.GREEN + "You are a Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);
+                p.sendTitle(ChatColor.GREEN + "You are Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);
             }
             else if (a instanceof Impostor) {
                 Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
                 impostors.addPlayer(p);
-                p.sendTitle(ChatColor.RED + "You are an Impostor!", ChatColor.RED + "Kill as many crewmates as possible without getting caught!", 10, 40, 10);
+                p.sendTitle(ChatColor.RED + "You are Impostor!", ChatColor.RED + "Foil the crewmates' progress!", 10, 40, 10);
             }
         }
 

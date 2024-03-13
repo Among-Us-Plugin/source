@@ -6,4 +6,4 @@ Written by: [@enlxmfflsdis34](https://github.com/enlxmfflsdis34), [@pairnon](htt
 
 *Currently in development*
 
-Note: Java 17 should be used during development.
+Note: Java 17 & 1.20.x should be used during development.

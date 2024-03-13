@@ -19,6 +19,8 @@ ERROR='\033[0;31m'
 
 # Start the MC server in a screen session
 screen -dmS minecraft ./gradlew runServer
+echo "MC server started..."
+sleep 10
 
 while true; do
 
@@ -48,14 +50,13 @@ while true; do
 
         # Send STOP to the server
         screen -S minecraft -X stuff "`echo -ne \"stop\r\"`"
-
         # Wait for the server to terminate
-        sleep 15
+        sleep 12
         
-
         # Restart the server
         screen -dmS minecraft ./gradlew runServer
-        
+        echo "MC server restarting..."
+        sleep 10
 
     else
         echo -e ${FINISHED}Current branch is up to date with origin/main.${NOCOLOR}

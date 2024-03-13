@@ -8,7 +8,7 @@ fi
 echo "screen is installed. Proceeding..."
 
 # Define how often to check for remote changes
-DELAY=3
+DELAY=10
 
 # Define color variables for output
 ACTION='\033[1;90m'

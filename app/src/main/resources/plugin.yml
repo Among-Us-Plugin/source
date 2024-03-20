@@ -13,3 +13,9 @@ commands:
   endgame:
     description: End the Among Us game
     usage: /endgame
+  crewmateswin:
+    description: Admin command - force the game to crewmate victory
+    usage: /crewmateswin
+  impostorswin:
+    description: Admin command - force the game to impostor victory
+    usage: /impostorswin

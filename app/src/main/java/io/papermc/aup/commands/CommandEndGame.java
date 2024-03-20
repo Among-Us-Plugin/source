@@ -18,7 +18,7 @@ public class CommandEndGame implements CommandExecutor {
         // Set gameRunning accordingly
         if (Helper.gameRunning) {
             Helper.gameRunning = false;
-            Component c = Component.text("Game ended by " + sender.getName(), NamedTextColor.RED);
+            Component c = Component.text("Game ended by " + sender.getName(), NamedTextColor.GOLD);
             Bukkit.broadcast(c);
         }
         else {

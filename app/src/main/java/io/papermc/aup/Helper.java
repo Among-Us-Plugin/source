@@ -10,6 +10,20 @@ public class Helper {
 
     public static boolean gameRunning = false;
     public static AmongUsPlayer[] amongUsPlayers;
+
+    // In the array, set an AmongUsPlayer's life status
+    public static void death(AmongUsPlayer p) {
+        for (int i = 0; i < amongUsPlayers.length; i++) {
+            if (amongUsPlayers[i] == p) {
+                amongUsPlayers[i].death();
+            }
+        }
+        return;
+    }
+    public static void death(String name) {
+        death(getAmongUsPlayerByDisplayName(name));
+        return;
+    }
     
     // Return Player object based on friendly username
     public static Player getPlayerByDisplayName(String displayName) {

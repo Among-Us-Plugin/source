@@ -23,7 +23,7 @@ public class GameLogic {
         BossBar impostors = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
 
         // Create and add all Players to the task progress BossBar
-        BossBar taskBar = Bukkit.createBossBar(ChatColor.BLUE + "Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
+        BossBar taskBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
         taskBar.setProgress(0.0);
 
         for (AmongUsPlayer a : Helper.amongUsPlayers) {

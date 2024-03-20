@@ -29,7 +29,7 @@ public class CommandStartGame implements CommandExecutor {
             Bukkit.broadcast(c);
         }
         else {
-            Component c = Component.text("Game is already running", NamedTextColor.GOLD);
+            Component c = Component.text("ERROR: Game is already running", NamedTextColor.RED);
             sender.sendMessage(c);
             return true;
         }

@@ -22,7 +22,7 @@ public class CommandEndGame implements CommandExecutor {
             Bukkit.broadcast(c);
         }
         else {
-            Component c = Component.text("Game is not running", NamedTextColor.GOLD);
+            Component c = Component.text("ERROR: Game is not running", NamedTextColor.RED);
             sender.sendMessage(c);
         }
 

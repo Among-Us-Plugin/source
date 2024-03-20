@@ -67,10 +67,10 @@ public class Helper {
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
             Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
             if (a instanceof Crewmate) {
-                p.sendTitle(ChatColor.GREEN + "DEFEAT", ChatColor.RED + "The impostors won!", 10, 40, 10);
+                p.sendTitle(ChatColor.RED + "DEFEAT", ChatColor.RED + "The impostors won!", 10, 40, 10);
             }
             else if (a instanceof Impostor) {
-                p.sendTitle(ChatColor.RED + "VICTORY", ChatColor.GREEN + "The impostors won!", 10, 40, 10);
+                p.sendTitle(ChatColor.GREEN + "VICTORY", ChatColor.GREEN + "The impostors won!", 10, 40, 10);
             }
         }
         return;

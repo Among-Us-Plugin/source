@@ -4,7 +4,7 @@ main: io.papermc.aup.Main
 description: Among Us Plugin
 author: pairnon
 contributors: [enlxmfflsdis34, kionmanesh, Quitous, SuleymanEfe]
-website: https://github.com/pairnon/AU-Plugin
+website: https://github.com/Among-Us-Plugin
 api-version: '1.20'
 commands:
   startgame:

@@ -15,8 +15,9 @@ public class CommandImpostorsWin implements CommandExecutor {
 
         // Check if game is running
         if (!Helper.gameRunning) {
-            Component c = Component.text("Game is not running", NamedTextColor.GOLD);
+            Component c = Component.text("Game is not running", NamedTextColor.RED);
             sender.sendMessage(c);
+            return true;
         }
 
         Helper.gameRunning = false;

@@ -50,6 +50,7 @@ public class GameLogic {
                     // Remove Players from role BossBars if game is over
                     crewmates.removeAll();
                     impostors.removeAll();
+                    taskBar.removeAll();
                     this.cancel();
                 }
             }

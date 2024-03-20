@@ -63,7 +63,7 @@ public class Helper {
     }
 
     // Impostors win -> send appropriate messages
-    static void impostorsWin() {
+    public static void impostorsWin() {
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
             Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
             if (a instanceof Crewmate) {

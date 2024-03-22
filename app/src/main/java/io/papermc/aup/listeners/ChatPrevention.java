@@ -19,5 +19,4 @@ public class ChatPrevention implements Listener {
         event.setCancelled(true); // This prevents the message from being sent
         event.getPlayer().sendMessage(ChatColor.RED + "You cannot use chat during the game!");
     }
-
 }

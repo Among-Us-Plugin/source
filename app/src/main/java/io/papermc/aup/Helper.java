@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
 public class Helper {
@@ -74,6 +76,22 @@ public class Helper {
             }
         }
         return;
+    }
+
+    // Check whether any impostors are left, end game if appropriate
+    public static void checkImpostors() {
+
+        // If there are no impostors left, end the game
+        // If there is an impostor, do nothing
+        for (AmongUsPlayer a : Helper.amongUsPlayers) {
+            if (a instanceof Impostor && a.isALive()) {
+                return;
+            }
+        }
+
+        Helper.gameRunning = false;
+        Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.RED);
+        Bukkit.broadcast(c);
     }
 
 }

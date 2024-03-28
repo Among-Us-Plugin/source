@@ -50,16 +50,21 @@ public class CommandStartGame implements CommandExecutor {
         for (int i = 0; i < playersArray.length; i++) {
             amongUsPlayers[i] = new AmongUsPlayer(playersArray[i]);
         }
-
-        // Choose a random AU player and cast it as an Impostor
-        int r = (int)(Math.random() * (amongUsPlayers.length));
-        amongUsPlayers[r] = new Impostor(Game.getPlayerByDisplayName(amongUsPlayers[r].getPlayerName()));
-
-        // Cast the rest of the AU players as Crewmate
+        
+        // Cast the AU players as Crewmates
         for (int i = 0; i < amongUsPlayers.length; i++) {
-            if(i != r) {
-                amongUsPlayers[i] = new Crewmate(Game.getPlayerByDisplayName(amongUsPlayers[i].getPlayerName()));
+            amongUsPlayers[i] = new Crewmate(Game.getPlayerByDisplayName(amongUsPlayers[i].getPlayerName()));
+        }
+
+        // Choose n random AU players and cast them as Impostors
+        for( int i = 0; i < Game.numImpostors; i++) {
+            // Generate a random index
+            int r = (int)(Math.random() * (amongUsPlayers.length));
+            // Generate a new index if already an Impostor
+            while(amongUsPlayers[r] instanceof Impostor) {
+                r = (int)(Math.random() * (amongUsPlayers.length));
             }
+            amongUsPlayers[r] = new Impostor(Game.getPlayerByDisplayName(amongUsPlayers[r].getPlayerName()));
         }
 
         // Store array of AU players publicly

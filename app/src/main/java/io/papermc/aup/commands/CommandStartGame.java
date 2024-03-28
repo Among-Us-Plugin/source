@@ -23,15 +23,15 @@ public class CommandStartGame implements CommandExecutor {
 
         // Check if game is already running
         // Set gameRunning accordingly
-        if (!Game.gameRunning) {
+        if (Game.gameRunning) {
+            Component c = Component.text("ERROR: Game is already running", NamedTextColor.RED);
+            sender.sendMessage(c);
+            return false;
+        }
+        else {
             Game.gameRunning = true;
             Component c = Component.text("Game started by " + sender.getName(), NamedTextColor.GREEN);
             Bukkit.broadcast(c);
-        }
-        else {
-            Component c = Component.text("ERROR: Game is already running", NamedTextColor.RED);
-            sender.sendMessage(c);
-            return true;
         }
 
         // Get all online players and add them to an array

@@ -4,7 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import io.papermc.aup.Helper;
+import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
 public class PlayerLeaveHandling implements Listener {
@@ -13,13 +13,13 @@ public class PlayerLeaveHandling implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         // If game is not running -> ignore
-        if (Helper.gameRunning == false) {
+        if (Game.gameRunning == false) {
             return;
         }
 
         String name = event.getPlayer().getDisplayName();
-        Helper.death(name);
-        Helper.checkCrewmates();
-        Helper.checkImpostors();
+        Game.death(name);
+        Game.checkCrewmates();
+        Game.checkImpostors();
     }
 }

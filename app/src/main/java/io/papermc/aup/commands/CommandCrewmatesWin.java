@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import io.papermc.aup.Helper;
+import io.papermc.aup.Game;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
@@ -14,13 +14,13 @@ public class CommandCrewmatesWin implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         // Check if game is running
-        if (!Helper.gameRunning) {
+        if (!Game.gameRunning) {
             Component c = Component.text("ERROR: Game is not running", NamedTextColor.RED);
             sender.sendMessage(c);
             return true;
         }
 
-        Helper.crewmatesWin();
+        Game.crewmatesWin();
 
         return true;
     }

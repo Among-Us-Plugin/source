@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.GameLogic;
-import io.papermc.aup.Helper;
+import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
@@ -23,8 +23,8 @@ public class CommandStartGame implements CommandExecutor {
 
         // Check if game is already running
         // Set gameRunning accordingly
-        if (!Helper.gameRunning) {
-            Helper.gameRunning = true;
+        if (!Game.gameRunning) {
+            Game.gameRunning = true;
             Component c = Component.text("Game started by " + sender.getName(), NamedTextColor.GREEN);
             Bukkit.broadcast(c);
         }
@@ -44,17 +44,17 @@ public class CommandStartGame implements CommandExecutor {
 
         // Choose a random AU player and cast it as an Impostor
         int r = (int)(Math.random() * (amongUsPlayers.length));
-        amongUsPlayers[r] = new Impostor(Helper.getPlayerByDisplayName(amongUsPlayers[r].getPlayerName()));
+        amongUsPlayers[r] = new Impostor(Game.getPlayerByDisplayName(amongUsPlayers[r].getPlayerName()));
 
         // Cast the rest of the AU players as Crewmate
         for (int i = 0; i < amongUsPlayers.length; i++) {
             if(i != r) {
-                amongUsPlayers[i] = new Crewmate(Helper.getPlayerByDisplayName(amongUsPlayers[i].getPlayerName()));
+                amongUsPlayers[i] = new Crewmate(Game.getPlayerByDisplayName(amongUsPlayers[i].getPlayerName()));
             }
         }
 
         // Store array of AU players publicly
-        Helper.amongUsPlayers = amongUsPlayers;
+        Game.amongUsPlayers = amongUsPlayers;
 
         // Game logic
         GameLogic.run();

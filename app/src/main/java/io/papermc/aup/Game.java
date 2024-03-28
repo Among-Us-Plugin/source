@@ -11,7 +11,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
-public class Helper {
+public class Game {
 
     public static boolean gameRunning = false;
     public static AmongUsPlayer[] amongUsPlayers;
@@ -52,9 +52,9 @@ public class Helper {
 
     // Crewmates win -> end game & send appropriate messages
     public static void crewmatesWin() {
-        Helper.gameRunning = false;
-        for (AmongUsPlayer a : Helper.amongUsPlayers) {
-            Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
+        Game.gameRunning = false;
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
+            Player p = Game.getPlayerByDisplayName(a.getPlayerName());
             if (a instanceof Crewmate) {
                 p.sendTitle(ChatColor.GREEN + "VICTORY", ChatColor.GREEN + "The crewmates won!", 10, 40, 10);
             }
@@ -67,9 +67,9 @@ public class Helper {
 
     // Impostors win -> end game & send appropriate messages
     public static void impostorsWin() {
-        Helper.gameRunning = false;
-        for (AmongUsPlayer a : Helper.amongUsPlayers) {
-            Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
+        Game.gameRunning = false;
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
+            Player p = Game.getPlayerByDisplayName(a.getPlayerName());
             if (a instanceof Crewmate) {
                 p.sendTitle(ChatColor.RED + "DEFEAT", ChatColor.RED + "The impostors won!", 10, 40, 10);
             }
@@ -85,7 +85,7 @@ public class Helper {
 
         // If there are no crewmates left, end the game
         // If there is an crewmate, do nothing
-        for (AmongUsPlayer a : Helper.amongUsPlayers) {
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (a instanceof Crewmate && a.isALive()) {
                 return;
             }
@@ -101,7 +101,7 @@ public class Helper {
 
         // If there are no impostors left, end the game
         // If there is an impostor, do nothing
-        for (AmongUsPlayer a : Helper.amongUsPlayers) {
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (a instanceof Impostor && a.isALive()) {
                 return;
             }

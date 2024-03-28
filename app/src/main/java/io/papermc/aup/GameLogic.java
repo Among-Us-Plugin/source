@@ -26,9 +26,9 @@ public class GameLogic {
         BossBar taskBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
         taskBar.setProgress(0.0);
 
-        for (AmongUsPlayer a : Helper.amongUsPlayers) {
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
 
-            Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
+            Player p = Game.getPlayerByDisplayName(a.getPlayerName());
 
             if (a instanceof Crewmate) {
                 crewmates.addPlayer(p);
@@ -46,7 +46,7 @@ public class GameLogic {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if(!Helper.gameRunning) {
+                if(!Game.gameRunning) {
                     // Remove Players from role BossBars if game is over
                     crewmates.removeAll();
                     impostors.removeAll();

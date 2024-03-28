@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import io.papermc.aup.Helper;
+import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 
@@ -15,10 +15,10 @@ public class DamagePrevention implements Listener {
     @EventHandler
     public void onPunch(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
-            if (Helper.gameRunning == false) {
+            if (Game.gameRunning == false) {
                 return;
             }
-            for (AmongUsPlayer a : Helper.amongUsPlayers) {
+            for (AmongUsPlayer a : Game.amongUsPlayers) {
                 if (a instanceof Crewmate && a.getPlayerName().equals(event.getDamager().getName())) {
                     event.setCancelled(true);
                 }

@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import io.papermc.aup.Helper;
+import io.papermc.aup.Game;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
@@ -16,8 +16,8 @@ public class CommandEndGame implements CommandExecutor {
 
         // Check if game is running
         // Set gameRunning accordingly
-        if (Helper.gameRunning) {
-            Helper.gameRunning = false;
+        if (Game.gameRunning) {
+            Game.gameRunning = false;
             Component c = Component.text("Game ended by " + sender.getName(), NamedTextColor.GOLD);
             Bukkit.broadcast(c);
         }

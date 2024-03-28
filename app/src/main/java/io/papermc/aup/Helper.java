@@ -50,8 +50,9 @@ public class Helper {
         return null;
     }
 
-    // Crewmates win -> send appropriate messages
+    // Crewmates win -> end game & send appropriate messages
     public static void crewmatesWin() {
+        Helper.gameRunning = false;
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
             Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
             if (a instanceof Crewmate) {
@@ -64,8 +65,9 @@ public class Helper {
         return;
     }
 
-    // Impostors win -> send appropriate messages
+    // Impostors win -> end game & send appropriate messages
     public static void impostorsWin() {
+        Helper.gameRunning = false;
         for (AmongUsPlayer a : Helper.amongUsPlayers) {
             Player p = Helper.getPlayerByDisplayName(a.getPlayerName());
             if (a instanceof Crewmate) {
@@ -89,7 +91,7 @@ public class Helper {
             }
         }
         // There are no crewmates, end the game
-        Helper.gameRunning = false;
+        impostorsWin();
         Component c = Component.text("Game Ended: There are no more crewmates!", NamedTextColor.GOLD);
         Bukkit.broadcast(c);
     }
@@ -105,7 +107,7 @@ public class Helper {
             }
         }
         // There are no impostors, end the game
-        Helper.gameRunning = false;
+        crewmatesWin();
         Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.GOLD);
         Bukkit.broadcast(c);
     }

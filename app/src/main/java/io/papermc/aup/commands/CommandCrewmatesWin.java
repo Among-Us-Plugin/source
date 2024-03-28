@@ -20,7 +20,6 @@ public class CommandCrewmatesWin implements CommandExecutor {
             return true;
         }
 
-        Helper.gameRunning = false;
         Helper.crewmatesWin();
 
         return true;

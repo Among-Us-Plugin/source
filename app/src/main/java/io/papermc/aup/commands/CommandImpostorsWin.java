@@ -20,7 +20,6 @@ public class CommandImpostorsWin implements CommandExecutor {
             return true;
         }
 
-        Helper.gameRunning = false;
         Helper.impostorsWin();
 
         return true;

@@ -19,6 +19,7 @@ public class PlayerDeathHandling implements Listener {
 
         String name = event.getPlayer().getDisplayName();
         Helper.death(name);
+        Helper.checkCrewmates();
         Helper.checkImpostors();
     }
 }

@@ -78,6 +78,22 @@ public class Helper {
         return;
     }
 
+    // Check whether any crewmates are left, end game if appropriate
+    public static void checkCrewmates() {
+
+        // If there are no crewmates left, end the game
+        // If there is an crewmate, do nothing
+        for (AmongUsPlayer a : Helper.amongUsPlayers) {
+            if (a instanceof Crewmate && a.isALive()) {
+                return;
+            }
+        }
+        // There are no crewmates, end the game
+        Helper.gameRunning = false;
+        Component c = Component.text("Game Ended: There are no more crewmates!", NamedTextColor.GOLD);
+        Bukkit.broadcast(c);
+    }
+
     // Check whether any impostors are left, end game if appropriate
     public static void checkImpostors() {
 
@@ -88,9 +104,9 @@ public class Helper {
                 return;
             }
         }
-
+        // There are no impostors, end the game
         Helper.gameRunning = false;
-        Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.RED);
+        Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.GOLD);
         Bukkit.broadcast(c);
     }
 

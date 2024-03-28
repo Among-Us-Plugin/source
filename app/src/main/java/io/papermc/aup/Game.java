@@ -15,6 +15,9 @@ public class Game {
 
     public static boolean gameRunning = false;
     public static AmongUsPlayer[] amongUsPlayers;
+    
+    // Defines the number of impostors for the game
+    public static int numImpostors = 1;
 
     // In the array, set an AmongUsPlayer's life status
     public static void death(AmongUsPlayer p) {

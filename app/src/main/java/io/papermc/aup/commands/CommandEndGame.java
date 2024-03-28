@@ -19,7 +19,7 @@ public class CommandEndGame implements CommandExecutor {
         if (!Game.gameRunning) {
             Component c = Component.text("ERROR: Game is not running", NamedTextColor.RED);
             sender.sendMessage(c);
-            return false;
+            return true;
         }
         else {
             Game.gameRunning = false;

@@ -19,27 +19,24 @@ public class GameLogic {
     public static void run() {
 
         // Create and add Players to appropriate role BossBars
-        BossBar crewmates = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
-        BossBar impostors = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
+        BossBar crewmatesBossBar = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
+        BossBar impostorsBossBar = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
 
         // Create and add all Players to the task progress BossBar
-        BossBar taskBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
-        taskBar.setProgress(0.0);
+        BossBar taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
+        taskBossBar.setProgress(0.0);
 
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-
-            Player p = Game.getPlayerByDisplayName(a.getPlayerName());
-
+            Player p = Game.getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
-                crewmates.addPlayer(p);
+                crewmatesBossBar.addPlayer(p);
                 p.sendTitle(ChatColor.GREEN + "You are Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);
             }
             else if (a instanceof Impostor) {
-                impostors.addPlayer(p);
+                impostorsBossBar.addPlayer(p);
                 p.sendTitle(ChatColor.RED + "You are Impostor!", ChatColor.RED + "Foil the crewmates' progress!", 10, 40, 10);
             }
-
-            taskBar.addPlayer(p);
+            taskBossBar.addPlayer(p);
         }
 
         // Game logic that executes every period, in ticks
@@ -48,9 +45,9 @@ public class GameLogic {
             public void run() {
                 if(!Game.gameRunning) {
                     // Remove Players from role BossBars if game is over
-                    crewmates.removeAll();
-                    impostors.removeAll();
-                    taskBar.removeAll();
+                    crewmatesBossBar.removeAll();
+                    impostorsBossBar.removeAll();
+                    taskBossBar.removeAll();
                     this.cancel();
                 }
             }

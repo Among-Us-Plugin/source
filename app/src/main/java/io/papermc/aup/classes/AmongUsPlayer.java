@@ -5,13 +5,13 @@ import org.bukkit.entity.Player;
 @SuppressWarnings("deprecation")
 public class AmongUsPlayer {
 
-    // Stores a String playerName, NOT a Player object
+    // Stores a String displayName, NOT a Player object
     // Why? Player objects store everything about a player and are subject to change; location, ping, etc.
-    private String playerName;
+    private String displayName;
     private boolean isAlive;
 
     public AmongUsPlayer(Player player) {
-        playerName = player.getDisplayName();
+        displayName = player.getDisplayName();
         isAlive = true;
     }
 
@@ -19,8 +19,8 @@ public class AmongUsPlayer {
         isAlive = false;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public String getDisplayName() {
+        return displayName;
     }
 
     public boolean isALive() {
@@ -28,7 +28,7 @@ public class AmongUsPlayer {
     }
 
     public String toString() {
-        return playerName;
+        return displayName;
     }
 
 }

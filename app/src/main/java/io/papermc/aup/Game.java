@@ -46,18 +46,24 @@ public class Game {
     // Return AmongUsPlayer object based on friendly username
     public static AmongUsPlayer getAmongUsPlayerByDisplayName(String displayName) {
         for (AmongUsPlayer a : amongUsPlayers) {
-            if (a.getPlayerName().equals(displayName)) {
+            if (a.getDisplayName().equals(displayName)) {
                 return a;
             }
         }
         return null;
     }
 
+    // Return Player object based on AmongUsPlayer object
+    public static Player getPlayerByAmongPlayer(AmongUsPlayer a) {
+        Player p = getPlayerByDisplayName(a.getDisplayName());
+        return p;
+    }
+
     // Crewmates win -> end game & send appropriate messages
     public static void crewmatesWin() {
         Game.gameRunning = false;
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = Game.getPlayerByDisplayName(a.getPlayerName());
+            Player p = getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
                 p.sendTitle(ChatColor.GREEN + "VICTORY", ChatColor.GREEN + "The crewmates won!", 10, 40, 10);
             }
@@ -72,7 +78,7 @@ public class Game {
     public static void impostorsWin() {
         Game.gameRunning = false;
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = Game.getPlayerByDisplayName(a.getPlayerName());
+            Player p = getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
                 p.sendTitle(ChatColor.RED + "DEFEAT", ChatColor.RED + "The impostors won!", 10, 40, 10);
             }

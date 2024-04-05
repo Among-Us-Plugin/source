@@ -22,7 +22,7 @@ public class DamagePrevention implements Listener {
         if (!Game.gameRunning) { return; }
             
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            if (a instanceof Crewmate && a.getPlayerName().equals(damager.getName())) {
+            if (a instanceof Crewmate && a.getDisplayName().equals(damager.getName())) {
                 event.setCancelled(true);
             }
         }

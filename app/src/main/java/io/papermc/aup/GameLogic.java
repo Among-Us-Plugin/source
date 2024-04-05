@@ -27,7 +27,7 @@ public class GameLogic {
         taskBossBar.setProgress(0.0);
 
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = Game.getPlayerByAmongPlayer(a);
+            Player p = AmongUsPlayer.getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
                 crewmatesBossBar.addPlayer(p);
                 p.sendTitle(ChatColor.GREEN + "You are Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);

@@ -17,7 +17,7 @@ public class Broadcasting {
         Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.GOLD);
         Bukkit.broadcast(c);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = Game.getPlayerByAmongPlayer(a);
+            Player p = AmongUsPlayer.getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
                 p.sendTitle(ChatColor.GREEN + "VICTORY", ChatColor.GREEN + "The crewmates won!", 10, 40, 10);
             }
@@ -31,7 +31,7 @@ public class Broadcasting {
         Component c = Component.text("Game Ended: There are no more crewmates!", NamedTextColor.GOLD);
         Bukkit.broadcast(c);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = Game.getPlayerByAmongPlayer(a);
+            Player p = AmongUsPlayer.getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
                 p.sendTitle(ChatColor.RED + "DEFEAT", ChatColor.RED + "The impostors won!", 10, 40, 10);
             }
@@ -46,7 +46,7 @@ public class Broadcasting {
         Bukkit.broadcast(c);
         
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = Game.getPlayerByAmongPlayer(a);
+            Player p = AmongUsPlayer.getPlayerByAmongPlayer(a);
             p.sendTitle(ChatColor.GOLD + "Game Ended", ChatColor.GOLD + m, 10, 40, 10);
         }
     }

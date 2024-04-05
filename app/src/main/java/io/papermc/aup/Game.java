@@ -1,13 +1,9 @@
 package io.papermc.aup;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
 
-@SuppressWarnings("deprecation")
 public class Game {
 
     public static boolean gameRunning = false;
@@ -26,34 +22,8 @@ public class Game {
     }
 
     public static void killAmongUsPlayer(String displayName) {
-        killAmongUsPlayer(getAmongUsPlayerByDisplayName(displayName));
+        killAmongUsPlayer(AmongUsPlayer.getAmongUsPlayerByDisplayName(displayName));
         return;
-    }
-    
-    // Return Player object based on friendly username
-    public static Player getPlayerByDisplayName(String displayName) {
-        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-            if (p.getDisplayName().equals(displayName)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    // Return AmongUsPlayer object based on friendly username
-    public static AmongUsPlayer getAmongUsPlayerByDisplayName(String displayName) {
-        for (AmongUsPlayer a : amongUsPlayers) {
-            if (a.getDisplayName().equals(displayName)) {
-                return a;
-            }
-        }
-        return null;
-    }
-
-    // Return Player object based on AmongUsPlayer object
-    public static Player getPlayerByAmongPlayer(AmongUsPlayer a) {
-        Player p = getPlayerByDisplayName(a.getDisplayName());
-        return p;
     }
 
     // Crewmates win -> end game & send appropriate titles

@@ -43,20 +43,22 @@ public class CommandStartGame implements CommandExecutor {
             Bukkit.broadcast(c);
         }
 
-        // Get all online players and add them to an array
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        Player[] playersArray = players.toArray(new Player[0]);
+        Player[] playersArray = getOnlinePlayersArray();
         AmongUsPlayer[] amongUsPlayers = new AmongUsPlayer[playersArray.length];
-        for (int i = 0; i < playersArray.length; i++) {
-            amongUsPlayers[i] = new AmongUsPlayer(playersArray[i]);
-        }
-        
-        // Cast the AU players as Crewmates
-        for (int i = 0; i < amongUsPlayers.length; i++) {
-            amongUsPlayers[i] = new Crewmate(AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayers[i]));
-        }
+        addAmongUsPlayers(playersArray, amongUsPlayers);
+        castToCrewmates(amongUsPlayers);
+        castImpostors(amongUsPlayers);
 
-        // Choose n random AU players and cast them as Impostors
+        // Store array of AU players publicly
+        Game.amongUsPlayers = amongUsPlayers;
+
+        // Game logic
+        GameLogic.run();
+
+        return true;
+    }
+
+    private void castImpostors(AmongUsPlayer[] amongUsPlayers) {
         for( int i = 0; i < Game.numImpostors; i++) {
             // Generate a random index
             int r = (int)(Math.random() * (amongUsPlayers.length));
@@ -66,13 +68,23 @@ public class CommandStartGame implements CommandExecutor {
             }
             amongUsPlayers[r] = new Impostor(AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayers[r]));
         }
+    }
 
-        // Store array of AU players publicly
-        Game.amongUsPlayers = amongUsPlayers;
+    private void addAmongUsPlayers(Player[] playersArray, AmongUsPlayer[] amongUsPlayers) {
+        for (int i = 0; i < playersArray.length; i++) {
+            amongUsPlayers[i] = new AmongUsPlayer(playersArray[i]);
+        }
+    }
 
-        // Game logic
-        GameLogic.run();
+    private Player[] getOnlinePlayersArray() {
+        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+        Player[] playersArray = players.toArray(new Player[0]);
+        return playersArray;
+    }
 
-        return true;
+    private void castToCrewmates(AmongUsPlayer[] amongUsPlayers) {
+        for (int i = 0; i < amongUsPlayers.length; i++) {
+            amongUsPlayers[i] = new Crewmate(AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayers[i]));
+        }
     }
 }

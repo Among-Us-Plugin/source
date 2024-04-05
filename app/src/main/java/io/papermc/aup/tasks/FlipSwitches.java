@@ -57,4 +57,8 @@ public class FlipSwitches {
         }
         return true;
     }
+
+    public static boolean validIndex(int index) {
+        return (index >= 0 && index < size);
+    }
 }

@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
 public class Game {
@@ -18,17 +16,17 @@ public class Game {
     // Defines the number of impostors for the game
     public static int numImpostors = 1;
 
-    // In the array, set an AmongUsPlayer's life status
-    public static void kill(AmongUsPlayer p) {
+    public static void killAmongUsPlayer(AmongUsPlayer a) {
         for (int i = 0; i < amongUsPlayers.length; i++) {
-            if (amongUsPlayers[i] == p) {
+            if (amongUsPlayers[i] == a) {
                 amongUsPlayers[i].kill();
             }
         }
         return;
     }
-    public static void kill(String name) {
-        kill(getAmongUsPlayerByDisplayName(name));
+
+    public static void killAmongUsPlayer(String displayName) {
+        killAmongUsPlayer(getAmongUsPlayerByDisplayName(displayName));
         return;
     }
     
@@ -72,8 +70,14 @@ public class Game {
         return;
     }
 
+    // Check whether any AmongUsPlayers are left, end game if appropriate
+    public static void checkAmongUsPlayers() {
+        checkCrewmates();
+        checkImpostors();
+    }
+
     // Check whether any crewmates are left, end game if appropriate
-    public static void checkCrewmates() {
+    private static void checkCrewmates() {
         // If there are no crewmates left, end the game
         // If there is an crewmate, do nothing
         for (AmongUsPlayer a : Game.amongUsPlayers) {
@@ -86,7 +90,7 @@ public class Game {
     }
 
     // Check whether any impostors are left, end game if appropriate
-    public static void checkImpostors() {
+    private static void checkImpostors() {
         // If there are no impostors left, end the game
         // If there is an impostor, do nothing
         for (AmongUsPlayer a : Game.amongUsPlayers) {

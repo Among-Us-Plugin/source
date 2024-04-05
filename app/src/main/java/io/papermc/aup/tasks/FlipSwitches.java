@@ -6,12 +6,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.joml.Random;
+
+import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class FlipSwitches {
     
-    public static String title = "Torches!";
+    public static String title = "FlipSwitches";
     public static int size = 9;
     
     private static Material incorrectMaterial = Material.RED_STAINED_GLASS;

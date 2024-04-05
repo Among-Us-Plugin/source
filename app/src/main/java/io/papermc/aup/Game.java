@@ -1,7 +1,6 @@
 package io.papermc.aup;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -59,33 +58,17 @@ public class Game {
         return p;
     }
 
-    // Crewmates win -> end game & send appropriate messages
+    // Crewmates win -> end game & send appropriate titles
     public static void crewmatesWin() {
         Game.gameRunning = false;
-        for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = getPlayerByAmongPlayer(a);
-            if (a instanceof Crewmate) {
-                p.sendTitle(ChatColor.GREEN + "VICTORY", ChatColor.GREEN + "The crewmates won!", 10, 40, 10);
-            }
-            else if (a instanceof Impostor) {
-                p.sendTitle(ChatColor.RED + "DEFEAT", ChatColor.RED + "The crewmates won!", 10, 40, 10);
-            }
-        }
+        Titles.sendCrewmatesWinTitles();
         return;
     }
 
-    // Impostors win -> end game & send appropriate messages
+    // Impostors win -> end game & send appropriate titles
     public static void impostorsWin() {
         Game.gameRunning = false;
-        for (AmongUsPlayer a : Game.amongUsPlayers) {
-            Player p = getPlayerByAmongPlayer(a);
-            if (a instanceof Crewmate) {
-                p.sendTitle(ChatColor.RED + "DEFEAT", ChatColor.RED + "The impostors won!", 10, 40, 10);
-            }
-            else if (a instanceof Impostor) {
-                p.sendTitle(ChatColor.GREEN + "VICTORY", ChatColor.GREEN + "The impostors won!", 10, 40, 10);
-            }
-        }
+        Titles.sendImpostorsWinTitles();
         return;
     }
 

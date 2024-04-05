@@ -61,14 +61,14 @@ public class Game {
     // Crewmates win -> end game & send appropriate titles
     public static void crewmatesWin() {
         Game.gameRunning = false;
-        Titles.sendCrewmatesWinTitles();
+        Broadcasting.sendCrewmatesWinTitles();
         return;
     }
 
     // Impostors win -> end game & send appropriate titles
     public static void impostorsWin() {
         Game.gameRunning = false;
-        Titles.sendImpostorsWinTitles();
+        Broadcasting.sendImpostorsWinTitles();
         return;
     }
 

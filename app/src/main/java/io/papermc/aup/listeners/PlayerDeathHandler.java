@@ -7,7 +7,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
-public class PlayerDeathHandling implements Listener {
+public class PlayerDeathHandler implements Listener {
 
     // Handle player deaths
     @EventHandler

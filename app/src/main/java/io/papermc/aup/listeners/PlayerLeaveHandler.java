@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
-public class PlayerLeaveHandling implements Listener {
+public class PlayerLeaveHandler implements Listener {
     
     // Handle players leaving the server
     @EventHandler

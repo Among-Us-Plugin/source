@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
 import io.papermc.aup.listeners.*;
+import io.papermc.aup.tasks.FlipSwitches;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -21,10 +22,11 @@ public class Main extends JavaPlugin implements Listener {
         // Custom AUP listeners
         getServer().getPluginManager().registerEvents(new ChatPrevention(), this);
         getServer().getPluginManager().registerEvents(new DamagePrevention(), this);
-        getServer().getPluginManager().registerEvents(new PlayerLeaveHandling(), this);
-        getServer().getPluginManager().registerEvents(new PlayerDeathHandling(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLeaveHandler(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathHandler(), this);
         getServer().getPluginManager().registerEvents(new ImpostorKill(), this);
         getServer().getPluginManager().registerEvents(new DeathMessagePrevention(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClickHandler(), this);
 
         // Plugin commands
         // See plugin.yml file
@@ -37,6 +39,7 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.getPlayer().sendMessage(Component.text("Hello " + event.getPlayer().getName() + ", welcome to AUP indev!", NamedTextColor.AQUA));
+        FlipSwitches.run(event.getPlayer());
     }
 
 }

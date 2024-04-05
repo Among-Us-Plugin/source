@@ -1,5 +1,6 @@
 package io.papermc.aup;
 
+import org.bukkit.GameMode;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -39,6 +40,7 @@ public class Game {
         if (entity instanceof Player) {
             Player p = (Player) entity;
             p.damage(p.getHealth());
+            p.setGameMode(GameMode.SPECTATOR);
         }
     }
 

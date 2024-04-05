@@ -48,6 +48,16 @@ public class Game {
 
     public static void endGame() {
         gameRunning = false;
+        resetGameModes();
+    }
+
+    public static void resetGameModes() {
+        for (AmongUsPlayer a : amongUsPlayers) {
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
+            if (!player.getGameMode().equals(GameMode.SURVIVAL)) {
+                player.setGameMode(GameMode.SURVIVAL);
+            }
+        }
     }
 
     // Crewmates win -> end game & send appropriate titles

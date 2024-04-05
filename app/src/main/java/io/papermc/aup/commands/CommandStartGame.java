@@ -53,7 +53,7 @@ public class CommandStartGame implements CommandExecutor {
         
         // Cast the AU players as Crewmates
         for (int i = 0; i < amongUsPlayers.length; i++) {
-            amongUsPlayers[i] = new Crewmate(AmongUsPlayer.getPlayerByAmongPlayer(amongUsPlayers[i]));
+            amongUsPlayers[i] = new Crewmate(AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayers[i]));
         }
 
         // Choose n random AU players and cast them as Impostors
@@ -64,7 +64,7 @@ public class CommandStartGame implements CommandExecutor {
             while(amongUsPlayers[r] instanceof Impostor) {
                 r = (int)(Math.random() * (amongUsPlayers.length));
             }
-            amongUsPlayers[r] = new Impostor(AmongUsPlayer.getPlayerByAmongPlayer(amongUsPlayers[r]));
+            amongUsPlayers[r] = new Impostor(AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayers[r]));
         }
 
         // Store array of AU players publicly

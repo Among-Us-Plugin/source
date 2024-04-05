@@ -55,7 +55,7 @@ public class AmongUsPlayer {
     }
 
     // Return Player object based on AmongUsPlayer object
-    public static Player getPlayerByAmongPlayer(AmongUsPlayer a) {
+    public static Player getPlayerByAmongUsPlayer(AmongUsPlayer a) {
         Player p = getPlayerByDisplayName(a.getDisplayName());
         return p;
     }

@@ -22,7 +22,7 @@ public class CommandEndGame implements CommandExecutor {
             return true;
         }
         else {
-            Game.gameRunning = false;
+            Game.endGame();
             Broadcasting.sendManualGameEnding("Game ended by " + sender.getName());
         }
 

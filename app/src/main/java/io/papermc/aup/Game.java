@@ -46,32 +46,36 @@ public class Game {
         }
     }
 
+    public static void endGame() {
+        gameRunning = false;
+    }
+
     // Crewmates win -> end game & send appropriate titles
     public static void crewmatesWin() {
-        Game.gameRunning = false;
+        endGame();
         Broadcasting.sendCrewmatesWin();
         return;
     }
 
     // Impostors win -> end game & send appropriate titles
     public static void impostorsWin() {
-        Game.gameRunning = false;
+        endGame();
         Broadcasting.sendImpostorsWin();
         return;
     }
 
-    // Check whether any AmongUsPlayers are left, end game if appropriate
-    public static void checkAmongUsPlayers() {
-        checkCrewmates();
-        checkImpostors();
-    }
-    
     public static void increaseTaskProgress() {
         if (taskBossBar == null) { return; }
         double currentProgress = taskBossBar.getProgress();
         double updatedProgress = currentProgress + 0.1;
         taskBossBar.setProgress(updatedProgress);
         taskBossBar.setTitle(ChatColor.BLUE + "Crewmate Task Progress: " + (int)(updatedProgress * 100) + "%");
+    }
+    
+    // Check whether any AmongUsPlayers are left, end game if appropriate
+    public static void checkAmongUsPlayers() {
+        checkCrewmates();
+        checkImpostors();
     }
 
     // Check whether any crewmates are left, end game if appropriate

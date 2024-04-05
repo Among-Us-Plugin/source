@@ -1,6 +1,8 @@
 package io.papermc.aup;
 
 import org.bukkit.boss.BossBar;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
@@ -31,6 +33,13 @@ public class Game {
     public static void killAmongUsPlayer(String displayName) {
         killAmongUsPlayer(AmongUsPlayer.getAmongUsPlayerByDisplayName(displayName));
         return;
+    }
+
+    public static void killPlayer(Entity entity) {
+        if (entity instanceof Player) {
+            Player p = (Player) entity;
+            p.damage(p.getHealth());
+        }
     }
 
     // Crewmates win -> end game & send appropriate titles

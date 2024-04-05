@@ -23,6 +23,8 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new DamagePrevention(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveHandling(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathHandling(), this);
+        getServer().getPluginManager().registerEvents(new ImpostorKill(), this);
+        getServer().getPluginManager().registerEvents(new DeathMessagePrevention(), this);
 
         // Plugin commands
         // See plugin.yml file

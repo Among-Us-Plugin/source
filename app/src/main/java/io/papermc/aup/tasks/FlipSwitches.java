@@ -15,8 +15,8 @@ public class FlipSwitches {
     public static String title = "FlipSwitches";
     public static int size = 9;
     
-    private static Material incorrectMaterial = Material.RED_STAINED_GLASS;
-    private static Material correctMaterial = Material.LIME_STAINED_GLASS;
+    private static Material incorrectMaterial = Material.RED_STAINED_GLASS_PANE;
+    private static Material correctMaterial = Material.LIME_STAINED_GLASS_PANE;
 
     private static ItemStack incorrectItemStack = new ItemStack(incorrectMaterial);
     private static ItemStack correctItemStack = new ItemStack(correctMaterial);

@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import io.papermc.aup.tasks.FlipSwitches;
+import io.papermc.aup.tasks.*;
 
 public class GameLogic {
     
@@ -15,7 +15,8 @@ public class GameLogic {
         Broadcasting.sendGameStart();
 
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-            FlipSwitches.run(p);
+            // FlipSwitches.run(p);
+            Colors.run(p);
         }
 
         // Game logic that executes every period, in ticks

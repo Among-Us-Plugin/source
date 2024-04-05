@@ -15,7 +15,7 @@ public class AmongUsPlayer {
         isAlive = true;
     }
 
-    public void death() {
+    public void kill() {
         isAlive = false;
     }
 

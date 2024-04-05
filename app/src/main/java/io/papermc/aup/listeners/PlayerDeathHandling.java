@@ -13,12 +13,10 @@ public class PlayerDeathHandling implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         // If game is not running -> ignore
-        if (Game.gameRunning == false) {
-            return;
-        }
+        if (!Game.gameRunning) { return; }
 
         String name = event.getPlayer().getDisplayName();
-        Game.death(name);
+        Game.kill(name);
         Game.checkCrewmates();
         Game.checkImpostors();
     }

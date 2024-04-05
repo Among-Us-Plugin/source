@@ -18,7 +18,7 @@ public class PlayerLeaveHandling implements Listener {
         }
 
         String name = event.getPlayer().getDisplayName();
-        Game.death(name);
+        Game.kill(name);
         Game.checkCrewmates();
         Game.checkImpostors();
     }

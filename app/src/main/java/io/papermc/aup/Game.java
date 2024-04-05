@@ -20,16 +20,16 @@ public class Game {
     public static int numImpostors = 1;
 
     // In the array, set an AmongUsPlayer's life status
-    public static void death(AmongUsPlayer p) {
+    public static void kill(AmongUsPlayer p) {
         for (int i = 0; i < amongUsPlayers.length; i++) {
             if (amongUsPlayers[i] == p) {
-                amongUsPlayers[i].death();
+                amongUsPlayers[i].kill();
             }
         }
         return;
     }
-    public static void death(String name) {
-        death(getAmongUsPlayerByDisplayName(name));
+    public static void kill(String name) {
+        kill(getAmongUsPlayerByDisplayName(name));
         return;
     }
     

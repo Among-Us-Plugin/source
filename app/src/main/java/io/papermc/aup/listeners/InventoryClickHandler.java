@@ -3,6 +3,8 @@ package io.papermc.aup.listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 
 import io.papermc.aup.tasks.FlipSwitches;
 
@@ -15,8 +17,11 @@ public class InventoryClickHandler implements Listener {
         String title = event.getView().getTitle();
         if (title.equals(FlipSwitches.title)) {
             event.setCancelled(true);
+            Inventory inv = event.getInventory();
+            InventoryView view = event.getView();
             int clickedSlotIndex = event.getSlot();
-            FlipSwitches.invert(event.getInventory(), clickedSlotIndex);
+            FlipSwitches.invert(clickedSlotIndex, inv);
+            if (FlipSwitches.checkCompletion(inv)) { view.close(); }
         }
 
     }

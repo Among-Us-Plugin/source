@@ -50,6 +50,13 @@ public class Colors {
         player.openInventory(inv);
     }
 
+    public static boolean validIndex(int index) {
+        for (int i : validIndices) {
+            if (i == index) { return true; }
+        }
+        return false;
+    }
+
     private static void paintColors(Inventory inv) {
         for (int i = 0; i < validIndices.length; i++) {
             inv.setItem(validIndices[i], colorsItemStacks[i]);

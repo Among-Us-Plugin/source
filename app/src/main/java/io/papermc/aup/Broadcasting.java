@@ -41,6 +41,21 @@ public class Broadcasting {
         }
     }
 
+    public static void sendGameStart() {
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
+            Player p = AmongUsPlayer.getPlayerByAmongPlayer(a);
+            if (a instanceof Crewmate) {
+                Game.crewmatesBossBar.addPlayer(p);
+                p.sendTitle(ChatColor.GREEN + "You are Crewmate!", ChatColor.GREEN + "Complete tasks and identify the impostor!", 10, 40, 10);
+            }
+            else if (a instanceof Impostor) {
+                Game.impostorsBossBar.addPlayer(p);
+                p.sendTitle(ChatColor.RED + "You are Impostor!", ChatColor.RED + "Foil the crewmates' progress!", 10, 40, 10);
+            }
+            Game.taskBossBar.addPlayer(p);
+        }
+    }
+
     public static void sendManualGameEnding(String m) {
         Component c = Component.text(m, NamedTextColor.GOLD);
         Bukkit.broadcast(c);

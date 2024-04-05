@@ -1,5 +1,7 @@
 package io.papermc.aup;
 
+import org.bukkit.boss.BossBar;
+
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
@@ -11,6 +13,11 @@ public class Game {
     
     // Defines the number of impostors for the game
     public static int numImpostors = 1;
+
+    // BossBars are instantiated in GameLogic
+    public static BossBar crewmatesBossBar;
+    public static BossBar impostorsBossBar;
+    public static BossBar taskBossBar;
 
     public static void killAmongUsPlayer(AmongUsPlayer a) {
         for (int i = 0; i < amongUsPlayers.length; i++) {

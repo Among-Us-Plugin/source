@@ -4,8 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import io.papermc.aup.tasks.FlipSwitches;
 
 @SuppressWarnings("deprecation")
 public class GameLogic {
@@ -18,6 +21,10 @@ public class GameLogic {
         Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
         Game.taskBossBar.setProgress(0.0);
         Broadcasting.sendGameStart();
+
+        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+            FlipSwitches.run(p);
+        }
 
         // Game logic that executes every period, in ticks
         new BukkitRunnable() {

@@ -1,5 +1,6 @@
 package io.papermc.aup;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
@@ -9,6 +10,7 @@ import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
 
+@SuppressWarnings("deprecation")
 public class Game {
 
     public static boolean gameRunning = false;
@@ -63,6 +65,14 @@ public class Game {
         checkCrewmates();
         checkImpostors();
     }
+    
+    public static void increaseTaskProgress() {
+        if (taskBossBar == null) { return; }
+        double currentProgress = taskBossBar.getProgress();
+        double updatedProgress = currentProgress + 0.1;
+        taskBossBar.setProgress(updatedProgress);
+        taskBossBar.setTitle(ChatColor.BLUE + "Crewmate Task Progress: " + (int)(updatedProgress * 100) + "%");
+    }
 
     // Check whether any crewmates are left, end game if appropriate
     private static void checkCrewmates() {
@@ -89,5 +99,4 @@ public class Game {
         // There are no impostors, end the game
         crewmatesWin();
     }
-
 }

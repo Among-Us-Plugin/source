@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
 import io.papermc.aup.listeners.*;
-import io.papermc.aup.tasks.FlipSwitches;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -39,7 +38,6 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.getPlayer().sendMessage(Component.text("Hello " + event.getPlayer().getName() + ", welcome to AUP indev!", NamedTextColor.AQUA));
-        FlipSwitches.run(event.getPlayer());
     }
 
 }

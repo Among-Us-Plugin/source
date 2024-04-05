@@ -18,11 +18,12 @@ public class InventoryClickHandler implements Listener {
         if (!Game.gameRunning) { return; }
 
         String title = event.getView().getTitle();
+
         if (title.equals(FlipSwitches.title)) {
             event.setCancelled(true);
+            int clickedSlotIndex = event.getSlot();
             Inventory inv = event.getInventory();
             InventoryView view = event.getView();
-            int clickedSlotIndex = event.getSlot();
             if (!FlipSwitches.validIndex(clickedSlotIndex)) { return; }
             FlipSwitches.invert(clickedSlotIndex, inv);
             if (FlipSwitches.checkCompletion(inv)) {

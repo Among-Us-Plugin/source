@@ -22,9 +22,13 @@ public class DamagePrevention implements Listener {
         if (!Game.gameRunning) { return; }
             
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            if (a instanceof Crewmate && a.getDisplayName().equals(damager.getName())) {
+            if (isCrewmate(damager, a)) {
                 event.setCancelled(true);
             }
         }
+    }
+
+    private boolean isCrewmate(Entity damager, AmongUsPlayer a) {
+        return a instanceof Crewmate && a.getDisplayName().equals(damager.getName());
     }
 }

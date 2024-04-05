@@ -1,7 +1,10 @@
 package io.papermc.aup;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -16,13 +19,18 @@ public class Game {
     public static boolean gameRunning = false;
     public static AmongUsPlayer[] amongUsPlayers;
     
-    // Defines the number of impostors for the game
     public static int numImpostors = 1;
 
-    // BossBars are instantiated in GameLogic
     public static BossBar crewmatesBossBar;
     public static BossBar impostorsBossBar;
     public static BossBar taskBossBar;
+
+    public static void initializeBossBars() {
+        Game.crewmatesBossBar = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
+        Game.impostorsBossBar = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
+        Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
+        Game.taskBossBar.setProgress(0.0);
+    }
 
     public static void killAmongUsPlayer(AmongUsPlayer a) {
         for (int i = 0; i < amongUsPlayers.length; i++) {
@@ -91,8 +99,6 @@ public class Game {
 
     // Check whether any crewmates are left, end game if appropriate
     private static void checkCrewmates() {
-        // If there are no crewmates left, end the game
-        // If there is an crewmate, do nothing
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (a instanceof Crewmate && a.isALive()) {
                 return;
@@ -104,8 +110,6 @@ public class Game {
 
     // Check whether any impostors are left, end game if appropriate
     private static void checkImpostors() {
-        // If there are no impostors left, end the game
-        // If there is an impostor, do nothing
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (a instanceof Impostor && a.isALive()) {
                 return;

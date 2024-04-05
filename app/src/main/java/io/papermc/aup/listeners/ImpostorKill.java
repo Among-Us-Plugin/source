@@ -19,13 +19,17 @@ public class ImpostorKill implements Listener {
         Entity damager = event.getDamager();
         Entity victim = event.getEntity();
 
-        if (!(damager instanceof Player)) { return; }
         if (!Game.gameRunning) { return; }
+        if (!(damager instanceof Player)) { return; }
             
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            if (a instanceof Impostor && a.getDisplayName().equals(damager.getName())) {
+            if (isImpostor(damager, a)) {
                Game.killPlayer(victim);
             }
         }
+    }
+
+    private boolean isImpostor(Entity damager, AmongUsPlayer a) {
+        return a instanceof Impostor && a.getDisplayName().equals(damager.getName());
     }
 }

@@ -42,6 +42,7 @@ public class Game {
         if (entity instanceof Player) {
             Player p = (Player) entity;
             p.damage(p.getHealth());
+            if (!gameRunning) { return; }
             p.setGameMode(GameMode.SPECTATOR);
         }
     }

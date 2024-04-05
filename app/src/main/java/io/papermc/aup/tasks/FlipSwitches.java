@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.joml.Random;
 
 @SuppressWarnings("deprecation")
@@ -13,13 +14,21 @@ public class FlipSwitches {
     public static String title = "Torches!";
     public static int size = 9;
     
-    private static Material incorrectMaterial = Material.REDSTONE_TORCH;
-    private static Material correctMaterial = Material.SOUL_TORCH;
+    private static Material incorrectMaterial = Material.RED_STAINED_GLASS;
+    private static Material correctMaterial = Material.LIME_STAINED_GLASS;
 
     private static ItemStack incorrectItemStack = new ItemStack(incorrectMaterial);
     private static ItemStack correctItemStack = new ItemStack(correctMaterial);
 
     public static void run(Player player) {
+
+        ItemMeta inCorrectItemMeta = incorrectItemStack.getItemMeta();
+        inCorrectItemMeta.setDisplayName("§cOFF");
+        incorrectItemStack.setItemMeta(inCorrectItemMeta);
+        ItemMeta correctItemMeta = correctItemStack.getItemMeta();
+        correctItemMeta.setDisplayName("§aON");
+        correctItemStack.setItemMeta(correctItemMeta);
+
         Inventory inv = Bukkit.createInventory(null, size, title);
         for (int i = 0; i < size; i++) {
             Random random = new Random();

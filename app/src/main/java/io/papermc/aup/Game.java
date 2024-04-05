@@ -61,20 +61,19 @@ public class Game {
     // Crewmates win -> end game & send appropriate titles
     public static void crewmatesWin() {
         Game.gameRunning = false;
-        Broadcasting.sendCrewmatesWinTitles();
+        Broadcasting.sendCrewmatesWin();
         return;
     }
 
     // Impostors win -> end game & send appropriate titles
     public static void impostorsWin() {
         Game.gameRunning = false;
-        Broadcasting.sendImpostorsWinTitles();
+        Broadcasting.sendImpostorsWin();
         return;
     }
 
     // Check whether any crewmates are left, end game if appropriate
     public static void checkCrewmates() {
-
         // If there are no crewmates left, end the game
         // If there is an crewmate, do nothing
         for (AmongUsPlayer a : Game.amongUsPlayers) {
@@ -84,13 +83,10 @@ public class Game {
         }
         // There are no crewmates, end the game
         impostorsWin();
-        Component c = Component.text("Game Ended: There are no more crewmates!", NamedTextColor.GOLD);
-        Bukkit.broadcast(c);
     }
 
     // Check whether any impostors are left, end game if appropriate
     public static void checkImpostors() {
-
         // If there are no impostors left, end the game
         // If there is an impostor, do nothing
         for (AmongUsPlayer a : Game.amongUsPlayers) {
@@ -100,8 +96,6 @@ public class Game {
         }
         // There are no impostors, end the game
         crewmatesWin();
-        Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.GOLD);
-        Bukkit.broadcast(c);
     }
 
 }

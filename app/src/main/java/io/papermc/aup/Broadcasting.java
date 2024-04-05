@@ -13,7 +13,9 @@ import net.kyori.adventure.text.format.NamedTextColor;
 @SuppressWarnings("deprecation")
 public class Broadcasting {
     
-    public static void sendCrewmatesWinTitles() {
+    public static void sendCrewmatesWin() {
+        Component c = Component.text("Game Ended: There are no more impostors!", NamedTextColor.GOLD);
+        Bukkit.broadcast(c);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = Game.getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {
@@ -25,7 +27,9 @@ public class Broadcasting {
         }
     }
 
-    public static void sendImpostorsWinTitles() {
+    public static void sendImpostorsWin() {
+        Component c = Component.text("Game Ended: There are no more crewmates!", NamedTextColor.GOLD);
+        Bukkit.broadcast(c);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = Game.getPlayerByAmongPlayer(a);
             if (a instanceof Crewmate) {

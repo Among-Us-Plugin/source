@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import io.papermc.aup.Game;
 
@@ -52,6 +53,7 @@ public class Colors {
 
     public static void run(Player player) {
         Inventory inv = Bukkit.createInventory(null, size, title);
+        renameItemStacks();
         paintBackground(inv);
         shuffleValidIndices();
         paintColors(inv);
@@ -107,6 +109,17 @@ public class Colors {
             if (i == index) { return true; }
         }
         return false;
+    }
+
+    private static void renameItemStacks() {
+        ItemMeta b = backgroundItemStack.getItemMeta();
+        b.setDisplayName(" ");
+        backgroundItemStack.setItemMeta(b);
+        for (ItemStack s : colorsItemStacks) {
+            ItemMeta m = s.getItemMeta();
+            m.setDisplayName("§cC§6o§el§ao§br§9s§d!");
+            s.setItemMeta(m);
+        }
     }
 
     private static void paintColors(Inventory inv) {

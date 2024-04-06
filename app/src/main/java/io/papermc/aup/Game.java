@@ -72,16 +72,16 @@ public class Game {
     }
 
     // Crewmates win -> end game & send appropriate titles
-    public static void crewmatesWin() {
+    public static void crewmatesWin(String reason) {
         endGame();
-        Broadcasting.sendCrewmatesWin();
+        Broadcasting.sendCrewmatesWin(reason);
         return;
     }
 
     // Impostors win -> end game & send appropriate titles
-    public static void impostorsWin() {
+    public static void impostorsWin(String reason) {
         endGame();
-        Broadcasting.sendImpostorsWin();
+        Broadcasting.sendImpostorsWin(reason);
         return;
     }
 
@@ -107,7 +107,7 @@ public class Game {
             }
         }
         // There are no crewmates, end the game
-        impostorsWin();
+        impostorsWin("There are no more crewmates!");
     }
 
     // Check whether any impostors are left, end game if appropriate
@@ -118,6 +118,6 @@ public class Game {
             }
         }
         // There are no impostors, end the game
-        crewmatesWin();
+        crewmatesWin("There are no more impostors!");
     }
 }

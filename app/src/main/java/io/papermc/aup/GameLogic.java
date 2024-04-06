@@ -18,6 +18,9 @@ public class GameLogic {
                     clearBossBars();
                     this.cancel();
                 }
+                if ((int)Game.taskBossBar.getProgress() >= 1) {
+                    Game.crewmatesWin("The crewmates finished all tasks!");
+                }
             }
 
             private void clearBossBars() {

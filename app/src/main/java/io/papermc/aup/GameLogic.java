@@ -12,12 +12,17 @@ public class GameLogic {
             @Override
             public void run() {
                 if(!Game.gameRunning) {
-                    clearBossBars();
-                    this.cancel();
+                    cleanUp();
                 }
                 if ((int)Game.taskBossBar.getProgress() >= 1) {
                     Game.crewmatesWin("The crewmates finished all tasks!");
+                    cleanUp();
                 }
+            }
+
+            private void cleanUp() {
+                clearBossBars();
+                this.cancel();
             }
 
             private void clearBossBars() {

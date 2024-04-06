@@ -26,7 +26,7 @@ public class Game {
     public static BossBar taskBossBar;
     public static int taskBossBarProgressAsPercentage;
 
-    private static int taskBossBarIncrementPercentage = 5;
+    private static int taskBossBarIncrementPercentage = 20;
 
     public static void initializeBossBars() {
         Game.crewmatesBossBar = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);

@@ -1,6 +1,7 @@
 package io.papermc.aup.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.tasks.Colors;
+import io.papermc.aup.tasks.EmergencyMeeting;
 import io.papermc.aup.tasks.FlipSwitches;
 
 public class TaskInteractionHandler implements Listener {
@@ -24,6 +26,9 @@ public class TaskInteractionHandler implements Listener {
         } if (event.getClickedBlock().getType().equals(Material.SCULK)) {
             Player player = event.getPlayer();
             Colors.run(player);
+        } if (event.getClickedBlock().getType().equals(Material.PLAYER_HEAD)) {
+            Block block = event.getClickedBlock();
+            EmergencyMeeting.run(block);
         }
     }
 }

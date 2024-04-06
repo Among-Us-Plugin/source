@@ -3,9 +3,9 @@ version: 1.0.0
 main: io.papermc.aup.Main
 description: Among Us Plugin
 author: pairnon
-contributors: [enlxmfflsdis34, kionmanesh, Quitous, clkefe]
+contributors: [enlxmfflsdis34, kionmanesh, Quitous, SuleymanEfe]
 website: https://github.com/Among-Us-Plugin
-api-version: "1.20"
+api-version: '1.20'
 commands:
   startgame:
     description: Start the Among Us game
@@ -13,9 +13,3 @@ commands:
   endgame:
     description: End the Among Us game
     usage: /endgame
-  crewmateswin:
-    description: Admin command - force the game to crewmate victory
-    usage: /crewmateswin
-  impostorswin:
-    description: Admin command - force the game to impostor victory
-    usage: /impostorswin

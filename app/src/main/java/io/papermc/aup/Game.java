@@ -26,10 +26,12 @@ public class Game {
     public static BossBar taskBossBar;
     public static int taskBossBarProgressAsPercentage;
 
+    private static int taskBossBarIncrementPercentage = 5;
+
     public static void initializeBossBars() {
         Game.crewmatesBossBar = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
         Game.impostorsBossBar = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
-        Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
+        Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_20);
         Game.taskBossBar.setProgress(0.0);
         taskBossBarProgressAsPercentage = 0;
     }
@@ -87,7 +89,7 @@ public class Game {
 
     public static void increaseTaskProgress() {
         if (taskBossBar == null) { return; }
-        taskBossBarProgressAsPercentage += 10;
+        taskBossBarProgressAsPercentage += taskBossBarIncrementPercentage;
         double updatedProgressAsDouble = 0.01 * taskBossBarProgressAsPercentage;
         taskBossBar.setProgress(updatedProgressAsDouble);
         taskBossBar.setTitle(ChatColor.BLUE + "Crewmate Task Progress: " + taskBossBarProgressAsPercentage + "%");

@@ -17,6 +17,7 @@ import io.papermc.aup.classes.Impostor;
 public class Game {
 
     public static boolean gameRunning = false;
+    public static boolean emergencyMeetingInProgress = false;
     public static AmongUsPlayer[] amongUsPlayers;
     
     public static int numImpostors = 1;

@@ -56,7 +56,7 @@ while true; do
         # Restart the server
         screen -dmS minecraft ./gradlew runServer
         echo "MC server restarting..."
-        sleep 10
+        sleep 14
 
     else
         echo -e ${FINISHED}Current branch is up to date with origin/main.${NOCOLOR}

@@ -18,8 +18,12 @@ import io.papermc.aup.Game;
 public class Colors {
     
     public static String title = "Colors";
-    public static int size = 54;
-    public static Integer[] validIndices = {12, 13, 14, 21, 22, 23, 30, 31, 32};
+
+    private static int size = 54;
+    private static int progressBarStartIndex = size - 9;
+
+    // MUST BE CONFIGURED WHEN RESIZING
+    private static Integer[] validIndices = {12, 13, 14, 21, 22, 23, 30, 31, 32};
 
     private static Material backgroundMaterial = Material.BLACK_STAINED_GLASS_PANE;
     private static Material redMaterial = Material.RED_STAINED_GLASS_PANE;
@@ -60,7 +64,7 @@ public class Colors {
         int clickedSlotIndex = event.getSlot();
         if (!validIndex(clickedSlotIndex)) { return; }
         int progress = getProgress(inv);
-        if (!checkIfCorrect(clickedSlotIndex, progress, inv)) {
+        if (!isCorrect(clickedSlotIndex, progress, inv)) {
             resetProgress(inv);;
             return;
         }
@@ -71,26 +75,26 @@ public class Colors {
         }
     }
 
-    private static boolean checkIfCorrect(int clickedSlotIndex, int progress, Inventory inv) {
+    private static boolean isCorrect(int clickedSlotIndex, int progress, Inventory inv) {
         if (!inv.getItem(clickedSlotIndex).equals(colorsItemStacks[progress])) { return false; }
         return true;
     }
 
     private static void resetProgress(Inventory inv) {
-        for (int i = 45; i < 54; i++) {
+        for (int i = progressBarStartIndex; i < size; i++) {
             inv.setItem(i, backgroundItemStack);
         }
     }
 
     private static void incrementProgress(Inventory inv) {
         int progress = getProgress(inv);
-        int nextOpenIndex = progress + 45;
+        int nextOpenIndex = progress + progressBarStartIndex;
         inv.setItem(nextOpenIndex, colorsItemStacks[progress]);
     }
 
     private static int getProgress(Inventory inv) {
         int progress = 0;
-        for (int i = 45; i < 54; i++) {
+        for (int i = progressBarStartIndex; i < size; i++) {
             if (!inv.getItem(i).equals(backgroundItemStack)) {
                 progress++;
             }

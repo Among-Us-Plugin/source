@@ -9,13 +9,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+
+import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
 public class Colors {
     
     public static String title = "Colors";
-    public static int size = 45;
+    public static int size = 54;
     public static Integer[] validIndices = {12, 13, 14, 21, 22, 23, 30, 31, 32};
 
     private static Material backgroundMaterial = Material.BLACK_STAINED_GLASS_PANE;
@@ -52,10 +55,47 @@ public class Colors {
     }
 
     public static void handleClick(InventoryClickEvent event) {
-
+        Inventory inv = event.getInventory();
+        InventoryView view = event.getView();
         int clickedSlotIndex = event.getSlot();
-
         if (!validIndex(clickedSlotIndex)) { return; }
+        int progress = getProgress(inv);
+        if (!checkIfCorrect(clickedSlotIndex, progress, inv)) {
+            resetProgress(inv);;
+            return;
+        }
+        incrementProgress(inv);
+        if (getProgress(inv) == 9) {
+            view.close();
+            Game.increaseTaskProgress();
+        }
+    }
+
+    private static boolean checkIfCorrect(int clickedSlotIndex, int progress, Inventory inv) {
+        if (!inv.getItem(clickedSlotIndex).equals(colorsItemStacks[progress])) { return false; }
+        return true;
+    }
+
+    private static void resetProgress(Inventory inv) {
+        for (int i = 45; i < 54; i++) {
+            inv.setItem(i, backgroundItemStack);
+        }
+    }
+
+    private static void incrementProgress(Inventory inv) {
+        int progress = getProgress(inv);
+        int nextOpenIndex = progress + 45;
+        inv.setItem(nextOpenIndex, colorsItemStacks[progress]);
+    }
+
+    private static int getProgress(Inventory inv) {
+        int progress = 0;
+        for (int i = 45; i < 54; i++) {
+            if (!inv.getItem(i).equals(backgroundItemStack)) {
+                progress++;
+            }
+        }
+        return progress;
     }
 
     private static boolean validIndex(int index) {

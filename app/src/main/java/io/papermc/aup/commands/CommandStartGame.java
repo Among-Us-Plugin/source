@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.GameLogic;
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
@@ -37,24 +38,21 @@ public class CommandStartGame implements CommandExecutor {
             sender.sendMessage(c);
             return true;
         }
-        else {
-            Game.gameRunning = true;
-            Component c = Component.text("Game started by " + sender.getName(), NamedTextColor.GREEN);
-            Bukkit.broadcast(c);
-        }
-
+        
         Player[] playersArray = getOnlinePlayersArray();
         AmongUsPlayer[] amongUsPlayers = new AmongUsPlayer[playersArray.length];
         addAmongUsPlayers(playersArray, amongUsPlayers);
         castToCrewmates(amongUsPlayers);
         castImpostors(amongUsPlayers);
-
-        // Store array of AU players publicly
+        
         Game.amongUsPlayers = amongUsPlayers;
+        Game.initializeBossBars();
+        Game.gameRunning = true;
+        Broadcasting.sendGameStart("Game started by " + sender.getName());
 
         // Game logic
         GameLogic.run();
-
+        
         return true;
     }
 

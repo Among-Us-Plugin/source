@@ -8,7 +8,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
-public class ChatPrevention implements Listener {
+public class ChatHandler implements Listener {
 
     // Prevent Crewmates from using game chat if a meeting is not active
     @EventHandler

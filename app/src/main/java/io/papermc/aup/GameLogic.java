@@ -1,32 +1,28 @@
 package io.papermc.aup;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import io.papermc.aup.tasks.*;
 
 public class GameLogic {
     
     public static void run() {
-
-        Game.initializeBossBars();
-        Broadcasting.sendGameStart();
-
-        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-            // FlipSwitches.run(p);
-            Colors.run(p);
-        }
 
         // Game logic that executes every period, in ticks
         new BukkitRunnable() {
             @Override
             public void run() {
                 if(!Game.gameRunning) {
-                    clearBossBars();
-                    this.cancel();
+                    cleanUp();
                 }
+                if ((int)Game.taskBossBar.getProgress() >= 1) {
+                    Game.crewmatesWin("The crewmates finished all tasks!");
+                    cleanUp();
+                }
+            }
+
+            private void cleanUp() {
+                clearBossBars();
+                this.cancel();
             }
 
             private void clearBossBars() {

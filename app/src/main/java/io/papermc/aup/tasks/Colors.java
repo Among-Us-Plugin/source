@@ -1,21 +1,30 @@
 package io.papermc.aup.tasks;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
 public class Colors {
     
     public static String title = "Colors";
-    public static int size = 45;
-    public static Integer[] validIndices = {12, 13, 14, 21, 22, 23, 30, 31, 32};
+
+    private static int size = 54;
+    private static int progressBarStartIndex = size - 9;
+
+    // MUST BE CONFIGURED WHEN RESIZING
+    private static Integer[] validIndices = {12, 13, 14, 21, 22, 23, 30, 31, 32};
 
     private static Material backgroundMaterial = Material.BLACK_STAINED_GLASS_PANE;
     private static Material redMaterial = Material.RED_STAINED_GLASS_PANE;
@@ -44,17 +53,73 @@ public class Colors {
 
     public static void run(Player player) {
         Inventory inv = Bukkit.createInventory(null, size, title);
+        renameItemStacks();
         paintBackground(inv);
         shuffleValidIndices();
         paintColors(inv);
         player.openInventory(inv);
     }
 
-    public static boolean validIndex(int index) {
+    public static void handleClick(InventoryClickEvent event) {
+        Inventory inv = event.getInventory();
+        InventoryView view = event.getView();
+        int clickedSlotIndex = event.getSlot();
+        if (!validIndex(clickedSlotIndex)) { return; }
+        int progress = getProgress(inv);
+        if (!isCorrect(clickedSlotIndex, progress, inv)) {
+            resetProgress(inv);;
+            return;
+        }
+        incrementProgress(inv);
+        if (getProgress(inv) == 9) {
+            view.close();
+            Game.increaseTaskProgress();
+        }
+    }
+
+    private static boolean isCorrect(int clickedSlotIndex, int progress, Inventory inv) {
+        if (!inv.getItem(clickedSlotIndex).equals(colorsItemStacks[progress])) { return false; }
+        return true;
+    }
+
+    private static void resetProgress(Inventory inv) {
+        for (int i = progressBarStartIndex; i < size; i++) {
+            inv.setItem(i, backgroundItemStack);
+        }
+    }
+
+    private static void incrementProgress(Inventory inv) {
+        int progress = getProgress(inv);
+        int nextOpenIndex = progress + progressBarStartIndex;
+        inv.setItem(nextOpenIndex, colorsItemStacks[progress]);
+    }
+
+    private static int getProgress(Inventory inv) {
+        int progress = 0;
+        for (int i = progressBarStartIndex; i < size; i++) {
+            if (!inv.getItem(i).equals(backgroundItemStack)) {
+                progress++;
+            }
+        }
+        return progress;
+    }
+
+    private static boolean validIndex(int index) {
         for (int i : validIndices) {
             if (i == index) { return true; }
         }
         return false;
+    }
+
+    private static void renameItemStacks() {
+        ItemMeta b = backgroundItemStack.getItemMeta();
+        b.setDisplayName(" ");
+        backgroundItemStack.setItemMeta(b);
+        for (ItemStack s : colorsItemStacks) {
+            ItemMeta m = s.getItemMeta();
+            m.setDisplayName("§cC§6o§el§ao§br§9s§d!");
+            s.setItemMeta(m);
+        }
     }
 
     private static void paintColors(Inventory inv) {

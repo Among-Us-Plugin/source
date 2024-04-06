@@ -24,12 +24,16 @@ public class Game {
     public static BossBar crewmatesBossBar;
     public static BossBar impostorsBossBar;
     public static BossBar taskBossBar;
+    public static int taskBossBarProgressAsPercentage;
+
+    private static int taskBossBarIncrementPercentage = 20;
 
     public static void initializeBossBars() {
         Game.crewmatesBossBar = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);
         Game.impostorsBossBar = Bukkit.createBossBar(ChatColor.RED + "You are an Impostor!", BarColor.RED, BarStyle.SOLID);
-        Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_10);
+        Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_20);
         Game.taskBossBar.setProgress(0.0);
+        taskBossBarProgressAsPercentage = 0;
     }
 
     public static void killAmongUsPlayer(AmongUsPlayer a) {
@@ -70,25 +74,25 @@ public class Game {
     }
 
     // Crewmates win -> end game & send appropriate titles
-    public static void crewmatesWin() {
+    public static void crewmatesWin(String reason) {
         endGame();
-        Broadcasting.sendCrewmatesWin();
+        Broadcasting.sendCrewmatesWin(reason);
         return;
     }
 
     // Impostors win -> end game & send appropriate titles
-    public static void impostorsWin() {
+    public static void impostorsWin(String reason) {
         endGame();
-        Broadcasting.sendImpostorsWin();
+        Broadcasting.sendImpostorsWin(reason);
         return;
     }
 
     public static void increaseTaskProgress() {
         if (taskBossBar == null) { return; }
-        double currentProgress = taskBossBar.getProgress();
-        double updatedProgress = currentProgress + 0.1;
-        taskBossBar.setProgress(updatedProgress);
-        taskBossBar.setTitle(ChatColor.BLUE + "Crewmate Task Progress: " + (int)(updatedProgress * 100) + "%");
+        taskBossBarProgressAsPercentage += taskBossBarIncrementPercentage;
+        double updatedProgressAsDouble = 0.01 * taskBossBarProgressAsPercentage;
+        taskBossBar.setProgress(updatedProgressAsDouble);
+        taskBossBar.setTitle(ChatColor.BLUE + "Crewmate Task Progress: " + taskBossBarProgressAsPercentage + "%");
     }
     
     // Check whether any AmongUsPlayers are left, end game if appropriate
@@ -105,7 +109,7 @@ public class Game {
             }
         }
         // There are no crewmates, end the game
-        impostorsWin();
+        impostorsWin("There are no more crewmates!");
     }
 
     // Check whether any impostors are left, end game if appropriate
@@ -116,6 +120,6 @@ public class Game {
             }
         }
         // There are no impostors, end the game
-        crewmatesWin();
+        crewmatesWin("There are no more impostors!");
     }
 }

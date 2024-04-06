@@ -8,27 +8,28 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
-import io.papermc.aup.classes.Crewmate;
+import io.papermc.aup.classes.Impostor;
 
-public class DamagePrevention implements Listener {
+public class ImpostorKillHandler implements Listener {
 
-    // Prevent Crewmates from attacking others during the game
+    // Ensure that the impostor can kill with one click
     @EventHandler
     public void onPunch(EntityDamageByEntityEvent event) {
 
         Entity damager = event.getDamager();
+        Entity victim = event.getEntity();
 
-        if (!(damager instanceof Player)) { return; }
         if (!Game.gameRunning) { return; }
+        if (!(damager instanceof Player)) { return; }
             
         for (AmongUsPlayer a : Game.amongUsPlayers) {
-            if (isCrewmate(damager, a)) {
-                event.setCancelled(true);
+            if (isImpostor(damager, a)) {
+               Game.killPlayer(victim);
             }
         }
     }
 
-    private boolean isCrewmate(Entity damager, AmongUsPlayer a) {
-        return a instanceof Crewmate && a.getDisplayName().equals(damager.getName());
+    private boolean isImpostor(Entity damager, AmongUsPlayer a) {
+        return a instanceof Impostor && a.getDisplayName().equals(damager.getName());
     }
 }

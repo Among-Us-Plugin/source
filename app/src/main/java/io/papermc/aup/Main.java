@@ -19,21 +19,20 @@ public class Main extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
 
         // Custom AUP listeners
-        getServer().getPluginManager().registerEvents(new ChatPrevention(), this);
-        getServer().getPluginManager().registerEvents(new DamagePrevention(), this);
+        getServer().getPluginManager().registerEvents(new ChatHandler(), this);
+        getServer().getPluginManager().registerEvents(new AttackHandler(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveHandler(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathHandler(), this);
-        getServer().getPluginManager().registerEvents(new ImpostorKill(), this);
-        getServer().getPluginManager().registerEvents(new DeathMessagePrevention(), this);
+        getServer().getPluginManager().registerEvents(new ImpostorKillHandler(), this);
+        getServer().getPluginManager().registerEvents(new DeathMessageHandler(), this);
         getServer().getPluginManager().registerEvents(new InventoryClickHandler(), this);
         getServer().getPluginManager().registerEvents(new EmergencyMeetingStarter(), this);
+        getServer().getPluginManager().registerEvents(new TaskInteractionHandler(), this);
 
         // Plugin commands
         // See plugin.yml file
         this.getCommand("startgame").setExecutor(new CommandStartGame());
         this.getCommand("endgame").setExecutor(new CommandEndGame());
-        this.getCommand("crewmateswin").setExecutor(new CommandCrewmatesWin());
-        this.getCommand("impostorswin").setExecutor(new CommandImpostorsWin());
     }
 
     @EventHandler

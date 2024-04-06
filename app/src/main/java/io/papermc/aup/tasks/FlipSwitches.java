@@ -1,13 +1,17 @@
 package io.papermc.aup.tasks;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Random;
+import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
 public class FlipSwitches {
@@ -22,15 +26,25 @@ public class FlipSwitches {
     private static ItemStack correctItemStack = new ItemStack(correctMaterial);
 
     public static void run(Player player) {
-
-        ItemMeta inCorrectItemMeta = incorrectItemStack.getItemMeta();
-        inCorrectItemMeta.setDisplayName("§cOFF");
-        incorrectItemStack.setItemMeta(inCorrectItemMeta);
-        ItemMeta correctItemMeta = correctItemStack.getItemMeta();
-        correctItemMeta.setDisplayName("§aON");
-        correctItemStack.setItemMeta(correctItemMeta);
-
+        setItemStackNames();
         Inventory inv = Bukkit.createInventory(null, size, title);
+        randomizeLocations(inv);
+        player.openInventory(inv);
+    }
+    
+    public static void handleClick(InventoryClickEvent event) {
+        Inventory inv = event.getInventory();
+        InventoryView view = event.getView();
+        int clickedSlotIndex = event.getSlot();
+        if (!validIndex(clickedSlotIndex)) { return; }
+        invert(clickedSlotIndex, inv);
+        if (checkCompletion(inv)) {
+            view.close();
+            Game.increaseTaskProgress();
+        }
+    }
+
+    private static void randomizeLocations(Inventory inv) {
         for (int i = 0; i < size; i++) {
             Random random = new Random();
             int n = random.nextInt(2);
@@ -44,10 +58,18 @@ public class FlipSwitches {
                     break;
             }
         }
-        player.openInventory(inv);
     }
 
-    public static void invert(int slotIndex, Inventory inv) {
+    private static void setItemStackNames() {
+        ItemMeta inCorrectItemMeta = incorrectItemStack.getItemMeta();
+        inCorrectItemMeta.setDisplayName("§cOFF");
+        incorrectItemStack.setItemMeta(inCorrectItemMeta);
+        ItemMeta correctItemMeta = correctItemStack.getItemMeta();
+        correctItemMeta.setDisplayName("§aON");
+        correctItemStack.setItemMeta(correctItemMeta);
+    }
+
+    private static void invert(int slotIndex, Inventory inv) {
         ItemStack[] invContents = inv.getContents();
         Material material = invContents[slotIndex].getType();
         if (material.equals(incorrectMaterial)) {
@@ -57,7 +79,7 @@ public class FlipSwitches {
         }
     }
 
-    public static boolean checkCompletion(Inventory inv) {
+    private static boolean checkCompletion(Inventory inv) {
         ItemStack[] invContents = inv.getContents();
         for (ItemStack s : invContents) {
             Material material = s.getType();
@@ -68,7 +90,7 @@ public class FlipSwitches {
         return true;
     }
 
-    public static boolean validIndex(int index) {
+    private static boolean validIndex(int index) {
         return (index >= 0 && index < size);
     }
 }

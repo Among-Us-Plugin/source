@@ -1,14 +1,15 @@
 package io.papermc.aup.tasks;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 @SuppressWarnings("deprecation")
 public class Colors {
@@ -50,7 +51,14 @@ public class Colors {
         player.openInventory(inv);
     }
 
-    public static boolean validIndex(int index) {
+    public static void handleClick(InventoryClickEvent event) {
+
+        int clickedSlotIndex = event.getSlot();
+
+        if (!validIndex(clickedSlotIndex)) { return; }
+    }
+
+    private static boolean validIndex(int index) {
         for (int i : validIndices) {
             if (i == index) { return true; }
         }

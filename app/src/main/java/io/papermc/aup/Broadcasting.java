@@ -41,7 +41,9 @@ public class Broadcasting {
         }
     }
 
-    public static void sendGameStart() {
+    public static void sendGameStart(String m) {
+        Component c = Component.text(m, NamedTextColor.GREEN);
+        Bukkit.broadcast(c);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
             if (a instanceof Crewmate) {

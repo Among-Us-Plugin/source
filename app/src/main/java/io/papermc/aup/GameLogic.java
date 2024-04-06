@@ -7,9 +7,6 @@ public class GameLogic {
     
     public static void run() {
 
-        Game.initializeBossBars();
-        Broadcasting.sendGameStart();
-
         // Game logic that executes every period, in ticks
         new BukkitRunnable() {
             @Override

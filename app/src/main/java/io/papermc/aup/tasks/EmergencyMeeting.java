@@ -1,23 +1,17 @@
 package io.papermc.aup.tasks;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.SkullType;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
-import org.bukkit.entity.TextDisplay;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.awt.*;
-import java.util.Random;
 
 public class EmergencyMeeting {
     private static Material playerHeadMaterial = Material.PLAYER_HEAD;

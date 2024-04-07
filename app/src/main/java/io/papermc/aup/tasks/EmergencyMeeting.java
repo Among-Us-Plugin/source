@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-
+@SuppressWarnings("deprecation")
 public class EmergencyMeeting {
-    private static Material playerHeadMaterial = Material.PLAYER_HEAD;
 
+    private static Material playerHeadMaterial = Material.PLAYER_HEAD;
     private static ItemStack playerHeadStack = new ItemStack(playerHeadMaterial);
 
     public static void run(Block centreBlock) {
@@ -46,7 +46,7 @@ public class EmergencyMeeting {
 
 
         String title = "Vote";
-        int invSize = 54;
+        int invSize = 18;
 
         Inventory inv = Bukkit.createInventory(null, invSize, title);
 

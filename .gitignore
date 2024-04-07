@@ -8,7 +8,5 @@ build
 app/run
 
 # Other (IDE Settings)
-.DS_Store
+**/.DS_Store
 .idea
-app/.DS_Store
-gradle/.DS_Store

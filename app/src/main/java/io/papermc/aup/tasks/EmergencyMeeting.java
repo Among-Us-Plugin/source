@@ -1,19 +1,37 @@
 package io.papermc.aup.tasks;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
+import org.bukkit.entity.TextDisplay;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.awt.*;
+import java.util.Random;
 
 public class EmergencyMeeting {
+    private static Material playerHeadMaterial = Material.PLAYER_HEAD;
+
+    private static ItemStack playerHeadStack = new ItemStack(playerHeadMaterial);
 
     public static void run(Block centreBlock) {
 
         Game.emergencyMeetingInProgress = true;
 
-        double i = 0;
+        int i = 0;
+
+        // region teleport players
+
         double radius = 5; // in blocks
 
         for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
@@ -25,9 +43,47 @@ public class EmergencyMeeting {
             float newYaw = getNewYaw(centreBlock, newX, newZ);
             
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
+//            Disabled per dev purposes
+//            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
             
             i++;
+        }
+        // endregion
+
+
+        String title = "Vote";
+        int invSize = 54;
+
+        Inventory inv = Bukkit.createInventory(null, invSize, title);
+
+        Bukkit.getLogger().info("Meeting Started by someone");
+
+        ItemMeta correctItemMeta = playerHeadStack.getItemMeta();
+        correctItemMeta.setDisplayName("§aON");
+
+        playerHeadStack.setItemMeta(correctItemMeta);
+
+
+
+        i = 0;
+
+        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+
+            ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+            SkullMeta meta = (SkullMeta) skull.getItemMeta();
+            meta.setOwningPlayer(player);
+            meta.setDisplayName("§6" + amongUsPlayer.getDisplayName());
+            skull.setItemMeta(meta);
+
+            inv.setItem(i, skull);
+
+            i++;
+        }
+
+        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+            player.openInventory(inv);
         }
     }
     

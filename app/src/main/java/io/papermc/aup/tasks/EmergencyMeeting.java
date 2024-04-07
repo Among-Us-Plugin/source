@@ -1,6 +1,7 @@
 package io.papermc.aup.tasks;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -9,76 +10,65 @@ import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
 
-    private static Material playerHeadMaterial = Material.PLAYER_HEAD;
-    private static ItemStack playerHeadStack = new ItemStack(playerHeadMaterial);
+    private static int votingMenuSize = 18;
+    private static double playersRadius = 5;
 
     public static void run(Block centreBlock) {
-
         Game.emergencyMeetingInProgress = true;
+        relocatePlayers(centreBlock);
+        Inventory votingMenu = getVotingMenu();
+        populateVotingMenu(votingMenu);
+        openVotingMenus(votingMenu);
+    }
 
+    private static void openVotingMenus(Inventory votingMenu) {
+        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+            player.openInventory(votingMenu);
+        }
+    }
+
+    private static void relocatePlayers(Block centreBlock) {
         int i = 0;
-
-        // region teleport players
-
-        double radius = 5; // in blocks
-
         for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
             // Evenly spaces the players around a circle
             double angle = 2 * Math.PI * i / Game.amongUsPlayers.length;
 
-            double newX = centreBlock.getX() + radius * Math.cos(angle);
-            double newZ = centreBlock.getZ() + radius * Math.sin(angle);
+            double newX = centreBlock.getX() + playersRadius * Math.cos(angle);
+            double newZ = centreBlock.getZ() + playersRadius * Math.sin(angle);
             float newYaw = getNewYaw(centreBlock, newX, newZ);
             
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-//            Disabled per dev purposes
-//            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
+            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
             
             i++;
         }
-        // endregion
+    }
 
-
-        String title = "Vote";
-        int invSize = 18;
-
-        Inventory inv = Bukkit.createInventory(null, invSize, title);
-
-        Bukkit.getLogger().info("Meeting Started by someone");
-
-        ItemMeta correctItemMeta = playerHeadStack.getItemMeta();
-        correctItemMeta.setDisplayName("§aON");
-
-        playerHeadStack.setItemMeta(correctItemMeta);
-
-
-
-        i = 0;
-
+    private static void populateVotingMenu(Inventory votingMenu) {
+        int index = 0;
         for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-
             ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
             SkullMeta meta = (SkullMeta) skull.getItemMeta();
             meta.setOwningPlayer(player);
             meta.setDisplayName("§6" + amongUsPlayer.getDisplayName());
             skull.setItemMeta(meta);
-
-            inv.setItem(i, skull);
-
-            i++;
+            votingMenu.setItem(index, skull);
+            index++;
         }
+    }
 
-        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
-            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-            player.openInventory(inv);
-        }
+    private static Inventory getVotingMenu() {
+        String title = "Vote";
+        Inventory inv = Bukkit.createInventory(null, votingMenuSize, title);
+        Bukkit.getLogger().info("Meeting Started by someone");
+        return inv;
     }
     
     // Returns a value between -180 and 180, so the player faces towards the center

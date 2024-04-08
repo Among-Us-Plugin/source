@@ -20,7 +20,7 @@ public class EmergencyMeeting {
 
     private static int votingMenuSize = 18;
     private static double playersRadius = 5;
-    private static int meetingDurationInSeconds = 10;
+    private static int meetingDurationCounter = Game.meetingDurationInSeconds;
 
     public static void run(Block centreBlock) {
         Game.emergencyMeetingInProgress = true;
@@ -35,9 +35,10 @@ public class EmergencyMeeting {
         new BukkitRunnable() {
             @Override
             public void run() {
-                meetingDurationInSeconds--;
-                if (meetingDurationInSeconds <= 0) {
+                meetingDurationCounter--;
+                if (meetingDurationCounter <= 0) {
                     Game.emergencyMeetingInProgress = false;
+                    meetingDurationCounter = Game.meetingDurationInSeconds;
                     this.cancel();
                 }
             }

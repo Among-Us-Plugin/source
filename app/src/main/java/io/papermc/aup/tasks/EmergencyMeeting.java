@@ -5,18 +5,22 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-
-import io.papermc.aup.Game;
-import io.papermc.aup.classes.AmongUsPlayer;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import io.papermc.aup.Game;
+import io.papermc.aup.Main;
+import io.papermc.aup.classes.AmongUsPlayer;
 
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
 
     private static int votingMenuSize = 18;
     private static double playersRadius = 5;
+    private static int meetingDurationInSeconds = 10;
 
     public static void run(Block centreBlock) {
         Game.emergencyMeetingInProgress = true;
@@ -24,6 +28,21 @@ public class EmergencyMeeting {
         Inventory votingMenu = getVotingMenu();
         populateVotingMenu(votingMenu);
         openVotingMenus(votingMenu);
+        startMeetingTimer();
+    }
+
+    private static void startMeetingTimer() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                meetingDurationInSeconds--;
+                if (meetingDurationInSeconds <= 0) {
+                    Game.emergencyMeetingInProgress = false;
+                }
+            }
+            
+        // 20 ticks = 1 second, under normal circumstances
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
 
     private static void openVotingMenus(Inventory votingMenu) {

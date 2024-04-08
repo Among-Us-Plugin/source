@@ -38,6 +38,7 @@ public class EmergencyMeeting {
                 meetingDurationInSeconds--;
                 if (meetingDurationInSeconds <= 0) {
                     Game.emergencyMeetingInProgress = false;
+                    this.cancel();
                 }
             }
             

@@ -17,27 +17,40 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
+import io.papermc.aup.Game;
+import io.papermc.aup.Main;
+import io.papermc.aup.classes.AmongUsPlayer;
+
+@SuppressWarnings("deprecation")
 public class EmergencyMeeting {
     public static String title = "Vote";
     public static HashMap<String, String> votes = new HashMap<String, String >(); // <Voter, Voted>
 
+
     public static void run(Block centreBlock) {
         Game.emergencyMeetingInProgress = true;
-
+        relocatePlayers(centreBlock);
+        Inventory votingMenu = getVotingMenu();
+        populateVotingMenu(votingMenu);
+        openVotingMenus(votingMenu);
+        startMeetingTimer();
+    }
         // region teleport players
         double radius = 5; // in blocks
 
         for (int i = 0; i < Game.amongUsPlayers.length; i++){
             AmongUsPlayer amongUsPlayer = Game.amongUsPlayers[i];
 
+
             // Evenly spaces the players around a circle
             double angle = 2 * Math.PI * i / Game.amongUsPlayers.length;
 
-            double newX = centreBlock.getX() + radius * Math.cos(angle);
-            double newZ = centreBlock.getZ() + radius * Math.sin(angle);
+            double newX = centreBlock.getX() + playersRadius * Math.cos(angle);
+            double newZ = centreBlock.getZ() + playersRadius * Math.sin(angle);
             float newYaw = getNewYaw(centreBlock, newX, newZ);
             
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+
             // player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
             
             i++;
@@ -51,8 +64,8 @@ public class EmergencyMeeting {
 
         for (int i = 0; i < Game.amongUsPlayers.length; i++){
             AmongUsPlayer amongUsPlayer = Game.amongUsPlayers[i];
-            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
 
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
             ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
             SkullMeta meta = (SkullMeta) skull.getItemMeta();
             meta.setOwningPlayer(player);
@@ -63,6 +76,7 @@ public class EmergencyMeeting {
 
             i++;
         }
+    }
 
         for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
@@ -95,6 +109,7 @@ public class EmergencyMeeting {
         int numberOfRows = (amongUsPlayerIndex / 7) + 1;
 
         return ((amongUsPlayerIndex + 1) % 7) + (numberOfRows * 9);
+
     }
 
     // Returns a value between -180 and 180, so the player faces towards the center

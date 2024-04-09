@@ -1,13 +1,10 @@
 package io.papermc.aup.tasks;
 
-import io.papermc.aup.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-
-import io.papermc.aup.Game;
-import io.papermc.aup.classes.AmongUsPlayer;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -17,11 +14,20 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
+import io.papermc.aup.Game;
+import io.papermc.aup.Main;
+import io.papermc.aup.classes.AmongUsPlayer;
+
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
-    public static String title = "Vote";
+
+    public static String title = "Vote out the impostor!";
+
     public static HashMap<String, String> votes = new HashMap<String, String >(); // <Voter, Voted>
 
+    private static int votingMenuSize = ((Game.amongUsPlayers.length % 7) + 1) * 9;
+    private static double playersRadius = 5;
+    private static int meetingDurationCounter = Game.meetingDurationInSeconds;
 
     public static void run(Block centreBlock) {
         Game.emergencyMeetingInProgress = true;
@@ -31,64 +37,21 @@ public class EmergencyMeeting {
         openVotingMenus(votingMenu);
         startMeetingTimer();
     }
-        // region teleport players
-        double radius = 5; // in blocks
 
-        for (int i = 0; i < Game.amongUsPlayers.length; i++){
-            AmongUsPlayer amongUsPlayer = Game.amongUsPlayers[i];
-
-
-            // Evenly spaces the players around a circle
-            double angle = 2 * Math.PI * i / Game.amongUsPlayers.length;
-
-            double newX = centreBlock.getX() + playersRadius * Math.cos(angle);
-            double newZ = centreBlock.getZ() + playersRadius * Math.sin(angle);
-            float newYaw = getNewYaw(centreBlock, newX, newZ);
-            
-            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-
-            // player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
-            
-            i++;
-        }
-        // endregion
-
-
-        int invSize = ((Game.amongUsPlayers.length % 7) + 2) * 9;
-
-        Inventory inv = Bukkit.createInventory(null, invSize, title);
-
-        for (int i = 0; i < Game.amongUsPlayers.length; i++){
-            AmongUsPlayer amongUsPlayer = Game.amongUsPlayers[i];
-
-            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-            ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
-            SkullMeta meta = (SkullMeta) skull.getItemMeta();
-            meta.setOwningPlayer(player);
-            meta.setDisplayName("§6" + amongUsPlayer.getDisplayName());
-            skull.setItemMeta(meta);
-
-            inv.setItem(getPlayerHeadSlotIndex(i), skull);
-
-            i++;
-        }
-    }
-
-        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
-            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-            player.openInventory(inv);
-        }
-
-        Bukkit.getLogger().info("Waiting for 5 seconds");
-
+    private static void startMeetingTimer() {
         new BukkitRunnable() {
             @Override
             public void run() {
-                Bukkit.getLogger().info("Running the task");
+                meetingDurationCounter--;
+                if (meetingDurationCounter <= 0) {
+                    Game.emergencyMeetingInProgress = false;
+                    meetingDurationCounter = Game.meetingDurationInSeconds;
+                    this.cancel();
+                }
             }
-        }.runTaskLater(JavaPlugin.getPlugin(Main.class), 100);
-
-        Bukkit.getLogger().info("5 seconds Finished, proceeding...");
+            
+        // 20 ticks = 1 second, under normal circumstances
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
 
     public static void handleClick(InventoryClickEvent event) {
@@ -101,13 +64,49 @@ public class EmergencyMeeting {
         votes.put(voter, voted);
     }
 
-    private static int getPlayerHeadSlotIndex(int amongUsPlayerIndex){
-        int numberOfRows = (amongUsPlayerIndex / 7) + 1;
-
-        return ((amongUsPlayerIndex + 1) % 7) + (numberOfRows * 9);
-
+    private static void openVotingMenus(Inventory votingMenu) {
+        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+            player.openInventory(votingMenu);
+        }
     }
 
+    private static void relocatePlayers(Block centreBlock) {
+        int i = 0;
+        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
+            // Evenly spaces the players around a circle
+            double angle = 2 * Math.PI * i / Game.amongUsPlayers.length;
+
+            double newX = centreBlock.getX() + playersRadius * Math.cos(angle);
+            double newZ = centreBlock.getZ() + playersRadius * Math.sin(angle);
+            float newYaw = getNewYaw(centreBlock, newX, newZ);
+            
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
+            
+            i++;
+        }
+    }
+
+    private static void populateVotingMenu(Inventory votingMenu) {
+        int index = 0;
+        for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
+            Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
+            ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+            SkullMeta meta = (SkullMeta) skull.getItemMeta();
+            meta.setOwningPlayer(player);
+            meta.setDisplayName("§6" + amongUsPlayer.getDisplayName());
+            skull.setItemMeta(meta);
+            votingMenu.setItem(index, skull);
+            index++;
+        }
+    }
+
+    private static Inventory getVotingMenu() {
+        Inventory inv = Bukkit.createInventory(null, votingMenuSize, title);
+        return inv;
+    }
+    
     // Returns a value between -180 and 180, so the player faces towards the center
     private static float getNewYaw(Block centreBlock, double newX, double newZ) {
         float newYaw = (float)Math.toDegrees(Math.atan2(centreBlock.getZ() - newZ, centreBlock.getX() - newX)) - 90;

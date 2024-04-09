@@ -5,11 +5,14 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashMap;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.Main;
@@ -18,7 +21,11 @@ import io.papermc.aup.classes.AmongUsPlayer;
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
 
-    private static int votingMenuSize = 18;
+    public static String title = "Vote out the impostor!";
+
+    public static HashMap<String, String> votes = new HashMap<String, String >(); // <Voter, Voted>
+
+    private static int votingMenuSize = ((Game.amongUsPlayers.length % 7) + 1) * 9;
     private static double playersRadius = 5;
     private static int meetingDurationCounter = Game.meetingDurationInSeconds;
 
@@ -45,6 +52,16 @@ public class EmergencyMeeting {
             
         // 20 ticks = 1 second, under normal circumstances
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
+    }
+
+    public static void handleClick(InventoryClickEvent event) {
+        ItemStack playerVoted = event.getCurrentItem();
+
+        String voter = event.getWhoClicked().getName();
+        String voted = playerVoted.getItemMeta().getDisplayName().substring(2);
+
+        Bukkit.getLogger().info("Voter: " + voter +  "Voted: " + voted);
+        votes.put(voter, voted);
     }
 
     private static void openVotingMenus(Inventory votingMenu) {
@@ -86,9 +103,7 @@ public class EmergencyMeeting {
     }
 
     private static Inventory getVotingMenu() {
-        String title = "Vote";
         Inventory inv = Bukkit.createInventory(null, votingMenuSize, title);
-        Bukkit.getLogger().info("Meeting Started by someone");
         return inv;
     }
     

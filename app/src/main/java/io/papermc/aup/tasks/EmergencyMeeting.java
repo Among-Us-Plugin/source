@@ -17,10 +17,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
-import io.papermc.aup.Game;
-import io.papermc.aup.Main;
-import io.papermc.aup.classes.AmongUsPlayer;
-
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
     public static String title = "Vote";

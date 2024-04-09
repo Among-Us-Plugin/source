@@ -25,7 +25,7 @@ public class EmergencyMeeting {
 
     public static HashMap<String, String> votes = new HashMap<String, String >(); // <Voter, Voted>
 
-    private static int votingMenuSize = ((Game.amongUsPlayers.length % 7) + 1) * 9;
+    private static int votingMenuSize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
     private static double playersRadius = 5;
     private static int meetingDurationCounter = Game.meetingDurationInSeconds;
 

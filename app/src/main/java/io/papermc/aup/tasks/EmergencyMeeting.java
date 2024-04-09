@@ -55,13 +55,17 @@ public class EmergencyMeeting {
     }
 
     public static void handleClick(InventoryClickEvent event) {
-        ItemStack playerVoted = event.getCurrentItem();
 
-        String voter = event.getWhoClicked().getName();
-        String voted = playerVoted.getItemMeta().getDisplayName().substring(2);
+        if (!validIndex(event.getSlot())) { return; }
+        ItemStack playerHeadVoted = event.getCurrentItem();
+        if ( playerHeadVoted == null ) { return; }
+        if (!checkIfPlayerHead(playerHeadVoted)) { return; }
 
-        Bukkit.getLogger().info("Voter: " + voter +  "Voted: " + voted);
-        votes.put(voter, voted);
+        String voterName = event.getWhoClicked().getName();
+        String votedName = playerHeadVoted.getItemMeta().getDisplayName().substring(2);
+
+        Bukkit.getLogger().info("Voter: " + voterName +  "Voted: " + votedName);
+        votes.put(voterName, votedName);
     }
 
     private static void openVotingMenus(Inventory votingMenu) {
@@ -114,5 +118,13 @@ public class EmergencyMeeting {
             newYaw += 360;
         }
         return newYaw;
+    }
+
+    private static boolean checkIfPlayerHead(ItemStack s) {
+        return s.getType().equals(Material.PLAYER_HEAD);
+    }
+
+    private static boolean validIndex(int index) {
+        return (index >= 0 && index < votingMenuSize);
     }
 }

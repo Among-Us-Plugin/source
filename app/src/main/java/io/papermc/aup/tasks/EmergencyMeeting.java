@@ -74,9 +74,6 @@ public class EmergencyMeeting {
         
         Player voter = (Player) event.getWhoClicked();
         AmongUsPlayer vote = AmongUsPlayer.getAmongUsPlayerByDisplayName(playerHeadVoted.getItemMeta().getDisplayName().substring(2));
-        
-        Bukkit.getLogger().info("Voter: " + voter.getDisplayName() +  "Voted: " + vote.getDisplayName());
-        // votes.put(voterName, votedName);
 
         for (int i = 0; i < voters.length; i++) {
             if (voters[i].getDisplayName().equals(voter.getDisplayName()));

@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -75,6 +76,9 @@ public class EmergencyMeeting {
         
         Bukkit.getLogger().info("Voter: " + voterName +  "Voted: " + votedName);
         votes.put(voterName, votedName);
+        
+        InventoryView v = event.getView();
+        v.close();
     }
     
     private static void addPlayersToMeetingBossBars() {

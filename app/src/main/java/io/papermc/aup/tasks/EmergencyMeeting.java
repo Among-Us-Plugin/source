@@ -36,6 +36,8 @@ public class EmergencyMeeting {
         populateVotingMenu(votingMenu);
         openVotingMenus(votingMenu);
         startMeetingTimer();
+        Game.initializeMeetingBossBars();
+        addPlayersToMeetingBossBars();
     }
 
     private static void startMeetingTimer() {
@@ -43,6 +45,8 @@ public class EmergencyMeeting {
             @Override
             public void run() {
                 meetingDurationCounter--;
+                Game.meetingBossBar.setTitle("Emergency Meeting: " + meetingDurationCounter);
+                Game.meetingBossBar.setProgress((float)meetingDurationCounter / Game.meetingDurationInSeconds);
                 if (meetingDurationCounter <= 0) {
                     Game.emergencyMeetingInProgress = false;
                     meetingDurationCounter = Game.meetingDurationInSeconds;
@@ -50,22 +54,29 @@ public class EmergencyMeeting {
                 }
             }
             
-        // 20 ticks = 1 second, under normal circumstances
+            // 20 ticks = 1 second, under normal circumstances
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
-
+    
     public static void handleClick(InventoryClickEvent event) {
-
+        
         if (!validIndex(event.getSlot())) { return; }
         ItemStack playerHeadVoted = event.getCurrentItem();
         if ( playerHeadVoted == null ) { return; }
         if (!checkIfPlayerHead(playerHeadVoted)) { return; }
-
+        
         String voterName = event.getWhoClicked().getName();
         String votedName = playerHeadVoted.getItemMeta().getDisplayName().substring(2);
-
+        
         Bukkit.getLogger().info("Voter: " + voterName +  "Voted: " + votedName);
         votes.put(voterName, votedName);
+    }
+    
+    private static void addPlayersToMeetingBossBars() {
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
+            Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
+            Game.meetingBossBar.addPlayer(p);
+        }
     }
 
     private static void openVotingMenus(Inventory votingMenu) {
@@ -74,13 +85,13 @@ public class EmergencyMeeting {
             player.openInventory(votingMenu);
         }
     }
-
+    
     private static void relocatePlayers(Block centreBlock) {
         int i = 0;
         for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
             // Evenly spaces the players around a circle
             double angle = 2 * Math.PI * i / Game.amongUsPlayers.length;
-
+            
             double newX = centreBlock.getX() + playersRadius * Math.cos(angle);
             double newZ = centreBlock.getZ() + playersRadius * Math.sin(angle);
             float newYaw = getNewYaw(centreBlock, newX, newZ);

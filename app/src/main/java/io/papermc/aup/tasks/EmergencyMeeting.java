@@ -97,6 +97,23 @@ public class EmergencyMeeting {
             Component c = Component.text("" + voters[i] + " voted " + votes[i] + "!");
             Bukkit.broadcast(c);
         }
+
+        AmongUsPlayer mostFrequent = null;
+        int maxCount = 0;
+        for (int i = 0; i < votes.length; i++) {
+            int count = 0;
+            for (int j = 0; j < votes.length; j++) {
+                if (votes[j].equals(votes[i])) { count++; }
+            }
+
+            if ( count > maxCount) { 
+                maxCount = count;
+                mostFrequent = votes[i];
+            }
+        }
+        Component e = Component.text("We are ejecting " + mostFrequent.getDisplayName());
+        Bukkit.broadcast(e);
+
     }
     
     private static void addPlayersToMeetingBossBars() {

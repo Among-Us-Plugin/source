@@ -13,18 +13,18 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
-
 import io.papermc.aup.Game;
 import io.papermc.aup.Main;
 import io.papermc.aup.classes.AmongUsPlayer;
+import net.kyori.adventure.text.Component;
 
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
 
     public static String title = "Vote out the impostor!";
 
-    public static HashMap<String, String> votes = new HashMap<String, String >(); // <Voter, Voted>
+    public static AmongUsPlayer[] voters = Game.amongUsPlayers;
+    public static AmongUsPlayer[] votes = new AmongUsPlayer[voters.length];
 
     private static int votingMenuSize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
     private static double playersRadius = 5;
@@ -51,6 +51,7 @@ public class EmergencyMeeting {
                     Game.emergencyMeetingInProgress = false;
                     meetingDurationCounter = Game.meetingDurationInSeconds;
                     Game.meetingBossBar.removeAll();
+                    handleVotes();
                     this.cancel();
                 }
             }
@@ -71,14 +72,26 @@ public class EmergencyMeeting {
         if ( playerHeadVoted == null ) { return; }
         if (!checkIfPlayerHead(playerHeadVoted)) { return; }
         
-        String voterName = event.getWhoClicked().getName();
-        String votedName = playerHeadVoted.getItemMeta().getDisplayName().substring(2);
+        Player voter = (Player) event.getWhoClicked();
+        AmongUsPlayer vote = AmongUsPlayer.getAmongUsPlayerByDisplayName(playerHeadVoted.getItemMeta().getDisplayName().substring(2));
         
-        Bukkit.getLogger().info("Voter: " + voterName +  "Voted: " + votedName);
-        votes.put(voterName, votedName);
+        Bukkit.getLogger().info("Voter: " + voter.getDisplayName() +  "Voted: " + vote.getDisplayName());
+        // votes.put(voterName, votedName);
+
+        for (int i = 0; i < voters.length; i++) {
+            if (voters[i].getDisplayName().equals(voter.getDisplayName()));
+            votes[i] = vote;
+        }
         
         InventoryView v = event.getView();
         v.close();
+    }
+
+    private static void handleVotes() {
+        for (int i = 0; i < voters.length; i++) {
+            Component c = Component.text("" + voters[i] + " voted " + votes[i] + "!");
+            Bukkit.broadcast(c);
+        }
     }
     
     private static void addPlayersToMeetingBossBars() {

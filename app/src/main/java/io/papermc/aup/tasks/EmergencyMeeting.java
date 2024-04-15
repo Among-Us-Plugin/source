@@ -73,15 +73,23 @@ public class EmergencyMeeting {
         if (!checkIfPlayerHead(playerHeadVoted)) { return; }
         
         Player voter = (Player) event.getWhoClicked();
-        AmongUsPlayer vote = AmongUsPlayer.getAmongUsPlayerByDisplayName(playerHeadVoted.getItemMeta().getDisplayName().substring(2));
+        AmongUsPlayer vote = AmongUsPlayer.getAmongUsPlayerByDisplayName(getDisplayNameFromHead(playerHeadVoted));
 
+        registerVote(voter, vote);
+        
+        InventoryView v = event.getView();
+        v.close();
+    }
+
+    private static void registerVote(Player voter, AmongUsPlayer vote) {
         for (int i = 0; i < voters.length; i++) {
             if (voters[i].getDisplayName().equals(voter.getDisplayName()));
             votes[i] = vote;
         }
-        
-        InventoryView v = event.getView();
-        v.close();
+    }
+
+    private static String getDisplayNameFromHead(ItemStack playerHeadVoted) {
+        return playerHeadVoted.getItemMeta().getDisplayName().substring(2);
     }
 
     private static void handleVotes() {

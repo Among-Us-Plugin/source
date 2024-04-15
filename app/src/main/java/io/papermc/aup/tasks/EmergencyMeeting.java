@@ -98,6 +98,12 @@ public class EmergencyMeeting {
             Bukkit.broadcast(c);
         }
 
+        AmongUsPlayer mostFrequent = getMostVotedAmongUsPlayer();
+        Component e = Component.text("We are ejecting " + mostFrequent.getDisplayName());
+        Bukkit.broadcast(e);
+    }
+
+    private static AmongUsPlayer getMostVotedAmongUsPlayer() {
         AmongUsPlayer mostFrequent = null;
         int maxCount = 0;
         for (int i = 0; i < votes.length; i++) {
@@ -111,9 +117,7 @@ public class EmergencyMeeting {
                 mostFrequent = votes[i];
             }
         }
-        Component e = Component.text("We are ejecting " + mostFrequent.getDisplayName());
-        Bukkit.broadcast(e);
-
+        return mostFrequent;
     }
     
     private static void addPlayersToMeetingBossBars() {

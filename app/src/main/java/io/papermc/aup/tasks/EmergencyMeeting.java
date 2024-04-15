@@ -45,13 +45,18 @@ public class EmergencyMeeting {
             @Override
             public void run() {
                 meetingDurationCounter--;
-                Game.meetingBossBar.setTitle("Emergency Meeting: " + meetingDurationCounter);
-                Game.meetingBossBar.setProgress((float)meetingDurationCounter / Game.meetingDurationInSeconds);
+                updateMeetingBossBars();
                 if (meetingDurationCounter <= 0) {
                     Game.emergencyMeetingInProgress = false;
                     meetingDurationCounter = Game.meetingDurationInSeconds;
+                    Game.meetingBossBar.removeAll();
                     this.cancel();
                 }
+            }
+
+            private void updateMeetingBossBars() {
+                Game.meetingBossBar.setTitle("Emergency Meeting: " + meetingDurationCounter);
+                Game.meetingBossBar.setProgress((float)meetingDurationCounter / Game.meetingDurationInSeconds);
             }
             
             // 20 ticks = 1 second, under normal circumstances

@@ -1,5 +1,7 @@
 package io.papermc.aup.tasks;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,6 +18,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import io.papermc.aup.Game;
 import io.papermc.aup.Main;
 import io.papermc.aup.classes.AmongUsPlayer;
+import io.papermc.aup.classes.Vote;
 import net.kyori.adventure.text.Component;
 
 @SuppressWarnings("deprecation")
@@ -23,8 +26,7 @@ public class EmergencyMeeting {
 
     public static String title = "Vote out the impostor!";
 
-    public static AmongUsPlayer[] voters = Game.amongUsPlayers;
-    public static AmongUsPlayer[] votes = new AmongUsPlayer[voters.length];
+    public static ArrayList<Vote> votes = new ArrayList<Vote>();
 
     private static int votingMenuSize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
     private static double playersRadius = 5;
@@ -72,7 +74,8 @@ public class EmergencyMeeting {
         if ( playerHeadVoted == null ) { return; }
         if (!checkIfPlayerHead(playerHeadVoted)) { return; }
         
-        Player voter = (Player) event.getWhoClicked();
+        Player whoClicked = (Player)event.getWhoClicked();
+        AmongUsPlayer voter = AmongUsPlayer.getAmongUsPlayerByDisplayName(whoClicked.getDisplayName());
         AmongUsPlayer vote = AmongUsPlayer.getAmongUsPlayerByDisplayName(getDisplayNameFromHead(playerHeadVoted));
 
         registerVote(voter, vote);
@@ -81,11 +84,9 @@ public class EmergencyMeeting {
         v.close();
     }
 
-    private static void registerVote(Player voter, AmongUsPlayer vote) {
-        for (int i = 0; i < voters.length; i++) {
-            if (voters[i].getDisplayName().equals(voter.getDisplayName()));
-            votes[i] = vote;
-        }
+    private static void registerVote(AmongUsPlayer voter, AmongUsPlayer vote) {
+        Vote v = new Vote(voter, vote);
+        votes.add(v);
     }
 
     private static String getDisplayNameFromHead(ItemStack playerHeadVoted) {
@@ -93,28 +94,29 @@ public class EmergencyMeeting {
     }
 
     private static void handleVotes() {
-        for (int i = 0; i < voters.length; i++) {
-            Component c = Component.text("" + voters[i] + " voted " + votes[i] + "!");
+        for (Vote v : votes) {
+            Component c = Component.text("" + v.getVoter() + " voted " + v.getRecipient() + "!");
             Bukkit.broadcast(c);
         }
 
         AmongUsPlayer mostFrequent = getMostVotedAmongUsPlayer();
         Component e = Component.text("We are ejecting " + mostFrequent.getDisplayName());
         Bukkit.broadcast(e);
+        votes.clear();
     }
 
     private static AmongUsPlayer getMostVotedAmongUsPlayer() {
         AmongUsPlayer mostFrequent = null;
         int maxCount = 0;
-        for (int i = 0; i < votes.length; i++) {
+        for (int i = 0; i < votes.size(); i++) {
             int count = 0;
-            for (int j = 0; j < votes.length; j++) {
-                if (votes[j].equals(votes[i])) { count++; }
+            for (int j = 0; j < votes.size(); j++) {
+                if (votes.get(j).equals(votes.get(i))) { count++; }
             }
 
             if ( count > maxCount) { 
                 maxCount = count;
-                mostFrequent = votes[i];
+                mostFrequent = votes.get(i).getRecipient();
             }
         }
         return mostFrequent;

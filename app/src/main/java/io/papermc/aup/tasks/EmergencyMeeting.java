@@ -1,6 +1,8 @@
 package io.papermc.aup.tasks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -100,26 +102,36 @@ public class EmergencyMeeting {
         }
 
         AmongUsPlayer mostFrequent = getMostVotedAmongUsPlayer();
+        if (mostFrequent == null) {
+            Component e = Component.text("No one was ejected.");
+            Bukkit.broadcast(e);
+            return;
+        }
+
         Component e = Component.text("We are ejecting " + mostFrequent.getDisplayName());
         Bukkit.broadcast(e);
         votes.clear();
     }
 
     private static AmongUsPlayer getMostVotedAmongUsPlayer() {
-        AmongUsPlayer mostFrequent = null;
-        int maxCount = 0;
-        for (int i = 0; i < votes.size(); i++) {
-            int count = 0;
-            for (int j = 0; j < votes.size(); j++) {
-                if (votes.get(j).equals(votes.get(i))) { count++; }
-            }
+        Map<AmongUsPlayer, Integer> countMap = new HashMap<>();
+        for (Vote v : votes) {
+            AmongUsPlayer a = v.getRecipient();
+            countMap.put(a, countMap.getOrDefault(a, 0) + 1);
+        }
 
-            if ( count > maxCount) { 
-                maxCount = count;
-                mostFrequent = votes.get(i).getRecipient();
+        AmongUsPlayer mostRepeated = null;
+        int maxCount = 0;
+        for (Map.Entry<AmongUsPlayer, Integer> entry : countMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                mostRepeated = entry.getKey();
+                maxCount = entry.getValue();
+            } else if (entry.getValue() == maxCount) {
+                // If there is a tie, return null
+                return null;
             }
         }
-        return mostFrequent;
+        return mostRepeated;
     }
     
     private static void addPlayersToMeetingBossBars() {

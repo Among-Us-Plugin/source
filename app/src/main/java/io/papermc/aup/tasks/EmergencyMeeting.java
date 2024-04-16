@@ -76,18 +76,28 @@ public class EmergencyMeeting {
         if ( playerHeadVoted == null ) { return; }
         if (!checkIfPlayerHead(playerHeadVoted)) { return; }
         
-        Player whoClicked = (Player)event.getWhoClicked();
-        AmongUsPlayer voter = AmongUsPlayer.getAmongUsPlayerByDisplayName(whoClicked.getDisplayName());
-        AmongUsPlayer vote = AmongUsPlayer.getAmongUsPlayerByDisplayName(getDisplayNameFromHead(playerHeadVoted));
+        AmongUsPlayer voter = getVoter(event);
+        AmongUsPlayer recipient = getRecipient(playerHeadVoted);
 
-        registerVote(voter, vote);
+        registerVote(voter, recipient);
         
         InventoryView v = event.getView();
         v.close();
     }
 
-    private static void registerVote(AmongUsPlayer voter, AmongUsPlayer vote) {
-        Vote v = new Vote(voter, vote);
+    private static AmongUsPlayer getRecipient(ItemStack playerHeadVoted) {
+        AmongUsPlayer recipient = AmongUsPlayer.getAmongUsPlayerByDisplayName(getDisplayNameFromHead(playerHeadVoted));
+        return recipient;
+    }
+
+    private static AmongUsPlayer getVoter(InventoryClickEvent event) {
+        Player whoClicked = (Player)event.getWhoClicked();
+        AmongUsPlayer voter = AmongUsPlayer.getAmongUsPlayerByDisplayName(whoClicked.getDisplayName());
+        return voter;
+    }
+
+    private static void registerVote(AmongUsPlayer voter, AmongUsPlayer recipient) {
+        Vote v = new Vote(voter, recipient);
         votes.add(v);
     }
 
@@ -101,14 +111,14 @@ public class EmergencyMeeting {
             Bukkit.broadcast(c);
         }
 
-        AmongUsPlayer mostFrequent = getMostVotedAmongUsPlayer();
-        if (mostFrequent == null) {
+        AmongUsPlayer mostVoted = getMostVotedAmongUsPlayer();
+        if (mostVoted == null) {
             Component e = Component.text("No one was ejected.");
             Bukkit.broadcast(e);
             return;
         }
 
-        Component e = Component.text("We are ejecting " + mostFrequent.getDisplayName());
+        Component e = Component.text("We are ejecting " + mostVoted.getDisplayName());
         Bukkit.broadcast(e);
         votes.clear();
     }
@@ -120,18 +130,18 @@ public class EmergencyMeeting {
             countMap.put(a, countMap.getOrDefault(a, 0) + 1);
         }
 
-        AmongUsPlayer mostRepeated = null;
+        AmongUsPlayer mostVoted = null;
         int maxCount = 0;
         for (Map.Entry<AmongUsPlayer, Integer> entry : countMap.entrySet()) {
             if (entry.getValue() > maxCount) {
-                mostRepeated = entry.getKey();
+                mostVoted = entry.getKey();
                 maxCount = entry.getValue();
             } else if (entry.getValue() == maxCount) {
                 // If there is a tie, return null
                 return null;
             }
         }
-        return mostRepeated;
+        return mostVoted;
     }
     
     private static void addPlayersToMeetingBossBars() {

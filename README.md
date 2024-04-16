@@ -8,4 +8,6 @@ Project Contributors: [@enlxmfflsdis34](https://github.com/enlxmfflsdis34), [@pa
 
 *Currently in development*
 
-Note: Java 17 & 1.20.x should be used during development.
+## Notes
+- Java 17 & 1.20.x should be used during development.
+- Teleportation of players for emergency meetings may conflict with some anticheat plugins

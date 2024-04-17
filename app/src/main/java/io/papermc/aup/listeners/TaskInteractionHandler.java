@@ -14,6 +14,7 @@ import io.papermc.aup.tasks.Colors;
 import io.papermc.aup.tasks.EmergencyMeeting;
 import io.papermc.aup.tasks.FlipSwitches;
 
+@SuppressWarnings("deprecation")
 public class TaskInteractionHandler implements Listener {
     
     @EventHandler

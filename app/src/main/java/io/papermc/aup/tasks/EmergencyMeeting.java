@@ -110,12 +110,12 @@ public class EmergencyMeeting {
 
         AmongUsPlayer mostVoted = getMostVotedAmongUsPlayer();
         if (mostVoted == null) {
-            Component e = Component.text("No one was ejected.", NamedTextColor.GOLD);
+            Component e = Component.text("No one was ejected.", NamedTextColor.LIGHT_PURPLE);
             Bukkit.broadcast(e);
             return;
         }
 
-        Component e = Component.text("We are ejecting " + mostVoted.getDisplayName(), NamedTextColor.GOLD);
+        Component e = Component.text(mostVoted.getDisplayName() + " was ejected.", NamedTextColor.LIGHT_PURPLE);
         Bukkit.broadcast(e);
         votes.clear();
 

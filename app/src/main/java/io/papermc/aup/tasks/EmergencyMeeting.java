@@ -106,10 +106,6 @@ public class EmergencyMeeting {
     }
 
     private static void handleVotes() {
-        for (Vote v : votes) {
-            Component c = Component.text("" + v.getVoter() + " voted " + v.getRecipient() + "!");
-            Bukkit.broadcast(c);
-        }
 
         AmongUsPlayer mostVoted = getMostVotedAmongUsPlayer();
         if (mostVoted == null) {

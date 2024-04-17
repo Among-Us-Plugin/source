@@ -121,6 +121,9 @@ public class EmergencyMeeting {
         Component e = Component.text("We are ejecting " + mostVoted.getDisplayName());
         Bukkit.broadcast(e);
         votes.clear();
+
+        Player p = Bukkit.getPlayer(mostVoted.getDisplayName());
+        Game.killPlayer(p);
     }
 
     private static AmongUsPlayer getMostVotedAmongUsPlayer() {

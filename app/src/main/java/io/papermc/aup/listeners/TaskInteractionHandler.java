@@ -9,6 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import io.papermc.aup.Game;
+import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.tasks.Colors;
 import io.papermc.aup.tasks.EmergencyMeeting;
 import io.papermc.aup.tasks.FlipSwitches;
@@ -27,6 +28,7 @@ public class TaskInteractionHandler implements Listener {
             Player player = event.getPlayer();
             Colors.run(player);
         } if (event.getClickedBlock().getType().equals(Material.PLAYER_HEAD)) {
+            if ( !AmongUsPlayer.getAmongUsPlayerByDisplayName(event.getPlayer().getDisplayName()).isALive() ) { return; }
             Block block = event.getClickedBlock();
             EmergencyMeeting.run(block);
         }

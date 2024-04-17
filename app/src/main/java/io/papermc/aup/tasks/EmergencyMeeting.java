@@ -22,6 +22,7 @@ import io.papermc.aup.Main;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Vote;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
@@ -109,12 +110,12 @@ public class EmergencyMeeting {
 
         AmongUsPlayer mostVoted = getMostVotedAmongUsPlayer();
         if (mostVoted == null) {
-            Component e = Component.text("No one was ejected.");
+            Component e = Component.text("No one was ejected.", NamedTextColor.GOLD);
             Bukkit.broadcast(e);
             return;
         }
 
-        Component e = Component.text("We are ejecting " + mostVoted.getDisplayName());
+        Component e = Component.text("We are ejecting " + mostVoted.getDisplayName(), NamedTextColor.GOLD);
         Bukkit.broadcast(e);
         votes.clear();
 

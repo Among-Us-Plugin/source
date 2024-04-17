@@ -111,6 +111,8 @@ public class EmergencyMeeting {
 
     private static void handleVotes() {
 
+        Game.closeAllInventories();
+
         AmongUsPlayer mostVoted = getMostVotedAmongUsPlayer();
         if (mostVoted == null) {
             Component e = Component.text("No one was ejected.", NamedTextColor.LIGHT_PURPLE);

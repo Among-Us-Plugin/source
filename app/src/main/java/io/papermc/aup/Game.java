@@ -81,6 +81,12 @@ public class Game {
         }
     }
 
+    public static void closeAllInventories() {
+        for (Player p : Bukkit.getOnlinePlayers() ) {
+            p.closeInventory();
+        }
+    }
+
     // Crewmates win -> end game & send appropriate titles
     public static void crewmatesWin(String reason) {
         endGame();

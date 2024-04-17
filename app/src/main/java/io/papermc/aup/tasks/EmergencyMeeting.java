@@ -78,6 +78,9 @@ public class EmergencyMeeting {
         if (!checkIfPlayerHead(playerHeadVoted)) { return; }
         
         AmongUsPlayer voter = getVoter(event);
+
+        if ( !voter.isALive() ) { return; }
+
         AmongUsPlayer recipient = getRecipient(playerHeadVoted);
 
         registerVote(voter, recipient);

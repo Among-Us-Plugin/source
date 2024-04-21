@@ -2,6 +2,8 @@ package io.papermc.aup;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -12,6 +14,14 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
 public class Broadcasting {
+
+    public static void sendAlertSound() {
+        for ( Player p : Bukkit.getOnlinePlayers() ) {
+            Location location = p.getLocation();
+            Sound sound = Sound.BLOCK_NOTE_BLOCK_BIT;
+            p.playSound(location, sound, 1.0F, 1.0F);
+        }
+    }
     
     public static void sendCrewmatesWin(String reason) {
         Component c = Component.text("Game Ended: " + reason, NamedTextColor.GOLD);

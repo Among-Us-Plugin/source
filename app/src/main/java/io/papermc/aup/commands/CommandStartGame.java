@@ -53,6 +53,8 @@ public class CommandStartGame implements CommandExecutor {
 
         // Game logic
         GameLogic.run();
+
+        Broadcasting.sendAlertSound();
         
         return true;
     }

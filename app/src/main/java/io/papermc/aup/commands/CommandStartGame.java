@@ -26,7 +26,7 @@ public class CommandStartGame implements CommandExecutor {
         // Check if there are enough players
         // Set gameRunning accordingly
         if (Game.gameRunning) {
-            Component c = Component.text("ERROR: Game is already running", NamedTextColor.RED);
+            Component c = Component.text("Game is already running", NamedTextColor.RED);
             sender.sendMessage(c);
             return true;
         }
@@ -34,7 +34,7 @@ public class CommandStartGame implements CommandExecutor {
        int onlinePlayers = Bukkit.getOnlinePlayers().size();
        int requiredPlayers = Game.numImpostors + 1;
        if (onlinePlayers < requiredPlayers) {
-           String m = "ERROR: Not enough players! Currently " + onlinePlayers + " online when " + requiredPlayers + " required!";
+           String m = "Not enough players! Currently " + onlinePlayers + " online when " + requiredPlayers + " required!";
            Component c = Component.text(m, NamedTextColor.RED);
            sender.sendMessage(c);
            return true;

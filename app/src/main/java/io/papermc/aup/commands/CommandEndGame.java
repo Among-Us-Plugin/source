@@ -17,13 +17,13 @@ public class CommandEndGame implements CommandExecutor {
         // Check if game is running
         // Set gameRunning accordingly
         if (!Game.gameRunning) {
-            Component c = Component.text("ERROR: Game is not running", NamedTextColor.RED);
+            Component c = Component.text("Game is not running", NamedTextColor.RED);
             sender.sendMessage(c);
             return true;
         }
         else {
             Game.endGame();
-            Broadcasting.sendManualGameEnding("Game ended by " + sender.getName());
+            Broadcasting.sendManualGameEnding("Game ended manually by " + sender.getName());
         }
 
 

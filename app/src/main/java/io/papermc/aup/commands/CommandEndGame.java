@@ -3,11 +3,10 @@ package io.papermc.aup.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CommandEndGame implements CommandExecutor {
     
@@ -17,8 +16,7 @@ public class CommandEndGame implements CommandExecutor {
         // Check if game is running
         // Set gameRunning accordingly
         if (!Game.gameRunning) {
-            Component c = Component.text("Game is not running", NamedTextColor.RED);
-            sender.sendMessage(c);
+            Broadcasting.sendError((Player) sender, "Game is not running");
             return true;
         }
         else {

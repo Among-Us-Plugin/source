@@ -15,12 +15,12 @@ import net.kyori.adventure.text.format.NamedTextColor;
 @SuppressWarnings("deprecation")
 public class Broadcasting {
 
-    public static void sendErrorSound() {
-        for ( Player p : Bukkit.getOnlinePlayers() ) {
-            Location location = p.getLocation();
-            Sound sound = Sound.BLOCK_ANVIL_BREAK;
-            p.playSound(location, sound, 1.0F, 1.0F);
-        }
+    public static void sendError(Player player, String message) {
+        Component c = Component.text(message, NamedTextColor.RED);
+        Location location = player.getLocation();
+        Sound sound = Sound.BLOCK_ANVIL_LAND;
+        player.sendMessage(c);
+        player.playSound(location, sound, 1.0F, 1.0F);
     }
 
     public static void sendAlertSound() {

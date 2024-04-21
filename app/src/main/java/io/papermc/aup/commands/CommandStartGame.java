@@ -14,20 +14,14 @@ import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CommandStartGame implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        // Check if game is already running
-        // Check if there are enough players
-        // Set gameRunning accordingly
         if (Game.gameRunning) {
-            Component c = Component.text("Game is already running", NamedTextColor.RED);
-            sender.sendMessage(c);
+            Broadcasting.sendError((Player) sender, "Game is already running");
             return true;
         }
         
@@ -35,8 +29,7 @@ public class CommandStartGame implements CommandExecutor {
        int requiredPlayers = Game.numImpostors + 1;
        if (onlinePlayers < requiredPlayers) {
            String m = "Not enough players! Currently " + onlinePlayers + " online when " + requiredPlayers + " required!";
-           Component c = Component.text(m, NamedTextColor.RED);
-           sender.sendMessage(c);
+           Broadcasting.sendError((Player) sender, m);
            return true;
        }
         

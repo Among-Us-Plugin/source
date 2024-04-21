@@ -45,6 +45,7 @@ public class EmergencyMeeting {
         startMeetingTimer();
         Game.initializeMeetingBossBars();
         addPlayersToMeetingBossBars();
+        Broadcasting.sendSoundToAllPlayers(Game.meetingStartSound);
     }
 
     private static void startMeetingTimer() {

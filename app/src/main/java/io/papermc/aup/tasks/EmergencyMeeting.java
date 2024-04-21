@@ -54,13 +54,21 @@ public class EmergencyMeeting {
             public void run() {
                 meetingDurationCounter--;
                 updateMeetingBossBars();
+                if ( !Game.gameRunning ) { 
+                    cleanUp();
+                    this.cancel();
+                }
                 if (meetingDurationCounter <= 0) {
-                    Game.emergencyMeetingInProgress = false;
-                    meetingDurationCounter = Game.meetingDurationInSeconds;
-                    Game.meetingBossBar.removeAll();
+                    cleanUp();
                     handleVotes();
                     this.cancel();
                 }
+            }
+
+            private void cleanUp() {
+                Game.emergencyMeetingInProgress = false;
+                meetingDurationCounter = Game.meetingDurationInSeconds;
+                Game.meetingBossBar.removeAll();
             }
 
             private void updateMeetingBossBars() {

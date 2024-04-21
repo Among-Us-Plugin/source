@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 import io.papermc.aup.Main;
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -125,6 +126,7 @@ public class EmergencyMeeting {
         votes.clear();
 
         Player p = Bukkit.getPlayer(mostVoted.getDisplayName());
+        Broadcasting.sendDeathSound(p);
         Game.killPlayer(p);
     }
 

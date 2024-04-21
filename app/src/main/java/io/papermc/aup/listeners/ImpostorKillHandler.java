@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Impostor;
@@ -24,6 +25,7 @@ public class ImpostorKillHandler implements Listener {
             
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (isImpostor(damager, a)) {
+                Broadcasting.sendDeathSound((Player) victim);
                Game.killPlayer(victim);
             }
         }

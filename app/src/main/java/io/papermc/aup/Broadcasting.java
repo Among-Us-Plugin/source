@@ -23,6 +23,12 @@ public class Broadcasting {
         player.playSound(location, sound, 1.0F, 1.0F);
     }
 
+    public static void sendDeathSound(Player player) {
+        Location location = player.getLocation();
+        Sound sound = Game.deathSound;
+        player.playSound(location, sound, 1.0F, 1.0F);
+    }
+
     public static void sendSoundToAllPlayers(Sound sound) {
         for ( Player p : Bukkit.getOnlinePlayers() ) {
             Location location = p.getLocation();

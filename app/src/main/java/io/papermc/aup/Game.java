@@ -3,6 +3,7 @@ package io.papermc.aup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -20,6 +21,9 @@ public class Game {
     public static boolean emergencyMeetingInProgress = false;
     public static int meetingDurationInSeconds = 10;
     public static AmongUsPlayer[] amongUsPlayers;
+    
+    public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
+    public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
     
     public static int numImpostors = 1;
 

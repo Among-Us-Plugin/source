@@ -23,10 +23,9 @@ public class Broadcasting {
         player.playSound(location, sound, 1.0F, 1.0F);
     }
 
-    public static void sendAlertSound() {
+    public static void sendSoundToAllPlayers(Sound sound) {
         for ( Player p : Bukkit.getOnlinePlayers() ) {
             Location location = p.getLocation();
-            Sound sound = Sound.BLOCK_NOTE_BLOCK_BIT;
             p.playSound(location, sound, 1.0F, 1.0F);
         }
     }

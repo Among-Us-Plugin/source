@@ -10,9 +10,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
+import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.interactions.Colors;
 import io.papermc.aup.interactions.EmergencyMeeting;
 import io.papermc.aup.interactions.FlipSwitches;
+import io.papermc.aup.interactions.Vent;
 
 @SuppressWarnings("deprecation")
 public class InteractionHandler implements Listener {
@@ -32,6 +34,12 @@ public class InteractionHandler implements Listener {
             if ( !AmongUsPlayer.getAmongUsPlayerByDisplayName(event.getPlayer().getDisplayName()).isALive() ) { return; }
             Block block = event.getClickedBlock();
             EmergencyMeeting.run(block);
+        } if (event.getClickedBlock().getType().equals(Material.IRON_TRAPDOOR)) {            
+            Player p = event.getPlayer();
+            AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(p.getDisplayName());
+            if ( a instanceof Crewmate ) { return; }
+            if ( !a.isALive() ) { return; }
+            Vent.run(p);
         }
     }
 }

@@ -26,6 +26,11 @@ public class MovementHandler implements Listener {
         if ( !(a instanceof Impostor) ) { return; }
         Impostor impostor = (Impostor)a;
         if ( !impostor.isVenting()) { return; }
-        event.setCancelled(true);
+        
+        if (event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
+            event.setCancelled(true);
+        } else if (event.getFrom().getY() != event.getTo().getY()) {
+            event.setCancelled(true);
+        }
     }
 }

@@ -9,6 +9,7 @@ import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Impostor;
 
+@SuppressWarnings("deprecation")
 public class MovementHandler implements Listener {
     
     @EventHandler

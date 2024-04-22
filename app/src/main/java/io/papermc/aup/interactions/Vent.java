@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Impostor;
 
+@SuppressWarnings("deprecation")
 public class Vent {
     
     public static void run(Player player) {

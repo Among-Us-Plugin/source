@@ -10,9 +10,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
-import io.papermc.aup.tasks.Colors;
-import io.papermc.aup.tasks.EmergencyMeeting;
-import io.papermc.aup.tasks.FlipSwitches;
+import io.papermc.aup.interactions.Colors;
+import io.papermc.aup.interactions.EmergencyMeeting;
+import io.papermc.aup.interactions.FlipSwitches;
 
 @SuppressWarnings("deprecation")
 public class TaskInteractionHandler implements Listener {

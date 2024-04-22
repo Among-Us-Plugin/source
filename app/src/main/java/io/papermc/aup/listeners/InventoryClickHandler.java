@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import io.papermc.aup.Game;
-import io.papermc.aup.tasks.*;
+import io.papermc.aup.interactions.*;
 
 @SuppressWarnings("deprecation")
 public class InventoryClickHandler implements Listener {

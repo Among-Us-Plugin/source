@@ -1,4 +1,4 @@
-package io.papermc.aup.tasks;
+package io.papermc.aup.interactions;
 
 import java.util.Arrays;
 import java.util.Collections;

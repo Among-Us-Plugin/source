@@ -15,7 +15,7 @@ import io.papermc.aup.interactions.EmergencyMeeting;
 import io.papermc.aup.interactions.FlipSwitches;
 
 @SuppressWarnings("deprecation")
-public class TaskInteractionHandler implements Listener {
+public class InteractionHandler implements Listener {
     
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {

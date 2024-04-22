@@ -23,6 +23,7 @@ public class InteractionHandler implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (!Game.gameRunning) { return; }
+        if ( Game.emergencyMeetingInProgress ) { return; }
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) { return; }
         if (event.getHand().equals(EquipmentSlot.HAND)) { return; }
 

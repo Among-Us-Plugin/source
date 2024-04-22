@@ -1,6 +1,7 @@
 package io.papermc.aup.interactions;
 
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -14,6 +15,8 @@ public class Vent {
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         if ( !(a instanceof Impostor) ) { return; }
         Impostor impostor = (Impostor)a;
+        Location location = player.getLocation();
+        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 1);
         player.setGameMode(GameMode.SPECTATOR);
         impostor.startVenting();
     }

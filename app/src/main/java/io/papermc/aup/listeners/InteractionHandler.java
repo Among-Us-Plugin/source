@@ -26,22 +26,21 @@ public class InteractionHandler implements Listener {
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) { return; }
         if (event.getHand().equals(EquipmentSlot.HAND)) { return; }
 
-        if (event.getClickedBlock().getType().equals(Material.LODESTONE)) {
-            Player player = event.getPlayer();
+        Block block = event.getClickedBlock();
+        Player player = event.getPlayer();
+
+        if (block.getType().equals(Material.LODESTONE)) {
             FlipSwitches.run(player);
-        } if (event.getClickedBlock().getType().equals(Material.SCULK)) {
-            Player player = event.getPlayer();
+        } if (block.getType().equals(Material.SCULK)) {
             Colors.run(player);
-        } if (event.getClickedBlock().getType().equals(Material.PLAYER_HEAD)) {
+        } if (block.getType().equals(Material.PLAYER_HEAD)) {
             if ( !AmongUsPlayer.getAmongUsPlayerByDisplayName(event.getPlayer().getDisplayName()).isALive() ) { return; }
-            Block block = event.getClickedBlock();
             EmergencyMeeting.run(block);
-        } if (event.getClickedBlock().getType().equals(Material.IRON_TRAPDOOR)) {            
-            Player p = event.getPlayer();
-            AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(p.getDisplayName());
+        } if (block.getType().equals(Material.IRON_TRAPDOOR)) {            
+            AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
             if ( a instanceof Crewmate ) { return; }
             if ( !a.isALive() ) { return; }
-            Vent.run(p);
+            Vent.run(player, block);
         }
     }
 }

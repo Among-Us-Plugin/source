@@ -2,6 +2,7 @@ package io.papermc.aup.interactions;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -10,7 +11,7 @@ import io.papermc.aup.classes.Impostor;
 @SuppressWarnings("deprecation")
 public class Vent {
     
-    public static void run(Player player) {
+    public static void run(Player player, Block block) {
         player.sendMessage("you vented");
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         if ( !(a instanceof Impostor) ) { return; }
@@ -18,6 +19,7 @@ public class Vent {
         Location location = player.getLocation();
         location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 1);
         player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(block.getLocation());
         impostor.startVenting();
     }
 

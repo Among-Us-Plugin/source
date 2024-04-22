@@ -11,8 +11,11 @@ public class MovementHandler implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (!Game.gameRunning) { return; }
-        if (!Game.emergencyMeetingInProgress) { return; }
-        if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ()) { return; }
-        event.setCancelled(true);
+
+        if (Game.emergencyMeetingInProgress) {
+            if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ()) { return; }
+            event.setCancelled(true);
+        }
+        
     }
 }

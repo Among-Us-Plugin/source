@@ -12,6 +12,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
+import io.papermc.aup.classes.Impostor;
 import io.papermc.aup.interactions.Colors;
 import io.papermc.aup.interactions.EmergencyMeeting;
 import io.papermc.aup.interactions.FlipSwitches;
@@ -29,16 +30,18 @@ public class InteractionHandler implements Listener {
 
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
+        AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
 
         if (matchingMaterial(block, Material.LODESTONE)) {
+            if (a instanceof Impostor) { return; }
             FlipSwitches.run(player);
         } if (matchingMaterial(block, Material.SCULK)) {
+            if (a instanceof Impostor) { return; }
             Colors.run(player);
         } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
             if ( playerIsDead(event) ) { return; }
             EmergencyMeeting.run(block);
         } if (matchingMaterial(block, Material.IRON_TRAPDOOR)) {            
-            AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
             if ( a instanceof Crewmate ) { return; }
             if ( playerIsDead(event) ) { return; }
             Vent.run(player, block);

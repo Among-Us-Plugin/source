@@ -30,18 +30,26 @@ public class InteractionHandler implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        if (block.getType().equals(Material.LODESTONE)) {
+        if (matchingMaterial(block, Material.LODESTONE)) {
             FlipSwitches.run(player);
-        } if (block.getType().equals(Material.SCULK)) {
+        } if (matchingMaterial(block, Material.SCULK)) {
             Colors.run(player);
-        } if (block.getType().equals(Material.PLAYER_HEAD)) {
-            if ( !AmongUsPlayer.getAmongUsPlayerByDisplayName(event.getPlayer().getDisplayName()).isALive() ) { return; }
+        } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
+            if ( playerIsDead(event) ) { return; }
             EmergencyMeeting.run(block);
-        } if (block.getType().equals(Material.IRON_TRAPDOOR)) {            
+        } if (matchingMaterial(block, Material.IRON_TRAPDOOR)) {            
             AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
             if ( a instanceof Crewmate ) { return; }
-            if ( !a.isALive() ) { return; }
+            if ( playerIsDead(event) ) { return; }
             Vent.run(player, block);
         }
+    }
+
+    private boolean playerIsDead(PlayerInteractEvent event) {
+        return !AmongUsPlayer.getAmongUsPlayerByDisplayName(event.getPlayer().getDisplayName()).isALive();
+    }
+
+    private boolean matchingMaterial(Block block, Material material) {
+        return block.getType().equals(Material.LODESTONE);
     }
 }

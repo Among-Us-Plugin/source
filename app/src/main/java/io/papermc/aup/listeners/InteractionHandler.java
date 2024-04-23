@@ -50,6 +50,6 @@ public class InteractionHandler implements Listener {
     }
 
     private boolean matchingMaterial(Block block, Material material) {
-        return block.getType().equals(Material.LODESTONE);
+        return block.getType().equals(material);
     }
 }

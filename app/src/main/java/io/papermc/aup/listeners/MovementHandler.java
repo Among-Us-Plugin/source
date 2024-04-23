@@ -17,7 +17,7 @@ public class MovementHandler implements Listener {
         if (!Game.gameRunning) { return; }
 
         if (Game.emergencyMeetingInProgress) {
-            if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ()) { return; }
+            if (!playerIsMovingHorizontally(event)) { return; }
             event.setCancelled(true);
         }
 
@@ -27,10 +27,18 @@ public class MovementHandler implements Listener {
         Impostor impostor = (Impostor)a;
         if ( !impostor.isVenting()) { return; }
         
-        if (event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ()) {
+        if (playerIsMovingHorizontally(event)) {
             event.setCancelled(true);
-        } else if (event.getFrom().getY() != event.getTo().getY()) {
+        } else if (playerIsMovingVertially(event)) {
             event.setCancelled(true);
         }
+    }
+
+    private boolean playerIsMovingVertially(PlayerMoveEvent event) {
+        return event.getFrom().getY() != event.getTo().getY();
+    }
+
+    private boolean playerIsMovingHorizontally(PlayerMoveEvent event) {
+        return event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ();
     }
 }

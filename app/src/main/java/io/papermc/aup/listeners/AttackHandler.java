@@ -21,6 +21,10 @@ public class AttackHandler implements Listener {
         if (!(damager instanceof Player)) { return; }
         if (!Game.gameRunning) { return; }
             
+        cancelEventIfCrewmate(event, damager);
+    }
+
+    private void cancelEventIfCrewmate(EntityDamageByEntityEvent event, Entity damager) {
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (isCrewmate(damager, a)) {
                 event.setCancelled(true);

@@ -17,10 +17,14 @@ public class Vent {
         if ( !(a instanceof Impostor) ) { return; }
         Impostor impostor = (Impostor)a;
         Location location = player.getLocation();
+        enterVent(player, block, location);
+        impostor.startVenting();
+    }
+
+    private static void enterVent(Player player, Block block, Location location) {
         location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 1);
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(block.getLocation());
-        impostor.startVenting();
     }
 
 }

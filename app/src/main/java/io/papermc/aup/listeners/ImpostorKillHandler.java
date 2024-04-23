@@ -23,12 +23,15 @@ public class ImpostorKillHandler implements Listener {
         if (!Game.gameRunning) { return; }
         if (!(damager instanceof Player)) { return; }
             
-        for (AmongUsPlayer a : Game.amongUsPlayers) {
-            if (isImpostor(damager, a)) {
-                Broadcasting.sendDeathSound((Player) victim);
-                Game.killPlayer(victim);
-            }
+        AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(damager.getName());
+        if (isImpostor(damager, a)) {
+            killVictim(victim);
         }
+    }
+
+    private void killVictim(Entity victim) {
+        Broadcasting.sendDeathSound((Player) victim);
+        Game.killPlayer(victim);
     }
 
     private boolean isImpostor(Entity damager, AmongUsPlayer a) {

@@ -41,7 +41,7 @@ public class EmergencyMeeting {
 
     public static void run(Player player, Block centreBlock) {
         if ( !(meetingCooldownCounter <= 0) ) {
-            player.sendMessage(Component.text(ChatColor.DARK_PURPLE + "Meeting Cooldown: " + meetingCooldownCounter + " seconds left"));
+            Broadcasting.sendError(player, "Meeting Cooldown: " + meetingCooldownCounter + " seconds left");
             return;
         }
         Game.emergencyMeetingInProgress = true;

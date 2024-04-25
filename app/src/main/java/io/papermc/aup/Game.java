@@ -37,6 +37,8 @@ public class Game {
 
     public static BossBar meetingBossBar;
 
+    public static BossBar meetingCooldownBossBar;
+
     private static int taskBossBarIncrementPercentage = 20;
 
     public static void initializeBossBars() {
@@ -45,6 +47,10 @@ public class Game {
         Game.taskBossBar = Bukkit.createBossBar(ChatColor.BLUE + "Crewmate Task Progress: 0%", BarColor.BLUE, BarStyle.SEGMENTED_20);
         Game.taskBossBar.setProgress(0.0);
         taskBossBarProgressAsPercentage = 0;
+    }
+
+    public static void initializeMeetingCooldownBossBar() {
+        meetingCooldownBossBar = Bukkit.createBossBar(ChatColor.DARK_PURPLE + "Meeting Cooldown: " + meetingCooldownInSeconds, BarColor.PURPLE, BarStyle.SOLID);
     }
 
     public static void initializeMeetingBossBars() {

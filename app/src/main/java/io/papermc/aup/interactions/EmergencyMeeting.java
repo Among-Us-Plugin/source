@@ -57,11 +57,17 @@ public class EmergencyMeeting {
 
     private static void startMeetingCooldown() {
         meetingCooldownCounter = Game.meetingCooldownInSeconds;
+        Game.initializeMeetingCooldownBossBar();
+        addPlayersToMeetingCooldownBossBar();
         new BukkitRunnable() {
             @Override
             public void run() {
                 meetingCooldownCounter -= 1;
-                if (meetingCooldownCounter <= 0) { this.cancel(); }
+                Game.meetingCooldownBossBar.setTitle("Meeting Cooldown: " + meetingCooldownCounter);
+                if (meetingCooldownCounter <= 0) {
+                    Game.meetingCooldownBossBar.removeAll();
+                    this.cancel();
+                }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
@@ -176,6 +182,13 @@ public class EmergencyMeeting {
             }
         }
         return mostVoted;
+    }
+
+    private static void addPlayersToMeetingCooldownBossBar() {
+        for (AmongUsPlayer a : Game.amongUsPlayers) {
+            Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
+            Game.meetingCooldownBossBar.addPlayer(p);
+        }
     }
     
     private static void addPlayersToMeetingBossBars() {

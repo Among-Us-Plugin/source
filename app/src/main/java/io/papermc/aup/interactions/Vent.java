@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
+import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Impostor;
 
@@ -21,10 +22,28 @@ public class Vent {
         impostor.startVenting();
     }
 
+    public static void handleSneak() {
+        for ( AmongUsPlayer a : Game.amongUsPlayers ) {
+            if ( a instanceof Impostor ) {
+                Impostor i = (Impostor)a;
+                if ( i.isVenting() ) {
+                    Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
+                    p.setGameMode(GameMode.SURVIVAL);
+                    spawnVentEffect(p.getLocation());
+                    i.stopVenting();
+                }
+            }
+        }
+    }
+
     private static void enterVent(Player player, Block block, Location location) {
-        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 1);
+        spawnVentEffect(location);
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(block.getLocation());
+    }
+
+    private static void spawnVentEffect(Location location) {
+        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 1);
     }
 
 }

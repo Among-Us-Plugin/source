@@ -49,10 +49,17 @@ public class InteractionHandler implements Listener {
             if ( playerIsDead(event) ) { return; }
             EmergencyMeeting.run(player, block);
         } if (matchingMaterial(block, Material.IRON_TRAPDOOR)) {            
-            if ( a instanceof Crewmate ) { return; }
+            if ( a instanceof Crewmate ) {
+                sendCrewmateVentError(player);
+                return;
+            }
             if ( playerIsDead(event) ) { return; }
             Vent.run(player, block);
         }
+    }
+
+    private void sendCrewmateVentError(Player player) {
+        Broadcasting.sendError(player, "You can't vent! You are a crewmate!");
     }
 
     private void sendImpostorTaskError(Player player) {

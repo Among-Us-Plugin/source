@@ -9,6 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
@@ -33,10 +34,16 @@ public class InteractionHandler implements Listener {
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
 
         if (matchingMaterial(block, Material.LODESTONE)) {
-            if (a instanceof Impostor) { return; }
+            if (a instanceof Impostor) {
+                sendImpostorTaskError(player);
+                return;
+            }
             FlipSwitches.run(player);
         } if (matchingMaterial(block, Material.SCULK)) {
-            if (a instanceof Impostor) { return; }
+            if (a instanceof Impostor) {
+                sendImpostorTaskError(player);
+                return;
+            }
             Colors.run(player);
         } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
             if ( playerIsDead(event) ) { return; }
@@ -46,6 +53,10 @@ public class InteractionHandler implements Listener {
             if ( playerIsDead(event) ) { return; }
             Vent.run(player, block);
         }
+    }
+
+    private void sendImpostorTaskError(Player player) {
+        Broadcasting.sendError(player, "You can't do tasks! You are an impostor!");
     }
 
     private boolean playerIsDead(PlayerInteractEvent event) {

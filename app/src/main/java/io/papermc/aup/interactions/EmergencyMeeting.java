@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -63,7 +64,7 @@ public class EmergencyMeeting {
             @Override
             public void run() {
                 meetingCooldownCounter -= 1;
-                Game.meetingCooldownBossBar.setTitle("Meeting Cooldown: " + meetingCooldownCounter);
+                Game.meetingCooldownBossBar.setTitle(ChatColor.DARK_PURPLE + "Meeting Cooldown: " + meetingCooldownCounter);
                 Game.meetingCooldownBossBar.setProgress((float)meetingCooldownCounter / Game.meetingCooldownInSeconds);
                 if (meetingCooldownCounter <= 0) {
                     Game.meetingCooldownBossBar.removeAll();
@@ -97,7 +98,7 @@ public class EmergencyMeeting {
             }
 
             private void updateMeetingBossBars() {
-                Game.meetingBossBar.setTitle("Emergency Meeting: " + meetingDurationCounter);
+                Game.meetingBossBar.setTitle(ChatColor.YELLOW + "Emergency Meeting: " + meetingDurationCounter);
                 Game.meetingBossBar.setProgress((float)meetingDurationCounter / Game.meetingDurationInSeconds);
             }
             

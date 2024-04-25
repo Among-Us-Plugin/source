@@ -36,8 +36,15 @@ public class EmergencyMeeting {
     private static double playersRadius = 5;
     private static int meetingDurationCounter = Game.meetingDurationInSeconds;
 
+    private static int meetingCooldownCounter = 0;
+
     public static void run(Block centreBlock) {
+        if ( !(meetingCooldownCounter <= 0) ) {
+            Bukkit.broadcast(Component.text("meeting cooldown"));
+            return;
+        }
         Game.emergencyMeetingInProgress = true;
+        startMeetingCooldown();
         relocatePlayers(centreBlock);
         Inventory votingMenu = getVotingMenu();
         populateVotingMenu(votingMenu);
@@ -46,6 +53,17 @@ public class EmergencyMeeting {
         Game.initializeMeetingBossBars();
         addPlayersToMeetingBossBars();
         Broadcasting.sendSoundToAllPlayers(Game.meetingStartSound);
+    }
+
+    private static void startMeetingCooldown() {
+        meetingCooldownCounter = Game.meetingCooldownInSeconds;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                meetingCooldownCounter -= 1;
+                if (meetingCooldownCounter <= 0) { this.cancel(); }
+            }
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
 
     private static void startMeetingTimer() {

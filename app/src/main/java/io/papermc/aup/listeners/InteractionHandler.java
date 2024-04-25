@@ -40,7 +40,7 @@ public class InteractionHandler implements Listener {
             Colors.run(player);
         } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
             if ( playerIsDead(event) ) { return; }
-            EmergencyMeeting.run(block);
+            EmergencyMeeting.run(player, block);
         } if (matchingMaterial(block, Material.IRON_TRAPDOOR)) {            
             if ( a instanceof Crewmate ) { return; }
             if ( playerIsDead(event) ) { return; }

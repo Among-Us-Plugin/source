@@ -39,9 +39,9 @@ public class EmergencyMeeting {
 
     private static int meetingCooldownCounter = 0;
 
-    public static void run(Block centreBlock) {
+    public static void run(Player player, Block centreBlock) {
         if ( !(meetingCooldownCounter <= 0) ) {
-            Bukkit.broadcast(Component.text("meeting cooldown"));
+            player.sendMessage(Component.text(ChatColor.DARK_PURPLE + "Meeting Cooldown: " + meetingCooldownCounter + " seconds left"));
             return;
         }
         Game.emergencyMeetingInProgress = true;

@@ -11,7 +11,6 @@ public class SneakHandler implements Listener {
     @EventHandler
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
         if (event.isSneaking()) {
-            event.getPlayer().sendMessage("you just crouched");
             Vent.handleSneak();
         }
     }

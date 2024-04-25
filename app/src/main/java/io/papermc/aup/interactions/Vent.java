@@ -17,26 +17,30 @@ public class Vent {
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         if ( !(a instanceof Impostor) ) { return; }
         Impostor impostor = (Impostor)a;
-        Location location = player.getLocation();
-        enterVent(player, block, location);
+        enterVent(player, block);
         impostor.startVenting();
     }
 
     public static void handleSneak() {
         for ( AmongUsPlayer a : Game.amongUsPlayers ) {
             if ( a instanceof Impostor ) {
-                Impostor i = (Impostor)a;
-                if ( i.isVenting() ) {
-                    Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
-                    p.setGameMode(GameMode.SURVIVAL);
-                    spawnVentEffect(p.getLocation());
-                    i.stopVenting();
+                Impostor impostor = (Impostor)a;
+                if ( impostor.isVenting() ) {
+                    exitVent(a);
+                    impostor.stopVenting();
                 }
             }
         }
     }
 
-    private static void enterVent(Player player, Block block, Location location) {
+    private static void exitVent(AmongUsPlayer a) {
+        Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
+        p.setGameMode(GameMode.SURVIVAL);
+        spawnVentEffect(p.getLocation());
+    }
+
+    private static void enterVent(Player player, Block block) {
+        Location location = player.getLocation();
         spawnVentEffect(location);
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(block.getLocation());

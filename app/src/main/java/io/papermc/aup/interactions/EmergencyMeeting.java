@@ -64,6 +64,7 @@ public class EmergencyMeeting {
             public void run() {
                 meetingCooldownCounter -= 1;
                 Game.meetingCooldownBossBar.setTitle("Meeting Cooldown: " + meetingCooldownCounter);
+                Game.meetingCooldownBossBar.setProgress((float)meetingCooldownCounter / Game.meetingCooldownInSeconds);
                 if (meetingCooldownCounter <= 0) {
                     Game.meetingCooldownBossBar.removeAll();
                     this.cancel();

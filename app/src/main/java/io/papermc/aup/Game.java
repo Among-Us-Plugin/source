@@ -21,6 +21,8 @@ public class Game {
     public static boolean emergencyMeetingInProgress = false;
     public static int meetingDurationInSeconds = 10;
     public static int meetingCooldownInSeconds = meetingDurationInSeconds + 10;
+    public static int ventCooldownInSeconds = 15;
+
     public static AmongUsPlayer[] amongUsPlayers;
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;

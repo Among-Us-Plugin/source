@@ -70,6 +70,7 @@ public class EmergencyMeeting {
                     Game.meetingCooldownBossBar.removeAll();
                     this.cancel();
                 } if ( !Game.gameRunning ) {
+                    meetingCooldownCounter = 0;
                     Game.meetingCooldownBossBar.removeAll();
                 }
             }

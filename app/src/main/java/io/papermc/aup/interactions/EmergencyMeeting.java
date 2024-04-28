@@ -72,6 +72,7 @@ public class EmergencyMeeting {
                 } if ( !Game.gameRunning ) {
                     meetingCooldownCounter = 0;
                     Game.meetingCooldownBossBar.removeAll();
+                    this.cancel();
                 }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);

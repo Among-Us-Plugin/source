@@ -33,7 +33,7 @@ public class GameLogic {
             }
             
         // 20 ticks = 1 second, under normal circumstances
-        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 5L);
 
     }
 

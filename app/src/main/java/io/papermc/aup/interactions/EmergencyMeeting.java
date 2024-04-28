@@ -84,7 +84,8 @@ public class EmergencyMeeting {
             public void run() {
                 meetingDurationCounter--;
                 updateMeetingBossBars();
-                if ( !Game.gameRunning ) { 
+                if ( !Game.gameRunning ) {
+                    votes.clear();
                     cleanUp();
                     this.cancel();
                 }

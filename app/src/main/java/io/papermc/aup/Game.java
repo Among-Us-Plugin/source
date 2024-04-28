@@ -86,6 +86,7 @@ public class Game {
     public static void endGame() {
         gameRunning = false;
         resetGameModes();
+        Broadcasting.sendSoundToAllPlayers(Sound.UI_TOAST_CHALLENGE_COMPLETE);
     }
 
     public static void resetGameModes() {

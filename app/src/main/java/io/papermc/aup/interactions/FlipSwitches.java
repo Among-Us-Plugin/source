@@ -3,7 +3,10 @@ package io.papermc.aup.interactions;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -40,6 +43,12 @@ public class FlipSwitches {
         invert(clickedSlotIndex, inv);
         if (checkCompletion(inv)) {
             view.close();
+            HumanEntity e = event.getWhoClicked();
+            if ( e instanceof Player) {
+                Player p = (Player) e;
+                Location l = p.getLocation();
+                p.playSound(l, Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0F, 1.0F);
+            }
             Game.increaseTaskProgress();
         }
     }

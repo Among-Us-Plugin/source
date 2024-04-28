@@ -21,6 +21,7 @@ public class GameLogic {
             }
 
             private void cleanUp() {
+                Game.closeAllInventories();
                 clearBossBars();
                 this.cancel();
             }

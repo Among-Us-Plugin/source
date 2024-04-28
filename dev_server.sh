@@ -17,6 +17,13 @@ READY='\033[1;92m'
 NOCOLOR='\033[0m' # No Color
 ERROR='\033[0;31m'
 
+SERVERMONITOR_JAR_LINK='https://github.com/pairnon/ServerMonitor/releases/download/v1.0.0/ServerMonitor_v1.0.0.jar'
+
+# Grab ServerMonitor plugin
+screen -dmS minecraft wget ${SERVERMONITOR_JAR_LINK}
+screen -dmS minecraft mkdir ./app/run/plugins
+screen -dmS minecraft mv ServerMonitor_v1.0.0.jar ./app/run/plugins
+
 # Start the MC server in a screen session
 screen -dmS minecraft ./gradlew runServer
 echo "MC server started..."

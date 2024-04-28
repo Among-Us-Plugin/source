@@ -3,7 +3,6 @@ package io.papermc.aup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -120,12 +119,7 @@ public class Game {
 
     public static void handleTaskCompletion(HumanEntity entity) {
 
-        if ( entity instanceof Player) {
-            Player p = (Player) entity;
-            Location l = p.getLocation();
-            p.playSound(l, Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0F, 1.0F);
-        }
-
+        Broadcasting.sendTaskCompletionSound(entity);
 
         if (taskBossBar == null) { return; }
         taskBossBarProgressAsPercentage += taskBossBarIncrementPercentage;

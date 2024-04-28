@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -14,6 +15,14 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
 public class Broadcasting {
+
+    public static void sendTaskCompletionSound(HumanEntity entity) {
+        if ( entity instanceof Player) {
+            Player p = (Player) entity;
+            Location l = p.getLocation();
+            p.playSound(l, Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0F, 1.0F);
+        }
+    }
 
     public static void sendError(Player player, String message) {
         Component c = Component.text(message, NamedTextColor.RED);

@@ -155,6 +155,7 @@ public class EmergencyMeeting {
         if (mostVoted == null) {
             Component e = Component.text("No one was ejected.", NamedTextColor.LIGHT_PURPLE);
             Bukkit.broadcast(e);
+            votes.clear();
             return;
         }
 

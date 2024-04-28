@@ -44,12 +44,7 @@ public class FlipSwitches {
         if (checkCompletion(inv)) {
             view.close();
             HumanEntity e = event.getWhoClicked();
-            if ( e instanceof Player) {
-                Player p = (Player) e;
-                Location l = p.getLocation();
-                p.playSound(l, Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0F, 1.0F);
-            }
-            Game.increaseTaskProgress();
+            Game.handleTaskCompletion(e);
         }
     }
 

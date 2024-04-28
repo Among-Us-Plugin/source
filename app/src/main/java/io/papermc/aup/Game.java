@@ -3,11 +3,13 @@ package io.papermc.aup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -116,7 +118,15 @@ public class Game {
         return;
     }
 
-    public static void increaseTaskProgress() {
+    public static void handleTaskCompletion(HumanEntity entity) {
+
+        if ( entity instanceof Player) {
+            Player p = (Player) entity;
+            Location l = p.getLocation();
+            p.playSound(l, Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0F, 1.0F);
+        }
+
+
         if (taskBossBar == null) { return; }
         taskBossBarProgressAsPercentage += taskBossBarIncrementPercentage;
         double updatedProgressAsDouble = 0.01 * taskBossBarProgressAsPercentage;

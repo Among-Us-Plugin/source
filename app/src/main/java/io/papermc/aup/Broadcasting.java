@@ -16,6 +16,10 @@ import net.kyori.adventure.text.format.NamedTextColor;
 @SuppressWarnings("deprecation")
 public class Broadcasting {
 
+    public static void sendSoundToPlayer(Player player, Sound sound, Float pitch) {
+        player.playSound(player.getLocation(), sound, 1.0F, pitch);
+    }
+    
     public static void sendSoundToPlayer(Player player, Sound sound) {
         player.playSound(player.getLocation(), sound, 1.0F, 1.0F);
     }

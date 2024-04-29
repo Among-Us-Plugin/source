@@ -80,7 +80,10 @@ public class Colors {
             view.close();
             HumanEntity e = event.getWhoClicked();
             Game.handleTaskCompletion(e);
+            return;
         }
+        Float pitch = (float) ((getProgress(inv) + 8) / 16.0);
+        Broadcasting.sendSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_CHIME, pitch);
     }
 
     private static boolean isCorrect(int clickedSlotIndex, int progress, Inventory inv) {

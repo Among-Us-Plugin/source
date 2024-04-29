@@ -13,6 +13,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
@@ -81,7 +82,7 @@ public class FlipSwitches {
         } else if (material.equals(correctMaterial)) {
             inv.setItem(slotIndex, incorrectItemStack);
         }
-        player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1.0F, 1.0F);
+        Broadcasting.sendSoundToPlayer(player, Sound.BLOCK_PISTON_EXTEND);
     }
 
     private static boolean checkCompletion(Inventory inv) {

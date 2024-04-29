@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -36,9 +37,10 @@ public class FlipSwitches {
     public static void handleClick(InventoryClickEvent event) {
         Inventory inv = event.getInventory();
         InventoryView view = event.getView();
+        Player player = (Player) event.getWhoClicked();
         int clickedSlotIndex = event.getSlot();
         if (!validIndex(clickedSlotIndex)) { return; }
-        invert(clickedSlotIndex, inv);
+        invert(clickedSlotIndex, inv, player);
         if (checkCompletion(inv)) {
             view.close();
             HumanEntity e = event.getWhoClicked();
@@ -71,7 +73,7 @@ public class FlipSwitches {
         correctItemStack.setItemMeta(correctItemMeta);
     }
 
-    private static void invert(int slotIndex, Inventory inv) {
+    private static void invert(int slotIndex, Inventory inv, Player player) {
         ItemStack[] invContents = inv.getContents();
         Material material = invContents[slotIndex].getType();
         if (material.equals(incorrectMaterial)) {
@@ -79,6 +81,7 @@ public class FlipSwitches {
         } else if (material.equals(correctMaterial)) {
             inv.setItem(slotIndex, incorrectItemStack);
         }
+        player.playSound(player.getLocation(), Sound.BLOCK_PISTON_EXTEND, 1.0F, 1.0F);
     }
 
     private static boolean checkCompletion(Inventory inv) {

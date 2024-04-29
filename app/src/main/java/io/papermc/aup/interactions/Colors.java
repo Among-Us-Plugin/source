@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 
 @SuppressWarnings("deprecation")
@@ -64,11 +66,13 @@ public class Colors {
     public static void handleClick(InventoryClickEvent event) {
         Inventory inv = event.getInventory();
         InventoryView view = event.getView();
+        Player player = (Player) event.getWhoClicked();
         int clickedSlotIndex = event.getSlot();
         if (!validIndex(clickedSlotIndex)) { return; }
         int progress = getProgress(inv);
         if (!isCorrect(clickedSlotIndex, progress, inv)) {
-            resetProgress(inv);;
+            Broadcasting.sendSoundToPlayer(player, Sound.ENTITY_GHAST_SCREAM);
+            resetProgress(inv);
             return;
         }
         incrementProgress(inv);

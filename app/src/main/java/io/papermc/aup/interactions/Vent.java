@@ -1,5 +1,6 @@
 package io.papermc.aup.interactions;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -19,7 +20,7 @@ public class Vent {
     private static int ventCooldownCounter = 0;
     
     public static void run(Player player, Block block) {
-        if ( !(ventCooldownCounter <= 0) ) {
+        if ( ventCooldownIsActive() ) {
             Broadcasting.sendError(player, "Vent Cooldown: " + ventCooldownCounter + " seconds left");
             return;
         }
@@ -28,7 +29,11 @@ public class Vent {
         Impostor impostor = (Impostor)a;
         enterVent(player, block);
         impostor.startVenting();
-        startVentCooldown();
+        startVentCooldown(player);
+    }
+
+    private static boolean ventCooldownIsActive() {
+        return (ventCooldownCounter > 0);
     }
 
     public static void handleSneak() {
@@ -43,20 +48,23 @@ public class Vent {
         }
     }
 
-    private static void startVentCooldown() {
+    private static void startVentCooldown(Player player) {
         ventCooldownCounter = Game.ventCooldownInSeconds;
-        // Bossbar?
-        // add impostor to bossbar
+        Game.initializeVentCooldownBossBar();
+        Game.ventCooldownBossBar.addPlayer(player);
         new BukkitRunnable() {
             @Override
             public void run() {
                 ventCooldownCounter -= 1;
-                // update bossbars
+                Game.ventCooldownBossBar.setTitle(ChatColor.LIGHT_PURPLE + "Vent Cooldown: " + ventCooldownCounter);
+                Game.ventCooldownBossBar.setProgress((float)ventCooldownCounter / Game.ventCooldownInSeconds);
                 if (ventCooldownCounter <= 0) {
-                    // remove bossbar
+                    Game.ventCooldownBossBar.removeAll();
                     this.cancel();
                 } if ( !Game.gameRunning ) {
-                    // remove bossbar
+                    ventCooldownCounter = 0;
+                    Game.ventCooldownBossBar.removeAll();
+                    this.cancel();
                 }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);

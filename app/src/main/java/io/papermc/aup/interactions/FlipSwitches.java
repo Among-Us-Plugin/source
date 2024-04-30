@@ -20,6 +20,8 @@ import io.papermc.aup.Game;
 public class FlipSwitches {
     
     public static String inventoryTitle = "FlipSwitches";
+    public static Material blockMaterial = Material.LODESTONE;
+    
     public static int inventorySize = 9;
     
     private static Sound flipSound = Sound.BLOCK_PISTON_EXTEND;

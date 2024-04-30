@@ -3,6 +3,7 @@ package io.papermc.aup.interactions;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,8 @@ import io.papermc.aup.classes.Impostor;
 
 @SuppressWarnings("deprecation")
 public class Vent {
+
+    public static Material blockMaterial = Material.IRON_TRAPDOOR;
 
     private static int ventCooldownCounter = 0;
     

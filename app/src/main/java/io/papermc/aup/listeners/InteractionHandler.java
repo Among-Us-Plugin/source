@@ -33,22 +33,22 @@ public class InteractionHandler implements Listener {
         Player player = event.getPlayer();
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
 
-        if (matchingMaterial(block, Material.LODESTONE)) {
+        if (matchingMaterial(block, FlipSwitches.blockMaterial)) {
             if (a instanceof Impostor) {
                 sendImpostorTaskError(player);
                 return;
             }
             FlipSwitches.run(player);
-        } if (matchingMaterial(block, Material.SCULK)) {
+        } if (matchingMaterial(block, Colors.blockMaterial)) {
             if (a instanceof Impostor) {
                 sendImpostorTaskError(player);
                 return;
             }
             Colors.run(player);
-        } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
+        } if (matchingMaterial(block, EmergencyMeeting.blockMaterial)) {
             if ( playerIsDead(event) ) { return; }
             EmergencyMeeting.run(player, block);
-        } if (matchingMaterial(block, Material.IRON_TRAPDOOR)) {            
+        } if (matchingMaterial(block, Vent.blockMaterial)) {            
             if ( a instanceof Crewmate ) {
                 sendCrewmateVentError(player);
                 return;

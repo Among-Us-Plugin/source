@@ -32,7 +32,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 public class EmergencyMeeting {
 
     public static String inventoryTitle = "Vote out the impostor!";
-    public static Material blockMaterial = Material.PLAYER_HEAD;
+    public static Material blockMaterial = Material.RED_CONCRETE;
 
     public static ArrayList<Vote> votes = new ArrayList<Vote>();
 

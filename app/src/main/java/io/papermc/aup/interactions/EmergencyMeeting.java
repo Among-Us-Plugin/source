@@ -231,7 +231,7 @@ public class EmergencyMeeting {
             float newYaw = getNewYaw(centreBlock, newX, newZ);
             
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);
-            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
+            player.teleport(new Location(player.getWorld(), newX, centreBlock.getY() + 2, newZ, newYaw, 0));
             
             i++;
 

@@ -19,8 +19,8 @@ import io.papermc.aup.Game;
 @SuppressWarnings("deprecation")
 public class FlipSwitches {
     
-    public static String title = "FlipSwitches";
-    public static int size = 9;
+    public static String inventoryTitle = "FlipSwitches";
+    public static int inventorySize = 9;
     
     private static Sound flipSound = Sound.BLOCK_PISTON_EXTEND;
     
@@ -32,7 +32,7 @@ public class FlipSwitches {
 
     public static void run(Player player) {
         setItemStackNames();
-        Inventory inv = Bukkit.createInventory(null, size, title);
+        Inventory inv = Bukkit.createInventory(null, inventorySize, inventoryTitle);
         randomizeLocations(inv);
         player.openInventory(inv);
     }
@@ -52,7 +52,7 @@ public class FlipSwitches {
     }
 
     private static void randomizeLocations(Inventory inv) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < inventorySize; i++) {
             Random random = new Random();
             int n = random.nextInt(2);
             switch(n) {
@@ -99,6 +99,6 @@ public class FlipSwitches {
     }
 
     private static boolean validIndex(int index) {
-        return (index >= 0 && index < size);
+        return (index >= 0 && index < inventorySize);
     }
 }

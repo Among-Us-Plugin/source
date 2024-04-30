@@ -21,13 +21,13 @@ import io.papermc.aup.Game;
 @SuppressWarnings("deprecation")
 public class Colors {
     
-    public static String title = "Colors";
+    public static String inventoryTitle = "Colors";
 
     private static Sound progressSound = Sound.BLOCK_NOTE_BLOCK_CHIME;
     private static Sound mistakeSound = Sound.ENTITY_GHAST_SCREAM;
 
-    private static int size = 54;
-    private static int progressBarStartIndex = size - 9;
+    private static int inventorySize = 54;
+    private static int progressBarStartIndex = inventorySize - 9;
 
     // MUST BE CONFIGURED WHEN RESIZING
     private static Integer[] validIndices = {12, 13, 14, 21, 22, 23, 30, 31, 32};
@@ -58,7 +58,7 @@ public class Colors {
     private static ItemStack[] colorsItemStacks = {redItemStack, orangeItemStack, yellowItemStack, limeItemStack, greenItemStack, lightBlueItemStack, blueItemStack, magentaItemStack, purpleItemStack};
 
     public static void run(Player player) {
-        Inventory inv = Bukkit.createInventory(null, size, title);
+        Inventory inv = Bukkit.createInventory(null, inventorySize, inventoryTitle);
         renameItemStacks();
         paintBackground(inv);
         shuffleValidIndices();
@@ -79,7 +79,7 @@ public class Colors {
             return;
         }
         incrementProgress(inv);
-        if (getProgress(inv) == 9) {
+        if (taskIsFinished(inv)) {
             view.close();
             HumanEntity e = event.getWhoClicked();
             Game.handleTaskCompletion(e);
@@ -89,13 +89,17 @@ public class Colors {
         Broadcasting.sendSoundToPlayer(player, progressSound, pitch);
     }
 
+    private static boolean taskIsFinished(Inventory inv) {
+        return getProgress(inv) == 9;
+    }
+
     private static boolean isCorrect(int clickedSlotIndex, int progress, Inventory inv) {
         if (!inv.getItem(clickedSlotIndex).equals(colorsItemStacks[progress])) { return false; }
         return true;
     }
 
     private static void resetProgress(Inventory inv) {
-        for (int i = progressBarStartIndex; i < size; i++) {
+        for (int i = progressBarStartIndex; i < inventorySize; i++) {
             inv.setItem(i, backgroundItemStack);
         }
     }
@@ -108,7 +112,7 @@ public class Colors {
 
     private static int getProgress(Inventory inv) {
         int progress = 0;
-        for (int i = progressBarStartIndex; i < size; i++) {
+        for (int i = progressBarStartIndex; i < inventorySize; i++) {
             if (!inv.getItem(i).equals(backgroundItemStack)) {
                 progress++;
             }
@@ -141,7 +145,7 @@ public class Colors {
     }
 
     private static void paintBackground(Inventory inv) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < inventorySize; i++) {
             inv.setItem(i, backgroundItemStack);
         }
     }

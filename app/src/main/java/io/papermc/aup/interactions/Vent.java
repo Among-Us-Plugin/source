@@ -23,7 +23,6 @@ public class Vent {
             Broadcasting.sendError(player, "Vent Cooldown: " + ventCooldownCounter + " seconds left");
             return;
         }
-        player.sendMessage("you vented");
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         if ( !(a instanceof Impostor) ) { return; }
         Impostor impostor = (Impostor)a;

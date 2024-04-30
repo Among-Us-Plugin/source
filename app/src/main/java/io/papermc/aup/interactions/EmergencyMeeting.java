@@ -29,11 +29,11 @@ import net.kyori.adventure.text.format.NamedTextColor;
 @SuppressWarnings("deprecation")
 public class EmergencyMeeting {
 
-    public static String title = "Vote out the impostor!";
+    public static String inventoryTitle = "Vote out the impostor!";
 
     public static ArrayList<Vote> votes = new ArrayList<Vote>();
 
-    private static int votingMenuSize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
+    private static int inventorySize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
     private static double playersRadius = 5;
     private static int meetingDurationCounter = Game.meetingDurationInSeconds;
 
@@ -245,7 +245,7 @@ public class EmergencyMeeting {
     }
 
     private static Inventory getVotingMenu() {
-        Inventory inv = Bukkit.createInventory(null, votingMenuSize, title);
+        Inventory inv = Bukkit.createInventory(null, inventorySize, inventoryTitle);
         return inv;
     }
     
@@ -263,6 +263,6 @@ public class EmergencyMeeting {
     }
 
     private static boolean validIndex(int index) {
-        return (index >= 0 && index < votingMenuSize);
+        return (index >= 0 && index < inventorySize);
     }
 }

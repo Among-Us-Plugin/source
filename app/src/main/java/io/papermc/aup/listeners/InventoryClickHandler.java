@@ -17,11 +17,11 @@ public class InventoryClickHandler implements Listener {
         event.setCancelled(true);
         String title = event.getView().getTitle();
 
-        if (title.equals(FlipSwitches.title)) {
+        if (title.equals(FlipSwitches.inventoryTitle)) {
             FlipSwitches.handleClick(event);
-        } else if (title.equals(Colors.title)) {
+        } else if (title.equals(Colors.inventoryTitle)) {
             Colors.handleClick(event);
-        } else if(title.equals(EmergencyMeeting.title)){
+        } else if(title.equals(EmergencyMeeting.inventoryTitle)){
             EmergencyMeeting.handleClick(event);
         }
     }

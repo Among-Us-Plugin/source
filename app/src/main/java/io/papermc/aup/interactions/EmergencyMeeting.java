@@ -40,7 +40,7 @@ public class EmergencyMeeting {
     private static int meetingCooldownCounter = 0;
 
     public static void run(Player player, Block centreBlock) {
-        if ( !(meetingCooldownCounter <= 0) ) {
+        if ( meetingCooldownIsActive() ) {
             Broadcasting.sendError(player, "Meeting Cooldown: " + meetingCooldownCounter + " seconds left");
             return;
         }
@@ -54,6 +54,10 @@ public class EmergencyMeeting {
         Game.initializeMeetingBossBars();
         addPlayersToMeetingBossBars();
         Broadcasting.sendSoundToAllPlayers(Game.meetingStartSound);
+    }
+
+    private static boolean meetingCooldownIsActive() {
+        return meetingCooldownCounter > 0;
     }
 
     private static void startMeetingCooldown() {

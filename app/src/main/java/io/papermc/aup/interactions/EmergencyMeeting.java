@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,6 +23,7 @@ import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 import io.papermc.aup.Main;
 import io.papermc.aup.classes.AmongUsPlayer;
+import io.papermc.aup.classes.Impostor;
 import io.papermc.aup.classes.Vote;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -231,6 +233,12 @@ public class EmergencyMeeting {
             player.teleport(new Location(player.getWorld(), newX, centreBlock.getY(), newZ, newYaw, 0));
             
             i++;
+
+            player.setGameMode(GameMode.SURVIVAL);
+            if ( amongUsPlayer instanceof Impostor ) {
+                Impostor impostor = (Impostor) amongUsPlayer;
+                impostor.stopVenting();
+            }
         }
     }
 

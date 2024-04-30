@@ -23,6 +23,9 @@ public class Colors {
     
     public static String title = "Colors";
 
+    private static Sound progressSound = Sound.BLOCK_NOTE_BLOCK_CHIME;
+    private static Sound mistakeSound = Sound.ENTITY_GHAST_SCREAM;
+
     private static int size = 54;
     private static int progressBarStartIndex = size - 9;
 
@@ -71,7 +74,7 @@ public class Colors {
         if (!validIndex(clickedSlotIndex)) { return; }
         int progress = getProgress(inv);
         if (!isCorrect(clickedSlotIndex, progress, inv)) {
-            Broadcasting.sendSoundToPlayer(player, Sound.ENTITY_GHAST_SCREAM);
+            Broadcasting.sendSoundToPlayer(player, mistakeSound);
             resetProgress(inv);
             return;
         }
@@ -83,7 +86,7 @@ public class Colors {
             return;
         }
         Float pitch = (float) ((getProgress(inv) + 8) / 16.0);
-        Broadcasting.sendSoundToPlayer(player, Sound.BLOCK_NOTE_BLOCK_CHIME, pitch);
+        Broadcasting.sendSoundToPlayer(player, progressSound, pitch);
     }
 
     private static boolean isCorrect(int clickedSlotIndex, int progress, Inventory inv) {

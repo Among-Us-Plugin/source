@@ -22,6 +22,8 @@ public class FlipSwitches {
     public static String title = "FlipSwitches";
     public static int size = 9;
     
+    private static Sound flipSound = Sound.BLOCK_PISTON_EXTEND;
+    
     private static Material incorrectMaterial = Material.RED_STAINED_GLASS_PANE;
     private static Material correctMaterial = Material.LIME_STAINED_GLASS_PANE;
 
@@ -82,7 +84,7 @@ public class FlipSwitches {
         } else if (material.equals(correctMaterial)) {
             inv.setItem(slotIndex, incorrectItemStack);
         }
-        Broadcasting.sendSoundToPlayer(player, Sound.BLOCK_PISTON_EXTEND);
+        Broadcasting.sendSoundToPlayer(player, flipSound);
     }
 
     private static boolean checkCompletion(Inventory inv) {

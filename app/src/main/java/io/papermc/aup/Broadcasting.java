@@ -27,17 +27,14 @@ public class Broadcasting {
     public static void sendTaskCompletionSound(HumanEntity entity) {
         if ( entity instanceof Player) {
             Player p = (Player) entity;
-            Location l = p.getLocation();
-            p.playSound(l, Sound.BLOCK_NOTE_BLOCK_FLUTE, 1.0F, 1.0F);
+            sendSoundToPlayer(p, Game.taskCompletionSound);
         }
     }
 
     public static void sendError(Player player, String message) {
         Component c = Component.text(message, NamedTextColor.RED);
-        Location location = player.getLocation();
-        Sound sound = Sound.BLOCK_ANVIL_LAND;
         player.sendMessage(c);
-        player.playSound(location, sound, 1.0F, 1.0F);
+        sendSoundToPlayer(player, Game.errorSound);
     }
 
     public static void sendDeathSound(Player player) {

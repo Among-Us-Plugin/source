@@ -28,6 +28,7 @@ public class Game {
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
+    public static Sound taskCompletionSound = Sound.BLOCK_NOTE_BLOCK_FLUTE;
     public static Sound meetingStartSound = Sound.BLOCK_NOTE_BLOCK_HARP;
     public static Sound deathSound = Sound.BLOCK_END_PORTAL_SPAWN;
     

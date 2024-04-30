@@ -77,6 +77,9 @@ public class Vent {
         Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
         p.setGameMode(GameMode.SURVIVAL);
         spawnVentEffect(p.getLocation());
+        Location loc = p.getLocation();
+        loc.setY(loc.getY() + 1);
+        p.teleport(loc);
     }
 
     private static void enterVent(Player player, Block block) {

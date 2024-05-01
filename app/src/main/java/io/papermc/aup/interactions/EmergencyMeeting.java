@@ -54,7 +54,7 @@ public class EmergencyMeeting {
         populateVotingMenu(votingMenu);
         openVotingMenus(votingMenu);
         startMeetingTimer();
-        Game.initializeMeetingBossBars();
+        Game.initializeMeetingBossBar();
         addPlayersToMeetingBossBars();
         Broadcasting.sendSoundToAllPlayers(Game.meetingStartSound);
     }

@@ -23,6 +23,7 @@ public class Game {
     public static int meetingDurationInSeconds = 10;
     public static int meetingCooldownInSeconds = meetingDurationInSeconds + 10;
     public static int ventCooldownInSeconds = 15;
+    public static int killCooldownInSeconds = 10;
 
     public static AmongUsPlayer[] amongUsPlayers;
     
@@ -44,6 +45,7 @@ public class Game {
 
     public static BossBar meetingCooldownBossBar;
     public static BossBar ventCooldownBossBar;
+    public static BossBar killCooldownBossBar;
 
     private static int taskBossBarIncrementPercentage = 20;
 
@@ -55,6 +57,10 @@ public class Game {
         taskBossBarProgressAsPercentage = 0;
     }
 
+    public static void initializeKillCooldownBossBar() {
+        killCooldownBossBar = Bukkit.createBossBar(ChatColor.RED + "Kill Cooldown: " + killCooldownInSeconds, BarColor.RED, BarStyle.SOLID);
+    }
+
     public static void initializeVentCooldownBossBar() {
         ventCooldownBossBar = Bukkit.createBossBar(ChatColor.LIGHT_PURPLE + "Vent Cooldown: " + ventCooldownInSeconds, BarColor.PINK, BarStyle.SOLID);
     }
@@ -63,8 +69,8 @@ public class Game {
         meetingCooldownBossBar = Bukkit.createBossBar(ChatColor.DARK_PURPLE + "Meeting Cooldown: " + meetingCooldownInSeconds, BarColor.PURPLE, BarStyle.SOLID);
     }
 
-    public static void initializeMeetingBossBars() {
-        Game.meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
+    public static void initializeMeetingBossBar() {
+        meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
     }
 
     public static void killAmongUsPlayer(AmongUsPlayer a) {

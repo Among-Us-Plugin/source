@@ -31,6 +31,7 @@ public class Game {
     public static Sound taskCompletionSound = Sound.BLOCK_NOTE_BLOCK_FLUTE;
     public static Sound meetingStartSound = Sound.BLOCK_NOTE_BLOCK_HARP;
     public static Sound deathSound = Sound.BLOCK_END_PORTAL_SPAWN;
+    public static Sound gameEndSound = Sound.UI_TOAST_CHALLENGE_COMPLETE;
     
     public static int numImpostors = 1;
 
@@ -92,7 +93,7 @@ public class Game {
     public static void endGame() {
         gameRunning = false;
         resetGameModes();
-        Broadcasting.sendSoundToAllPlayers(Sound.UI_TOAST_CHALLENGE_COMPLETE);
+        Broadcasting.sendSoundToAllPlayers(gameEndSound);
     }
 
     public static void resetGameModes() {

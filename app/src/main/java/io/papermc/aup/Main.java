@@ -34,6 +34,7 @@ public class Main extends JavaPlugin implements Listener {
         // See plugin.yml file
         this.getCommand("startgame").setExecutor(new CommandStartGame());
         this.getCommand("endgame").setExecutor(new CommandEndGame());
+        this.getCommand("impostors").setExecutor(new CommandImpostors());
     }
 
     @EventHandler

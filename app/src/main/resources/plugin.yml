@@ -13,3 +13,6 @@ commands:
   endgame:
     description: End the Among Us game
     usage: /endgame
+  impostors:
+    description: Set number of impostors per game
+    usage: /impostors <amount>

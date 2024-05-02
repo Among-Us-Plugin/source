@@ -32,8 +32,7 @@ public class Broadcasting {
     }
 
     public static void sendError(Player player, String message) {
-        Component c = Component.text(message, NamedTextColor.RED);
-        player.sendMessage(c);
+        sendSignedMessageToPlayer(player, message, NamedTextColor.RED);
         sendSoundToPlayer(player, Game.errorSound);
     }
 
@@ -51,8 +50,7 @@ public class Broadcasting {
     }
     
     public static void sendCrewmatesWin(String reason) {
-        Component c = Component.text("Game Ended: " + reason, NamedTextColor.GOLD);
-        Bukkit.broadcast(c);
+        broadcastSignedMessage("Game Ended: " + reason, NamedTextColor.GOLD);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
             if (a instanceof Crewmate) {
@@ -65,8 +63,7 @@ public class Broadcasting {
     }
 
     public static void sendImpostorsWin(String reason) {
-        Component c = Component.text("Game Ended: " + reason, NamedTextColor.GOLD);
-        Bukkit.broadcast(c);
+        broadcastSignedMessage("Game Ended: " + reason, NamedTextColor.GOLD);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
             if (a instanceof Crewmate) {
@@ -79,8 +76,7 @@ public class Broadcasting {
     }
 
     public static void sendGameStart(String m) {
-        Component c = Component.text(m, NamedTextColor.GREEN);
-        Bukkit.broadcast(c);
+        broadcastSignedMessage(m, NamedTextColor.GREEN);
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
             if (a instanceof Crewmate) {
@@ -96,12 +92,23 @@ public class Broadcasting {
     }
 
     public static void sendManualGameEnding(String m) {
-        Component c = Component.text(m, NamedTextColor.GOLD);
-        Bukkit.broadcast(c);
+        broadcastSignedMessage(m, NamedTextColor.GOLD);
         
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
             p.sendTitle(ChatColor.GOLD + "Game Ended", ChatColor.GOLD + m, 10, 40, 10);
         }
+    }
+
+    public static void sendSignedMessageToPlayer(Player player, String message, NamedTextColor color) {
+        String output = "[AUP] " + message;
+        Component c = Component.text(output, color);
+        player.sendMessage(c);
+    }
+
+    public static void broadcastSignedMessage(String message, NamedTextColor color) {
+        String output = "[AUP] " + message;
+        Component c = Component.text(output, color);
+        Bukkit.broadcast(c);
     }
 }

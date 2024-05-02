@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
 import net.kyori.adventure.text.Component;
 
@@ -24,6 +25,10 @@ public class CommandImpostors implements CommandExecutor {
                 Game.numImpostors = Integer.parseInt(args[0]);
                 Component c = Component.text("Set number of impostors to: " + Game.numImpostors);
                 player.sendMessage(c);
+                return true;
+            }
+            else {
+                Broadcasting.sendError(player, "Please enter a number from 1 to 5.");
                 return true;
             }
         }

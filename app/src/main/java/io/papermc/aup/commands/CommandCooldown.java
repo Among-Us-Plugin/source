@@ -31,7 +31,7 @@ public class CommandCooldown implements CommandExecutor {
             switch (args[0].toLowerCase()) {
                 case "meeting":
                     query = "Meeting";
-                    response = Game.meetingCooldownInSeconds;
+                    response = Game.meetingCooldownInSeconds - Game.meetingDurationInSeconds;
                     break;
                 case "vent":
                     query = "Vent";
@@ -50,14 +50,69 @@ public class CommandCooldown implements CommandExecutor {
 
             String message = query + " cooldown is currently set to " + response + " seconds.";
             Broadcasting.sendSignedMessageToPlayer(player, message, NamedTextColor.AQUA);
+            return true;
+
+        } else if (args.length == 2) {
+
+            String entry = null;
+            int input = 0;
+
+            switch (args[0].toLowerCase()) {
+                case "meeting":
+                    entry = "meeting";
+                    try {
+                        input = Integer.parseInt(args[1]);
+                    } catch (NumberFormatException e) {
+                        Broadcasting.sendError(player, "Please enter a duration between 3 and 120 seconds.");
+                        return true;
+                    }
+                    if (input < 3 || input > 120) {
+                        Broadcasting.sendError(player, "Please enter a duration between 3 and 120 seconds.");
+                        return true;
+                    }
+                    Game.meetingCooldownInSeconds = Game.meetingDurationInSeconds + input;
+                    break;
+                case "vent":
+                    entry = "vent";
+                    try {
+                        input = Integer.parseInt(args[1]);
+                    } catch (NumberFormatException e) {
+                        Broadcasting.sendError(player, "Please enter a duration between 3 and 120 seconds.");
+                        return true;
+                    }
+                    if (input < 3 || input > 120) {
+                        Broadcasting.sendError(player, "Please enter a duration between 3 and 120 seconds.");
+                        return true;
+                    }
+                    Game.ventCooldownInSeconds = input;
+                    break;
+                case "kill":
+                    entry = "kill";
+                    try {
+                        input = Integer.parseInt(args[1]);
+                    } catch (NumberFormatException e) {
+                        Broadcasting.sendError(player, "Please enter a duration between 3 and 120 seconds.");
+                        return true;
+                    }
+                    if (input < 3 || input > 120) {
+                        Broadcasting.sendError(player, "Please enter a duration between 3 and 120 seconds.");
+                        return true;
+                    }
+                    Game.killCooldownInSeconds = input;
+                    break;
+            }
+
+            if (entry == null) {
+                Broadcasting.sendError(player, "Invalid query.");
+                return true;
+            }
+
+            String message = "Set " + entry + " cooldown to " + input + " seconds. ";
+            Broadcasting.sendSignedMessageToPlayer(player, message, NamedTextColor.AQUA);
 
             return true;
-        } else if (args.length == 2) {
-            return true;
         }
-        
-        
-        return true;
+        return false;
     }
     
 }

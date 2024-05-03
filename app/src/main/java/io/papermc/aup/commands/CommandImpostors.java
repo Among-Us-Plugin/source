@@ -24,7 +24,13 @@ public class CommandImpostors implements CommandExecutor {
                 Broadcasting.sendError(player, "Cannot configure number of impostors during a game!");
                 return true;
             }
-            int input = Integer.parseInt(args[0]);
+            int input = 0;
+            try {
+                input = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                Broadcasting.sendError(player, "Please enter a number from 1 to 5.");
+                return true;
+            }
             if (input >= 1 && input <= 5) {
                 if (Game.numImpostors == input) {
                     Broadcasting.sendError(player, "Number of impostors is already set to " + Game.numImpostors + ".");

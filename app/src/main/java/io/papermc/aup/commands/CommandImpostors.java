@@ -20,8 +20,13 @@ public class CommandImpostors implements CommandExecutor {
             Broadcasting.sendSignedMessageToPlayer(player, "Number of impostors per game: " + Game.numImpostors, NamedTextColor.AQUA);
             return true;
         } else if (args.length == 1) {
-            if (Integer.parseInt(args[0]) >= 1 && Integer.parseInt(args[0]) <= 5) {
-                Game.numImpostors = Integer.parseInt(args[0]);
+            int input = Integer.parseInt(args[0]);
+            if (input >= 1 && input <= 5) {
+                if (Game.numImpostors == input) {
+                    Broadcasting.sendError(player, "Number of impostors is already set to " + Game.numImpostors + ".");
+                    return true;
+                }
+                Game.numImpostors = input;
                 Broadcasting.sendSignedMessageToPlayer(player, "Set number of impostors to: " + Game.numImpostors, NamedTextColor.AQUA);
                 return true;
             }

@@ -24,21 +24,27 @@ public class ImpostorKillHandler implements Listener {
     @EventHandler
     public void onPunch(EntityDamageByEntityEvent event) {
 
-        Entity damager = event.getDamager();
-        Entity victim = event.getEntity();
-        Player impostorPlayer = (Player) damager;
+        Entity damagerEntity = event.getDamager();
+        Entity victimEntity = event.getEntity();
+        Player impostorPlayer = (Player) damagerEntity;
 
         if (!Game.gameRunning) { return; }
-        if (!(damager instanceof Player)) { return; }
+        if (!(damagerEntity instanceof Player)) { return; }
             
-        AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(damager.getName());
-        if (isImpostor(damager, a)) {
+        AmongUsPlayer damager = AmongUsPlayer.getAmongUsPlayerByDisplayName(damagerEntity.getName());
+        AmongUsPlayer victim = AmongUsPlayer.getAmongUsPlayerByDisplayName(victimEntity.getName());
+
+        if (isImpostor(damagerEntity, damager)) {
             event.setCancelled(true);
+            if (victim instanceof Impostor) {
+                Broadcasting.sendError(impostorPlayer, "You cannot kill other impostors!");
+                return;
+            }
             if ( killCooldownIsActive() ) {
                 Broadcasting.sendError(impostorPlayer, "Kill Cooldown: " + killCooldownCounter + " seconds left");
                 return;
             }
-            killVictim(victim);
+            killVictim(victimEntity);
             startKillCooldown(impostorPlayer);
         }
     }

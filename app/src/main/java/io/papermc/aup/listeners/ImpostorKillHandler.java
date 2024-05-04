@@ -30,6 +30,7 @@ public class ImpostorKillHandler implements Listener {
 
         if (!Game.gameRunning) { return; }
         if (!(damagerEntity instanceof Player)) { return; }
+        if (!(victimEntity instanceof Player)) { return; }
             
         AmongUsPlayer damager = AmongUsPlayer.getAmongUsPlayerByDisplayName(damagerEntity.getName());
         AmongUsPlayer victim = AmongUsPlayer.getAmongUsPlayerByDisplayName(victimEntity.getName());

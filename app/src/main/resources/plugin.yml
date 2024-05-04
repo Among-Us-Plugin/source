@@ -16,3 +16,6 @@ commands:
   impostors:
     description: Set number of impostors per game
     usage: /impostors <amount>
+  cooldown:
+    description: Configure cooldown durations for game attributes
+    usage: /cooldown <attribute> <seconds>

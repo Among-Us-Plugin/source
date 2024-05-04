@@ -33,11 +33,11 @@ public class ImpostorKillHandler implements Listener {
             
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(damager.getName());
         if (isImpostor(damager, a)) {
+            event.setCancelled(true);
             if ( killCooldownIsActive() ) {
                 Broadcasting.sendError(impostorPlayer, "Kill Cooldown: " + killCooldownCounter + " seconds left");
                 return;
             }
-            event.setCancelled(true);
             killVictim(victim);
             startKillCooldown(impostorPlayer);
         }

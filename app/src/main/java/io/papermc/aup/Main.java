@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.papermc.aup.commands.*;
+import io.papermc.aup.commands.completers.*;
 import io.papermc.aup.listeners.*;
 
 public class Main extends JavaPlugin implements Listener {
@@ -35,6 +36,9 @@ public class Main extends JavaPlugin implements Listener {
         this.getCommand("endgame").setExecutor(new CommandEndGame());
         this.getCommand("impostors").setExecutor(new CommandImpostors());
         this.getCommand("cooldown").setExecutor(new CommandCooldown());
+
+        // Plugin completers
+        this.getCommand("cooldown").setTabCompleter(new CooldownCompleter());
     }
 
     @EventHandler

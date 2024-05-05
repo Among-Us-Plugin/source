@@ -27,11 +27,11 @@ public class CommandStartGame implements CommandExecutor {
         
        int onlinePlayers = Bukkit.getOnlinePlayers().size();
        int requiredPlayers = Game.numImpostors + 1;
-       if (onlinePlayers < requiredPlayers) {
-           String m = "Not enough players! Currently " + onlinePlayers + " online when " + requiredPlayers + " required!";
-           Broadcasting.sendError((Player) sender, m);
-           return true;
-       }
+//       if (onlinePlayers < requiredPlayers) {
+//           String m = "Not enough players! Currently " + onlinePlayers + " online when " + requiredPlayers + " required!";
+//           Broadcasting.sendError((Player) sender, m);
+//           return true;
+//       }
         
         Player[] playersArray = getOnlinePlayersArray();
         AmongUsPlayer[] amongUsPlayers = new AmongUsPlayer[playersArray.length];

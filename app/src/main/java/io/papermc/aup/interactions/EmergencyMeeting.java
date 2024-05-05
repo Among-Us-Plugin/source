@@ -48,6 +48,7 @@ public class EmergencyMeeting {
             return;
         }
         Game.emergencyMeetingInProgress = true;
+        Broadcasting.broadcastSignedMessage( player.getName() + " has initiated an emergency meeting!", NamedTextColor.LIGHT_PURPLE);
         startMeetingCooldown();
         relocatePlayers(centreBlock);
         Inventory votingMenu = getVotingMenu();

@@ -39,6 +39,7 @@ public class EmergencyMeeting {
     private static int inventorySize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
     private static double playersRadius = 5;
     private static int meetingDurationCounter = Game.meetingDurationInSeconds;
+    private static int discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
 
     private static int meetingCooldownCounter = 0;
 
@@ -51,13 +52,31 @@ public class EmergencyMeeting {
         Broadcasting.broadcastSignedMessage( player.getName() + " has initiated an emergency meeting!", NamedTextColor.LIGHT_PURPLE);
         startMeetingCooldown();
         relocatePlayers(centreBlock);
-        Inventory votingMenu = getVotingMenu();
-        populateVotingMenu(votingMenu);
-        openVotingMenus(votingMenu);
-        startMeetingTimer();
         Game.initializeMeetingBossBar();
         addPlayersToMeetingBossBars();
         Broadcasting.sendSoundToAllPlayers(Game.meetingStartSound);
+        startMeetingTimer();
+        runMeeting();
+    }
+
+    private static void runMeeting() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                discussionPeriodDurationCounter--;
+                if (discussionPeriodDurationCounter <= 0) {
+                    discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
+                    startVoting();
+                    this.cancel();
+                }
+            }
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
+    }
+
+    private static void startVoting() {
+        Inventory votingMenu = getVotingMenu();
+        populateVotingMenu(votingMenu);
+        openVotingMenus(votingMenu);
     }
 
     private static boolean meetingCooldownIsActive() {

@@ -20,6 +20,7 @@ public class Game {
 
     public static boolean gameRunning = false;
     public static boolean emergencyMeetingInProgress = false;
+    public static int discussionPeriodDurationInSeconds = 5;
     public static int meetingDurationInSeconds = 10;
     public static int meetingCooldownInSeconds = meetingDurationInSeconds + 10;
     public static int ventCooldownInSeconds = 15;

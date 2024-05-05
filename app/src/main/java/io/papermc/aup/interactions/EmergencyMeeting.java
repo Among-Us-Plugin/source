@@ -48,6 +48,7 @@ public class EmergencyMeeting {
             return;
         }
         Game.emergencyMeetingInProgress = true;
+        Broadcasting.broadcastSignedMessage( player.getName() + " has initiated an emergency meeting!", NamedTextColor.LIGHT_PURPLE);
         startMeetingCooldown();
         relocatePlayers(centreBlock);
         Inventory votingMenu = getVotingMenu();
@@ -149,6 +150,9 @@ public class EmergencyMeeting {
     }
 
     private static void registerVote(AmongUsPlayer voter, AmongUsPlayer recipient) {
+        Player voterAsPlayer = AmongUsPlayer.getPlayerByAmongUsPlayer(voter);
+        Broadcasting.sendSignedMessageToPlayer(voterAsPlayer, "You have voted for " + recipient.getDisplayName(), NamedTextColor.GOLD);
+
         Vote v = new Vote(voter, recipient);
         votes.add(v);
     }

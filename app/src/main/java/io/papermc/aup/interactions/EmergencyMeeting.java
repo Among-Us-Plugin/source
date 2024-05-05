@@ -151,7 +151,8 @@ public class EmergencyMeeting {
 
     private static void registerVote(AmongUsPlayer voter, AmongUsPlayer recipient) {
         Player voterAsPlayer = AmongUsPlayer.getPlayerByAmongUsPlayer(voter);
-        Broadcasting.sendSignedMessageToPlayer(voterAsPlayer, "You have voted for " + recipient.getDisplayName(), NamedTextColor.GOLD);
+        Broadcasting.sendSignedMessageToPlayer(voterAsPlayer, "You have voted for " + recipient.getDisplayName() + ".", NamedTextColor.GOLD);
+        Broadcasting.broadcastSignedMessage(voterAsPlayer.getName() + " has voted.", NamedTextColor.GOLD);
 
         Vote v = new Vote(voter, recipient);
         votes.add(v);

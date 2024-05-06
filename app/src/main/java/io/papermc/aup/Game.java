@@ -91,7 +91,7 @@ public class Game {
     public static void killPlayer(Entity entity) {
         if (entity instanceof Player) {
             Player p = (Player) entity;
-            p.damage(p.getHealth());
+            // p.damage(p.getHealth());
             if (!gameRunning) { return; }
             p.setGameMode(GameMode.SPECTATOR);
         }

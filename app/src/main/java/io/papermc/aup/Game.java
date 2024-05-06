@@ -74,26 +74,11 @@ public class Game {
         meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
     }
 
-    public static void killAmongUsPlayer(AmongUsPlayer a) {
-        for (int i = 0; i < amongUsPlayers.length; i++) {
-            if (amongUsPlayers[i] == a) {
-                amongUsPlayers[i].kill();
-            }
-        }
-        return;
-    }
-
-    public static void killAmongUsPlayer(String displayName) {
-        killAmongUsPlayer(AmongUsPlayer.getAmongUsPlayerByDisplayName(displayName));
-        return;
-    }
-
     public static void killPlayer(Entity entity) {
         if (entity instanceof Player) {
             if (!gameRunning) { return; }
             Player p = (Player) entity;
             killPlayer(p);
-            checkAmongUsPlayers();
         }
     }
 
@@ -102,6 +87,7 @@ public class Game {
         player.setGameMode(GameMode.SPECTATOR);
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         a.kill();
+        checkAmongUsPlayers();
     }
 
     public static void endGame() {
@@ -157,7 +143,7 @@ public class Game {
     }
 
     // Check whether any crewmates are left, end game if appropriate
-    private static void checkCrewmates() {
+    public static void checkCrewmates() {
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (a instanceof Crewmate && a.isALive()) {
                 return;
@@ -168,7 +154,7 @@ public class Game {
     }
 
     // Check whether any impostors are left, end game if appropriate
-    private static void checkImpostors() {
+    public static void checkImpostors() {
         for (AmongUsPlayer a : Game.amongUsPlayers) {
             if (a instanceof Impostor && a.isALive()) {
                 return;

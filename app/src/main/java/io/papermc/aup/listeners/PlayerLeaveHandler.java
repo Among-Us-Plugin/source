@@ -6,7 +6,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.papermc.aup.Game;
 
-@SuppressWarnings("deprecation")
 public class PlayerLeaveHandler implements Listener {
     
     // Handle players leaving the server
@@ -17,8 +16,6 @@ public class PlayerLeaveHandler implements Listener {
             return;
         }
 
-        String name = event.getPlayer().getDisplayName();
-        Game.killAmongUsPlayer(name);
-        Game.checkAmongUsPlayers();
+        Game.killPlayer(event.getPlayer());
     }
 }

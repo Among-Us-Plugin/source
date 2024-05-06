@@ -90,10 +90,11 @@ public class Game {
 
     public static void killPlayer(Entity entity) {
         if (entity instanceof Player) {
-            Player p = (Player) entity;
-            // p.damage(p.getHealth());
             if (!gameRunning) { return; }
+            Player p = (Player) entity;
             p.setGameMode(GameMode.SPECTATOR);
+            AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(p.getDisplayName());
+            a.kill();
         }
     }
 

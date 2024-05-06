@@ -12,9 +12,11 @@ public class CooldownCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> completions = new ArrayList<>();
-        completions.add("meeting");
-        completions.add("vent");
-        completions.add("kill");
+        if (args.length == 1) {
+            completions.add("meeting");
+            completions.add("vent");
+            completions.add("kill");
+        }
         return completions;
     }
         

@@ -259,7 +259,6 @@ public class EmergencyMeeting {
             
             i++;
 
-            player.setGameMode(GameMode.SURVIVAL);
             if ( amongUsPlayer instanceof Impostor ) {
                 Impostor impostor = (Impostor) amongUsPlayer;
                 impostor.stopVenting();

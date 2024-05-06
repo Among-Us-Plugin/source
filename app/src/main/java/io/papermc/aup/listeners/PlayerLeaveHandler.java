@@ -12,10 +12,7 @@ public class PlayerLeaveHandler implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         // If game is not running -> ignore
-        if (Game.gameRunning == false) {
-            return;
-        }
-
+        if (!Game.gameRunning) { return; }
         Game.killPlayer(event.getPlayer());
     }
 }

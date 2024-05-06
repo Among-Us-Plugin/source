@@ -16,22 +16,12 @@ public class AttackHandler implements Listener {
     @EventHandler
     public void onPunch(EntityDamageByEntityEvent event) {
 
-        Entity damager = event.getDamager();
-
-        if (!(damager instanceof Player)) { return; }
         if (!Game.gameRunning) { return; }
-            
-        cancelEventIfCrewmate(event, damager);
-    }
-
-    private void cancelEventIfCrewmate(EntityDamageByEntityEvent event, Entity damager) {
+        Entity damager = event.getDamager();
+        if (!(damager instanceof Player)) { return; }
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(damager.getName());
-        if (isCrewmate(damager, a)) {
+        if (a instanceof Crewmate) {
             event.setCancelled(true);
         }
-    }
-
-    private boolean isCrewmate(Entity damager, AmongUsPlayer a) {
-        return a instanceof Crewmate && a.getDisplayName().equals(damager.getName());
     }
 }

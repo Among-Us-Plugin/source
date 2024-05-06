@@ -93,6 +93,7 @@ public class Game {
             if (!gameRunning) { return; }
             Player p = (Player) entity;
             killPlayer(p);
+            checkAmongUsPlayers();
         }
     }
 

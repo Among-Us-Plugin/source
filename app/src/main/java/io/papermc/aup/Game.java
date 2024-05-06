@@ -92,10 +92,15 @@ public class Game {
         if (entity instanceof Player) {
             if (!gameRunning) { return; }
             Player p = (Player) entity;
-            p.setGameMode(GameMode.SPECTATOR);
-            AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(p.getDisplayName());
-            a.kill();
+            killPlayer(p);
         }
+    }
+
+    public static void killPlayer(Player player) {
+        if (!gameRunning) { return; }
+        player.setGameMode(GameMode.SPECTATOR);
+        AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
+        a.kill();
     }
 
     public static void endGame() {

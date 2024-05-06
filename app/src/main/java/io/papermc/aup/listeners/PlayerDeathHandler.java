@@ -6,17 +6,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import io.papermc.aup.Game;
 
-@SuppressWarnings("deprecation")
 public class PlayerDeathHandler implements Listener {
 
     // Handle player deaths
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        // If game is not running -> ignore
         if (!Game.gameRunning) { return; }
-
-        String name = event.getPlayer().getDisplayName();
-        Game.killAmongUsPlayer(name);
-        Game.checkAmongUsPlayers();
+        Game.killPlayer(event.getPlayer());
     }
 }

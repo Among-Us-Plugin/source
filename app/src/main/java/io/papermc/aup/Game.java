@@ -3,6 +3,7 @@ package io.papermc.aup;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -85,9 +86,15 @@ public class Game {
     public static void killPlayer(Player player) {
         if (!gameRunning) { return; }
         player.setGameMode(GameMode.SPECTATOR);
+        spawnDeathParticleEffect(player);
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         a.kill();
         checkAmongUsPlayers();
+    }
+
+    private static void spawnDeathParticleEffect(Player player) {
+        Location loc = player.getLocation();
+        loc.getWorld().spawnParticle(org.bukkit.Particle.CRIT, loc, 10);
     }
 
     public static void endGame() {

@@ -5,10 +5,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.World;
-import org.bukkit.Particle.DustOptions;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Skull;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -77,6 +81,16 @@ public class Game {
 
     public static void initializeMeetingBossBar() {
         meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
+    }
+
+    public static void placeCorpse(Player player) {
+        Location location = player.getLocation();
+        Block block = location.getBlock();
+        block.setType(Material.PLAYER_HEAD);
+        Skull skull = (Skull) block.getState();
+        skull.setRotation(BlockFace.NORTH);
+        skull.setOwningPlayer(player);
+        skull.update();
     }
 
     public static void killPlayer(Entity entity) {

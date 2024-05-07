@@ -79,6 +79,7 @@ public class ImpostorKillHandler implements Listener {
     private void killVictim(Entity victim) {
         Broadcasting.sendDeathSound((Player) victim);
         Game.killPlayer(victim);
+        Game.placeCorpse((Player)victim);
     }
 
     private boolean isImpostor(Entity damager, AmongUsPlayer a) {

@@ -18,6 +18,8 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
@@ -90,19 +92,30 @@ public class Game {
         skull.setRotation(BlockFace.NORTH);
         skull.setOwningPlayer(player);
         skull.update();
+        runCorpseParticles(block);
+    }
+
+    public static void runCorpseParticles(Block block) {
+        Location location = block.getLocation();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                spawnCorpseParticleEffect(location);
+            }
+        }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 80L);
     }
 
     public static void killPlayer(Player player) {
         if (!gameRunning) { return; }
         player.setGameMode(GameMode.SPECTATOR);
-        spawnDeathParticleEffect(player);
+        Location loc = player.getLocation();
+        spawnCorpseParticleEffect(loc);
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         a.kill();
         checkAmongUsPlayers();
     }
 
-    private static void spawnDeathParticleEffect(Player player) {
-        Location loc = player.getLocation();
+    private static void spawnCorpseParticleEffect(Location loc) {
         World world = loc.getWorld();
         int count = 1000;
         double offsetX = 0;

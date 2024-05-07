@@ -106,6 +106,7 @@ public class Game {
             public void run() {
                 spawnCorpseParticleEffect(location);
                 if (block.getType() != Material.PLAYER_HEAD) { this.cancel(); }
+                if (!Game.gameRunning) { this.cancel(); }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 80L);
     }

@@ -1,5 +1,7 @@
 package io.papermc.aup;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -22,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import io.papermc.aup.classes.AmongUsPlayer;
+import io.papermc.aup.classes.Body;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
 
@@ -37,6 +40,7 @@ public class Game {
     public static int killCooldownInSeconds = 10;
 
     public static AmongUsPlayer[] amongUsPlayers;
+    public static ArrayList<Body> bodies = new ArrayList<Body>();
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
@@ -88,10 +92,18 @@ public class Game {
         block.setType(Material.AIR);
     }
 
+    public static void cleanUpAllCorpses() {
+        for (Body b : bodies) {
+            b.getBlock().setType(Material.AIR);
+        }
+        bodies.clear();
+    }
+
     public static void placeCorpse(Player player) {
         Location location = player.getLocation();
         Block block = location.getBlock();
         block.setType(Material.PLAYER_HEAD);
+        bodies.add(new Body(block));
         Skull skull = (Skull) block.getState();
         skull.setRotation(BlockFace.NORTH);
         skull.setOwningPlayer(player);

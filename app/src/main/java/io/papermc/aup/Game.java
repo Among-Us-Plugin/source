@@ -84,6 +84,10 @@ public class Game {
         meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
     }
 
+    public static void cleanUpCorpse(Block block) {
+        block.setType(Material.AIR);
+    }
+
     public static void placeCorpse(Player player) {
         Location location = player.getLocation();
         Block block = location.getBlock();
@@ -101,6 +105,7 @@ public class Game {
             @Override
             public void run() {
                 spawnCorpseParticleEffect(location);
+                if (block.getType() != Material.PLAYER_HEAD) { this.cancel(); }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 80L);
     }

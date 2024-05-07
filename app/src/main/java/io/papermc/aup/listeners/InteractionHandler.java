@@ -46,15 +46,20 @@ public class InteractionHandler implements Listener {
             }
             Colors.run(player);
         } if (matchingMaterial(block, EmergencyMeeting.blockMaterial)) {
-            if ( playerIsDead(event) ) { return; }
+            if ( playerIsDead(a) ) { return; }
             EmergencyMeeting.run(player, block);
         } if (matchingMaterial(block, Vent.blockMaterial)) {            
             if ( a instanceof Crewmate ) {
                 sendCrewmateVentError(player);
                 return;
             }
-            if ( playerIsDead(event) ) { return; }
+            if ( playerIsDead(a) ) { return; }
             Vent.run(player, block);
+        } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
+            if (a instanceof Impostor) { return; }
+            if ( playerIsDead(a) ) { return; }
+            Game.cleanUpCorpse(block);
+            EmergencyMeeting.run(player, block);
         }
     }
 
@@ -66,8 +71,8 @@ public class InteractionHandler implements Listener {
         Broadcasting.sendError(player, "You can't do tasks! You are an impostor!");
     }
 
-    private boolean playerIsDead(PlayerInteractEvent event) {
-        return !AmongUsPlayer.getAmongUsPlayerByDisplayName(event.getPlayer().getDisplayName()).isALive();
+    private boolean playerIsDead(AmongUsPlayer a) {
+        return !a.isALive();
     }
 
     private boolean matchingMaterial(Block block, Material material) {

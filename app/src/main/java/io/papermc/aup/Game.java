@@ -2,9 +2,13 @@ package io.papermc.aup;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -94,7 +98,13 @@ public class Game {
 
     private static void spawnDeathParticleEffect(Player player) {
         Location loc = player.getLocation();
-        loc.getWorld().spawnParticle(org.bukkit.Particle.CRIT, loc, 500);
+        World world = loc.getWorld();
+        int count = 1000;
+        double offsetX = 0;
+        double offsetY = 0.5;
+        double offsetZ = 0;
+        DustOptions dustOptions = new DustOptions(Color.RED, count);
+        world.spawnParticle(Particle.REDSTONE, loc, count, offsetX, offsetY, offsetZ, dustOptions);
     }
 
     public static void endGame() {

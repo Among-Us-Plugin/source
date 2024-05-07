@@ -20,6 +20,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -111,6 +112,10 @@ public class Game {
     public static void placeCorpse(Player player) {
         Location location = player.getLocation();
         Block block = location.getBlock();
+        if (!block.getType().equals(Material.AIR)) {
+            ItemStack droppedItemStack = new ItemStack(block.getType());
+            location.getWorld().dropItemNaturally(location, droppedItemStack);
+        }
         block.setType(Material.PLAYER_HEAD);
         bodies.add(new Body(block));
         Skull skull = (Skull) block.getState();

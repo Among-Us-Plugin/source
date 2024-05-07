@@ -58,6 +58,7 @@ public class InteractionHandler implements Listener {
         } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
             if (a instanceof Impostor) { return; }
             if ( playerIsDead(a) ) { return; }
+            if (!Game.checkIfBody(block)) { return; }
             Game.cleanUpCorpse(block);
             EmergencyMeeting.run(player, block);
         }

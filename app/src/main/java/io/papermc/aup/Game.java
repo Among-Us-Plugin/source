@@ -88,6 +88,15 @@ public class Game {
         meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
     }
 
+    public static boolean checkIfBody(Block block) {
+        for (Body b : bodies) {
+            if (block.equals(b.getBlock())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void cleanUpCorpse(Block block) {
         block.setType(Material.AIR);
     }

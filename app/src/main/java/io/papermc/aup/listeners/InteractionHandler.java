@@ -47,7 +47,7 @@ public class InteractionHandler implements Listener {
             Colors.run(player);
         } if (matchingMaterial(block, EmergencyMeeting.blockMaterial)) {
             if ( playerIsDead(a) ) { return; }
-            EmergencyMeeting.run(player, block);
+            EmergencyMeeting.run(player, block, false);
         } if (matchingMaterial(block, Vent.blockMaterial)) {            
             if ( a instanceof Crewmate ) {
                 sendCrewmateVentError(player);
@@ -69,7 +69,7 @@ public class InteractionHandler implements Listener {
                 return;
             }
             Game.cleanUpCorpse(block);
-            EmergencyMeeting.run(player, block);
+            EmergencyMeeting.run(player, block, true);
         }
     }
 

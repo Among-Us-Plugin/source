@@ -42,14 +42,18 @@ public class EmergencyMeeting {
 
     private static int meetingCooldownCounter = 0;
 
-    public static void run(Player player, Block centreBlock) {
-        if ( meetingCooldownIsActive() ) {
+    public static void run(Player player, Block centreBlock, boolean isBodyReport) {
+        if ( !isBodyReport && meetingCooldownIsActive() ) {
             Broadcasting.sendError(player, "Meeting Cooldown: " + meetingCooldownCounter + " seconds left");
             return;
         }
         Game.emergencyMeetingInProgress = true;
-        Broadcasting.broadcastSignedMessage( player.getName() + " has initiated an emergency meeting!", NamedTextColor.LIGHT_PURPLE);
-        startMeetingCooldown();
+        if (!isBodyReport) {
+            Broadcasting.broadcastSignedMessage( player.getName() + " has initiated an emergency meeting!", NamedTextColor.LIGHT_PURPLE);
+            startMeetingCooldown();
+        } else {
+            Broadcasting.broadcastSignedMessage( player.getName() + " has found a dead body!", NamedTextColor.LIGHT_PURPLE);
+        }
         relocatePlayers(centreBlock);
         Game.initializeMeetingBossBar();
         addPlayersToMeetingBossBars();

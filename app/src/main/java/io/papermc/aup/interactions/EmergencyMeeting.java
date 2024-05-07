@@ -24,7 +24,6 @@ import io.papermc.aup.Main;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Impostor;
 import io.papermc.aup.classes.Vote;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 @SuppressWarnings("deprecation")
@@ -190,14 +189,11 @@ public class EmergencyMeeting {
 
         AmongUsPlayer mostVoted = getMostVotedAmongUsPlayer();
         if (mostVoted == null) {
-            Component e = Component.text("No one was ejected.", NamedTextColor.LIGHT_PURPLE);
-            Bukkit.broadcast(e);
+            Broadcasting.broadcastSignedMessage("No one was ejected.", NamedTextColor.LIGHT_PURPLE);
             votes.clear();
             return;
         }
-
-        Component e = Component.text(mostVoted.getDisplayName() + " was ejected.", NamedTextColor.LIGHT_PURPLE);
-        Bukkit.broadcast(e);
+        Broadcasting.broadcastSignedMessage(mostVoted.getDisplayName() + " was ejected.", NamedTextColor.LIGHT_PURPLE);
         votes.clear();
 
         Player playerToBeEjected = Bukkit.getPlayer(mostVoted.getDisplayName());

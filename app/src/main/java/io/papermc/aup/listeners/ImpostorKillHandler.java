@@ -45,7 +45,7 @@ public class ImpostorKillHandler implements Listener {
                 Broadcasting.sendError(impostorPlayer, "Kill Cooldown: " + killCooldownCounter + " seconds left");
                 return;
             }
-            killVictim(victimEntity);
+            killVictimEntity(victimEntity);
             startKillCooldown(impostorPlayer);
         }
     }
@@ -76,10 +76,11 @@ public class ImpostorKillHandler implements Listener {
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
 
-    private void killVictim(Entity victim) {
-        Broadcasting.sendDeathSound((Player) victim);
-        Game.killPlayer(victim);
-        Game.placeCorpse((Player)victim);
+    private void killVictimEntity(Entity victimEntity) {
+        Player victimPlayer = (Player) victimEntity;
+        Broadcasting.sendDeathSound(victimPlayer);
+        Game.killPlayer(victimPlayer);
+        Game.placeCorpse(victimPlayer);
     }
 
     private boolean isImpostor(Entity damager, AmongUsPlayer a) {

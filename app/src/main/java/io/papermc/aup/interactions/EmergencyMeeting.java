@@ -196,9 +196,9 @@ public class EmergencyMeeting {
         Bukkit.broadcast(e);
         votes.clear();
 
-        Player p = Bukkit.getPlayer(mostVoted.getDisplayName());
-        Broadcasting.sendDeathSound(p);
-        Game.killPlayer(p);
+        Player playerToBeEjected = Bukkit.getPlayer(mostVoted.getDisplayName());
+        Broadcasting.sendDeathSound(playerToBeEjected);
+        Game.killPlayer(playerToBeEjected);
     }
 
     private static AmongUsPlayer getMostVotedAmongUsPlayer() {

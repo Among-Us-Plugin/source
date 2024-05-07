@@ -16,7 +16,6 @@ import org.bukkit.block.Skull;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
@@ -91,14 +90,6 @@ public class Game {
         skull.setRotation(BlockFace.NORTH);
         skull.setOwningPlayer(player);
         skull.update();
-    }
-
-    public static void killPlayer(Entity entity) {
-        if (entity instanceof Player) {
-            if (!gameRunning) { return; }
-            Player p = (Player) entity;
-            killPlayer(p);
-        }
     }
 
     public static void killPlayer(Player player) {

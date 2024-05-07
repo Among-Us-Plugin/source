@@ -56,12 +56,33 @@ public class InteractionHandler implements Listener {
             if ( playerIsDead(a) ) { return; }
             Vent.run(player, block);
         } if (matchingMaterial(block, Material.PLAYER_HEAD)) {
-            if (a instanceof Impostor) { return; }
-            if ( playerIsDead(a) ) { return; }
-            if (!Game.checkIfBody(block)) { return; }
+            if (!Game.checkIfBody(block)) {
+                sendBenignReportError(player);
+                return;
+            }
+            if ( playerIsDead(a) ) {
+                sendGhostReportError(player);
+                return;
+            }
+            if (a instanceof Impostor) {
+                sendImpostorReportError(player);
+                return;
+            }
             Game.cleanUpCorpse(block);
             EmergencyMeeting.run(player, block);
         }
+    }
+
+    private void sendBenignReportError(Player player) {
+        Broadcasting.sendError(player, "I'm not a dead body! I'm just a player head!");
+    }
+
+    private void sendGhostReportError(Player player) {
+        Broadcasting.sendError(player, "You can't report bodies! You are a ghost!");
+    }
+    
+    private void sendImpostorReportError(Player player) {
+        Broadcasting.sendError(player, "You can't report bodies! You are an impostor!");
     }
 
     private void sendCrewmateVentError(Player player) {

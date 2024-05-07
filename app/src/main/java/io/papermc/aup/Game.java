@@ -94,7 +94,7 @@ public class Game {
 
     private static void spawnDeathParticleEffect(Player player) {
         Location loc = player.getLocation();
-        loc.getWorld().spawnParticle(org.bukkit.Particle.CRIT, loc, 10);
+        loc.getWorld().spawnParticle(org.bukkit.Particle.CRIT, loc, 500);
     }
 
     public static void endGame() {

@@ -76,7 +76,7 @@ public class Vent {
     private static void exitVent(AmongUsPlayer a) {
         Player p = AmongUsPlayer.getPlayerByAmongUsPlayer(a);
         p.setGameMode(GameMode.SURVIVAL);
-        spawnVentEffect(p.getLocation());
+        spawnVentParticleEffect(p.getLocation());
         Location loc = p.getLocation();
         loc.setY(loc.getY() + 1);
         p.teleport(loc);
@@ -84,13 +84,13 @@ public class Vent {
 
     private static void enterVent(Player player, Block block) {
         Location location = player.getLocation();
-        spawnVentEffect(location);
+        spawnVentParticleEffect(location);
         player.setGameMode(GameMode.SPECTATOR);
         player.teleport(block.getLocation());
     }
 
-    private static void spawnVentEffect(Location location) {
-        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 1);
+    private static void spawnVentParticleEffect(Location location) {
+        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 20);
     }
 
 }

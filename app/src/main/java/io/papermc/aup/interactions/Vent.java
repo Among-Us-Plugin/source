@@ -29,6 +29,7 @@ public class Vent {
             Broadcasting.sendError(player, "Vent Cooldown: " + i.getVentCooldown() + " seconds left");
             return;
         }
+        i.setVentBlock(block);
         enterVent(player, block);
         i.startVenting();
         startVentCooldown(player, i);
@@ -38,11 +39,16 @@ public class Vent {
         return (i.getVentCooldown() > 0);
     }
 
-    public static boolean handleMove(Player p) {
-        if (Game.vents.size() == 0) { return false; }
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(Game.vents.size());
-        p.teleport(Game.vents.get(randomIndex).getLocation());
+    public static boolean handleMove(Player p, Impostor i) {
+        if (Game.vents.size() <= 1) { return false; }
+        Block vent;
+        do {
+            Random rand = new Random();
+            int randomIndex = rand.nextInt(Game.vents.size());
+            vent = Game.vents.get(randomIndex);
+        } while ( i.getVentBlock().getLocation().equals(vent.getLocation()) );
+        p.teleport(vent.getLocation());
+        i.setVentBlock(vent);
         return true;
     }
 

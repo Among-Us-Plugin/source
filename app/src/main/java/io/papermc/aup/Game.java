@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -87,6 +88,27 @@ public class Game {
 
     public static void initializeMeetingBossBar() {
         meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
+    }
+
+    public static ArrayList<Block> findBlocksByMaterial(Material material, World world) {
+        ArrayList<Block> blocks = new ArrayList<>();
+        ArrayList<Chunk> loadedChunks = new ArrayList<Chunk>();
+        for (Chunk chunk : world.getLoadedChunks()) {
+            loadedChunks.add(chunk);
+        }
+        for (Chunk chunk : loadedChunks) {
+            for (int x = 0; x < 16; x++) {
+                for (int y = 10; y < 100; y++) {
+                    for (int z = 0; z < 16; z++) {
+                        Block block = chunk.getBlock(x, y, z);
+                        if (block.getType() == material) {
+                            blocks.add(block);
+                        }
+                    }
+                }
+            }
+        }
+        return blocks;
     }
 
     public static boolean checkIfBody(Block block) {

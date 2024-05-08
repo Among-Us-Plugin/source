@@ -30,7 +30,6 @@ public class MovementHandler implements Listener {
         
         if (playerIsMovingHorizontally(event)) {
             Vent.handleMove(p);
-            event.setCancelled(true);
         } else if (playerIsMovingVertially(event)) {
             event.setCancelled(true);
         }

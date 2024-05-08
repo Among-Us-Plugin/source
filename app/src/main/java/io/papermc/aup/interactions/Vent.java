@@ -1,5 +1,7 @@
 package io.papermc.aup.interactions;
 
+import java.util.ArrayList;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -8,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.joml.Random;
 
 import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
@@ -38,7 +41,11 @@ public class Vent {
     }
 
     public static void handleMove(Player p) {
-
+        ArrayList<Block> vents = Game.findBlocksByMaterial(Vent.blockMaterial, p.getWorld());
+        if (vents.size() == 0) { return; }
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(vents.size());
+        p.teleport(vents.get(randomIndex).getLocation());
     }
 
     public static void handleSneak(Player player) {

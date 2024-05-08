@@ -1,5 +1,6 @@
 package io.papermc.aup.classes;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class Impostor extends AmongUsPlayer {
@@ -7,12 +8,21 @@ public class Impostor extends AmongUsPlayer {
     private boolean isVenting;
     private int ventCooldown;
     private int killCooldown;
+    private Block vent;
     
     public Impostor(Player player) {
         super(player);
         isVenting = false;
         ventCooldown = 0;
         killCooldown = 0;
+    }
+
+    public void setVentBlock(Block block) {
+        vent = block;
+    }
+
+    public Block getVentBlock() {
+        return vent;
     }
 
     public void setVentCooldown(int v) {

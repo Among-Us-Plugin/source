@@ -63,8 +63,6 @@ public class Game {
     public static BossBar meetingBossBar;
 
     public static BossBar meetingCooldownBossBar;
-    // public static BossBar ventCooldownBossBar;
-    // public static BossBar killCooldownBossBar;
 
     private static int taskBossBarIncrementPercentage = 20;
 
@@ -169,7 +167,7 @@ public class Game {
 
     private static void spawnCorpseParticleEffect(Location loc) {
         World world = loc.getWorld();
-        int count = 1000;
+        int count = 100;
         double offsetX = 0;
         double offsetY = 0.5;
         double offsetZ = 0;

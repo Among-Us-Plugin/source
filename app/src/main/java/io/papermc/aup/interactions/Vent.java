@@ -37,14 +37,17 @@ public class Vent {
         return (i.getVentCooldown() > 0);
     }
 
-    public static void handleSneak() {
-        for ( AmongUsPlayer a : Game.amongUsPlayers ) {
-            if ( a instanceof Impostor ) {
-                Impostor impostor = (Impostor)a;
-                if ( impostor.isVenting() ) {
-                    exitVent(a);
-                    impostor.stopVenting();
-                }
+    public static void handleMove(Player p) {
+
+    }
+
+    public static void handleSneak(Player player) {
+        AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
+        if ( a instanceof Impostor ) {
+            Impostor impostor = (Impostor)a;
+            if ( impostor.isVenting() ) {
+                exitVent(a);
+                impostor.stopVenting();
             }
         }
     }

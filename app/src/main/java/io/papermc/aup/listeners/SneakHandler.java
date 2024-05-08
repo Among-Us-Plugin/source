@@ -13,7 +13,7 @@ public class SneakHandler implements Listener {
     public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
         if (!Game.gameRunning) { return; }
         if (event.isSneaking()) {
-            Vent.handleSneak();
+            Vent.handleSneak(event.getPlayer());
         }
     }
 

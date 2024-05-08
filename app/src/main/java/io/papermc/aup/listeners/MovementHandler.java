@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Impostor;
+import io.papermc.aup.interactions.Vent;
 
 @SuppressWarnings("deprecation")
 public class MovementHandler implements Listener {
@@ -28,6 +29,7 @@ public class MovementHandler implements Listener {
         if ( !impostor.isVenting()) { return; }
         
         if (playerIsMovingHorizontally(event)) {
+            Vent.handleMove(p);
             event.setCancelled(true);
         } else if (playerIsMovingVertially(event)) {
             event.setCancelled(true);

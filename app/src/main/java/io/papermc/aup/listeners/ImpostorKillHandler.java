@@ -55,20 +55,20 @@ public class ImpostorKillHandler implements Listener {
 
     private static void startKillCooldown(Player player, Impostor i) {
         i.setKillCooldown(Game.killCooldownInSeconds);
-        Game.initializeKillCooldownBossBar();
-        Game.killCooldownBossBar.addPlayer(player);
+        i.initializeKillCooldownBossBar();
+        i.killCooldownBossBar.addPlayer(player);
         new BukkitRunnable() {
             @Override
             public void run() {
                 i.setKillCooldown(i.getKillCooldown() - 1);
-                Game.killCooldownBossBar.setTitle(ChatColor.RED + "Kill Cooldown: " + i.getKillCooldown());
-                Game.killCooldownBossBar.setProgress((float)i.getKillCooldown() / Game.killCooldownInSeconds);
+                i.killCooldownBossBar.setTitle(ChatColor.RED + "Kill Cooldown: " + i.getKillCooldown());
+                i.killCooldownBossBar.setProgress((float)i.getKillCooldown() / Game.killCooldownInSeconds);
                 if (i.getKillCooldown() <= 0) {
-                    Game.killCooldownBossBar.removeAll();
+                    i.killCooldownBossBar.removeAll();
                     this.cancel();
                 } if ( !Game.gameRunning ) {
                     i.setKillCooldown(0);
-                    Game.killCooldownBossBar.removeAll();
+                    i.killCooldownBossBar.removeAll();
                     this.cancel();
                 }
             }

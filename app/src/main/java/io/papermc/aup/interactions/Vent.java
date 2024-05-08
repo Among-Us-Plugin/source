@@ -65,20 +65,20 @@ public class Vent {
 
     private static void startVentCooldown(Player player, Impostor i) {
         i.setVentCooldown(Game.ventCooldownInSeconds);
-        Game.initializeVentCooldownBossBar();
-        Game.ventCooldownBossBar.addPlayer(player);
+        i.initializeVentCooldownBossBar();
+        i.ventCooldownBossBar.addPlayer(player);
         new BukkitRunnable() {
             @Override
             public void run() {
                 i.setVentCooldown(i.getVentCooldown() - 1);
-                Game.ventCooldownBossBar.setTitle(ChatColor.LIGHT_PURPLE + "Vent Cooldown: " + i.getVentCooldown());
-                Game.ventCooldownBossBar.setProgress((float)i.getVentCooldown() / Game.ventCooldownInSeconds);
+                i.ventCooldownBossBar.setTitle(ChatColor.LIGHT_PURPLE + "Vent Cooldown: " + i.getVentCooldown());
+                i.ventCooldownBossBar.setProgress((float)i.getVentCooldown() / Game.ventCooldownInSeconds);
                 if (i.getVentCooldown() <= 0) {
-                    Game.ventCooldownBossBar.removeAll();
+                    i.ventCooldownBossBar.removeAll();
                     this.cancel();
                 } if ( !Game.gameRunning ) {
                     i.setVentCooldown(0);
-                    Game.ventCooldownBossBar.removeAll();
+                    i.ventCooldownBossBar.removeAll();
                     this.cancel();
                 }
             }

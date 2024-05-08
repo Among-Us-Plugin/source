@@ -1,7 +1,5 @@
 package io.papermc.aup.interactions;
 
-import java.util.ArrayList;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -40,12 +38,12 @@ public class Vent {
         return (i.getVentCooldown() > 0);
     }
 
-    public static void handleMove(Player p) {
-        ArrayList<Block> vents = Game.findBlocksByMaterial(Vent.blockMaterial, p.getWorld());
-        if (vents.size() == 0) { return; }
+    public static boolean handleMove(Player p) {
+        if (Game.vents.size() == 0) { return false; }
         Random rand = new Random();
-        int randomIndex = rand.nextInt(vents.size());
-        p.teleport(vents.get(randomIndex).getLocation());
+        int randomIndex = rand.nextInt(Game.vents.size());
+        p.teleport(Game.vents.get(randomIndex).getLocation());
+        return true;
     }
 
     public static void handleSneak(Player player) {

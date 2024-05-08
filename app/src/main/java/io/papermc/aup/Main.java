@@ -44,6 +44,7 @@ public class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Broadcasting.sendSignedMessageToPlayer(event.getPlayer(), "Hello " + event.getPlayer().getName() + ", welcome to AUP indev!", NamedTextColor.AQUA);
+        Game.findVents(event.getPlayer().getWorld());
     }
 
 }

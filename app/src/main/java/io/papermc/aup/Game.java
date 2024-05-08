@@ -29,6 +29,7 @@ import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Body;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
+import io.papermc.aup.interactions.Vent;
 
 @SuppressWarnings("deprecation")
 public class Game {
@@ -43,6 +44,7 @@ public class Game {
 
     public static AmongUsPlayer[] amongUsPlayers;
     public static ArrayList<Body> bodies = new ArrayList<Body>();
+    public static ArrayList<Block> vents = new ArrayList<Block>();
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
@@ -88,6 +90,10 @@ public class Game {
 
     public static void initializeMeetingBossBar() {
         meetingBossBar = Bukkit.createBossBar(ChatColor.YELLOW + "Emergency Meeting: ", BarColor.YELLOW, BarStyle.SOLID);
+    }
+
+    public static void findVents(World world) {
+        vents = findBlocksByMaterial(Vent.blockMaterial, world);
     }
 
     public static ArrayList<Block> findBlocksByMaterial(Material material, World world) {

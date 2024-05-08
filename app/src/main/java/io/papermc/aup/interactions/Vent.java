@@ -19,24 +19,22 @@ import io.papermc.aup.classes.Impostor;
 public class Vent {
 
     public static Material blockMaterial = Material.IRON_TRAPDOOR;
-
-    private static int ventCooldownCounter = 0;
     
     public static void run(Player player, Block block) {
-        if ( ventCooldownIsActive() ) {
-            Broadcasting.sendError(player, "Vent Cooldown: " + ventCooldownCounter + " seconds left");
+
+        Impostor i = (Impostor) AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
+
+        if ( ventCooldownIsActive(i) ) {
+            Broadcasting.sendError(player, "Vent Cooldown: " + i.getVentCooldown() + " seconds left");
             return;
         }
-        AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
-        if ( !(a instanceof Impostor) ) { return; }
-        Impostor impostor = (Impostor)a;
         enterVent(player, block);
-        impostor.startVenting();
-        startVentCooldown(player);
+        i.startVenting();
+        startVentCooldown(player, i);
     }
 
-    private static boolean ventCooldownIsActive() {
-        return (ventCooldownCounter > 0);
+    private static boolean ventCooldownIsActive(Impostor i) {
+        return (i.getVentCooldown() > 0);
     }
 
     public static void handleSneak() {
@@ -51,21 +49,21 @@ public class Vent {
         }
     }
 
-    private static void startVentCooldown(Player player) {
-        ventCooldownCounter = Game.ventCooldownInSeconds;
+    private static void startVentCooldown(Player player, Impostor i) {
+        i.setVentCooldown(Game.ventCooldownInSeconds);
         Game.initializeVentCooldownBossBar();
         Game.ventCooldownBossBar.addPlayer(player);
         new BukkitRunnable() {
             @Override
             public void run() {
-                ventCooldownCounter -= 1;
-                Game.ventCooldownBossBar.setTitle(ChatColor.LIGHT_PURPLE + "Vent Cooldown: " + ventCooldownCounter);
-                Game.ventCooldownBossBar.setProgress((float)ventCooldownCounter / Game.ventCooldownInSeconds);
-                if (ventCooldownCounter <= 0) {
+                i.setVentCooldown(i.getVentCooldown() - 1);
+                Game.ventCooldownBossBar.setTitle(ChatColor.LIGHT_PURPLE + "Vent Cooldown: " + i.getVentCooldown());
+                Game.ventCooldownBossBar.setProgress((float)i.getVentCooldown() / Game.ventCooldownInSeconds);
+                if (i.getVentCooldown() <= 0) {
                     Game.ventCooldownBossBar.removeAll();
                     this.cancel();
                 } if ( !Game.gameRunning ) {
-                    ventCooldownCounter = 0;
+                    i.setVentCooldown(0);
                     Game.ventCooldownBossBar.removeAll();
                     this.cancel();
                 }

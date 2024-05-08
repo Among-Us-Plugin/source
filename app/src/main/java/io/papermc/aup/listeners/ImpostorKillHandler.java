@@ -18,8 +18,6 @@ import io.papermc.aup.classes.Impostor;
 @SuppressWarnings("deprecation")
 public class ImpostorKillHandler implements Listener {
 
-    private static int killCooldownCounter = 0;
-
     // Ensure that the impostor can kill with one click
     @EventHandler
     public void onPunch(EntityDamageByEntityEvent event) {
@@ -35,40 +33,41 @@ public class ImpostorKillHandler implements Listener {
         AmongUsPlayer damager = AmongUsPlayer.getAmongUsPlayerByDisplayName(damagerEntity.getName());
         AmongUsPlayer victim = AmongUsPlayer.getAmongUsPlayerByDisplayName(victimEntity.getName());
 
-        if (isImpostor(damagerEntity, damager)) {
+        if (damager instanceof Impostor) {
+            Impostor i = (Impostor) damager;
             event.setCancelled(true);
             if (victim instanceof Impostor) {
                 Broadcasting.sendError(impostorPlayer, "You cannot kill other impostors!");
                 return;
             }
-            if ( killCooldownIsActive() ) {
-                Broadcasting.sendError(impostorPlayer, "Kill Cooldown: " + killCooldownCounter + " seconds left");
+            if ( killCooldownIsActive(i) ) {
+                Broadcasting.sendError(impostorPlayer, "Kill Cooldown: " + i.getKillCooldown() + " seconds left");
                 return;
             }
             killVictimEntity(victimEntity);
-            startKillCooldown(impostorPlayer);
+            startKillCooldown(impostorPlayer, i);
         }
     }
 
-    private boolean killCooldownIsActive() {
-        return killCooldownCounter > 0;
+    private boolean killCooldownIsActive(Impostor i) {
+        return (i.getKillCooldown() > 0);
     }
 
-    private static void startKillCooldown(Player player) {
-        killCooldownCounter = Game.killCooldownInSeconds;
+    private static void startKillCooldown(Player player, Impostor i) {
+        i.setKillCooldown(Game.killCooldownInSeconds);
         Game.initializeKillCooldownBossBar();
         Game.killCooldownBossBar.addPlayer(player);
         new BukkitRunnable() {
             @Override
             public void run() {
-                killCooldownCounter -= 1;
-                Game.killCooldownBossBar.setTitle(ChatColor.RED + "Kill Cooldown: " + killCooldownCounter);
-                Game.killCooldownBossBar.setProgress((float)killCooldownCounter / Game.killCooldownInSeconds);
-                if (killCooldownCounter <= 0) {
+                i.setKillCooldown(i.getKillCooldown() - 1);
+                Game.killCooldownBossBar.setTitle(ChatColor.RED + "Kill Cooldown: " + i.getKillCooldown());
+                Game.killCooldownBossBar.setProgress((float)i.getKillCooldown() / Game.killCooldownInSeconds);
+                if (i.getKillCooldown() <= 0) {
                     Game.killCooldownBossBar.removeAll();
                     this.cancel();
                 } if ( !Game.gameRunning ) {
-                    killCooldownCounter = 0;
+                    i.setKillCooldown(0);
                     Game.killCooldownBossBar.removeAll();
                     this.cancel();
                 }
@@ -81,9 +80,5 @@ public class ImpostorKillHandler implements Listener {
         Broadcasting.sendDeathSound(victimPlayer);
         Game.killPlayer(victimPlayer);
         Game.placeCorpse(victimPlayer);
-    }
-
-    private boolean isImpostor(Entity damager, AmongUsPlayer a) {
-        return a instanceof Impostor && a.getDisplayName().equals(damager.getName());
     }
 }

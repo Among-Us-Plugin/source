@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import io.papermc.aup.classes.AmongUsPlayer;
@@ -24,11 +23,8 @@ public class Broadcasting {
         player.playSound(player.getLocation(), sound, 1.0F, 1.0F);
     }
 
-    public static void sendTaskCompletionSound(HumanEntity entity) {
-        if ( entity instanceof Player) {
-            Player p = (Player) entity;
-            sendSoundToPlayer(p, Game.taskCompletionSound);
-        }
+    public static void sendTaskCompletionSound(Player player) {
+        sendSoundToPlayer(player, Game.taskCompletionSound);
     }
 
     public static void sendError(Player player, String message) {

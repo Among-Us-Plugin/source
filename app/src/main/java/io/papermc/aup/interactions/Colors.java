@@ -83,7 +83,9 @@ public class Colors {
         if (taskIsFinished(inv)) {
             view.close();
             HumanEntity e = event.getWhoClicked();
-            Game.handleTaskCompletion(e);
+            if (e instanceof Player) {
+                Game.handleTaskCompletion((Player)e);
+            }
             return;
         }
         Float pitch = (float) ((getProgress(inv) + 8) / 16.0);

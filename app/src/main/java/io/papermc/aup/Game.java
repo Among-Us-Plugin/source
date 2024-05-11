@@ -19,7 +19,6 @@ import org.bukkit.block.Skull;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -210,9 +209,9 @@ public class Game {
         return;
     }
 
-    public static void handleTaskCompletion(HumanEntity entity) {
+    public static void handleTaskCompletion(Player player) {
 
-        Broadcasting.sendTaskCompletionSound(entity);
+        Broadcasting.sendTaskCompletionSound(player);
 
         if (taskBossBar == null) { return; }
         taskBossBarProgressAsPercentage += taskBossBarIncrementPercentage;

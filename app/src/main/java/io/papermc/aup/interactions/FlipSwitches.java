@@ -49,7 +49,9 @@ public class FlipSwitches {
         if (checkCompletion(inv)) {
             view.close();
             HumanEntity e = event.getWhoClicked();
-            Game.handleTaskCompletion(e);
+            if (e instanceof Player) {
+                Game.handleTaskCompletion((Player)e);
+            }
         }
     }
 

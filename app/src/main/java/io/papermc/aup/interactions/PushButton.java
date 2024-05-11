@@ -32,7 +32,9 @@ public class PushButton {
         if (clickedSlotIndex != buttonIndex) { return; }
         view.close();
         HumanEntity e = event.getWhoClicked();
-        Game.handleTaskCompletion(e);
+        if (e instanceof Player) {
+            Game.handleTaskCompletion((Player)e);
+        }
     }
     
 }

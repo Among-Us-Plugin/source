@@ -1,4 +1,4 @@
-package io.papermc.aup.interactions;
+package io.papermc.aup.interactions.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

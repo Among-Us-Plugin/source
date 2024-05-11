@@ -14,11 +14,11 @@ import io.papermc.aup.Game;
 import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
-import io.papermc.aup.interactions.Colors;
 import io.papermc.aup.interactions.EmergencyMeeting;
-import io.papermc.aup.interactions.FlipSwitches;
-import io.papermc.aup.interactions.PushButton;
 import io.papermc.aup.interactions.Vent;
+import io.papermc.aup.interactions.tasks.Colors;
+import io.papermc.aup.interactions.tasks.FlipSwitches;
+import io.papermc.aup.interactions.tasks.PushButton;
 
 @SuppressWarnings("deprecation")
 public class InteractionHandler implements Listener {

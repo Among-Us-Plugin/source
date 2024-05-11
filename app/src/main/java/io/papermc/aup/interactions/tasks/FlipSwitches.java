@@ -1,4 +1,4 @@
-package io.papermc.aup.interactions;
+package io.papermc.aup.interactions.tasks;
 
 import java.util.Random;
 

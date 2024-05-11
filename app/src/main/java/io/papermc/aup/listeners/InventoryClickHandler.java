@@ -6,6 +6,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import io.papermc.aup.Game;
 import io.papermc.aup.interactions.*;
+import io.papermc.aup.interactions.tasks.Colors;
+import io.papermc.aup.interactions.tasks.FlipSwitches;
+import io.papermc.aup.interactions.tasks.PushButton;
 
 @SuppressWarnings("deprecation")
 public class InventoryClickHandler implements Listener {

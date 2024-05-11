@@ -21,6 +21,8 @@ public class InventoryClickHandler implements Listener {
             FlipSwitches.handleClick(event);
         } else if (title.equals(Colors.inventoryTitle)) {
             Colors.handleClick(event);
+        } else if (title.equals(PushButton.inventoryTitle)) {
+            PushButton.handleClick(event);
         } else if(title.equals(EmergencyMeeting.inventoryTitle)){
             EmergencyMeeting.handleClick(event);
         }

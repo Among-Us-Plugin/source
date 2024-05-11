@@ -17,6 +17,7 @@ import io.papermc.aup.classes.Impostor;
 import io.papermc.aup.interactions.Colors;
 import io.papermc.aup.interactions.EmergencyMeeting;
 import io.papermc.aup.interactions.FlipSwitches;
+import io.papermc.aup.interactions.PushButton;
 import io.papermc.aup.interactions.Vent;
 
 @SuppressWarnings("deprecation")
@@ -45,6 +46,12 @@ public class InteractionHandler implements Listener {
                 return;
             }
             Colors.run(player);
+        } if (matchingMaterial(block, PushButton.blockMaterial)) {
+            if (a instanceof Impostor) {
+                sendImpostorTaskError(player);
+                return;
+            }
+            PushButton.run(player);
         } if (matchingMaterial(block, EmergencyMeeting.blockMaterial)) {
             if ( playerIsDead(a) ) { return; }
             EmergencyMeeting.run(player, block, false);

@@ -28,6 +28,7 @@ import io.papermc.aup.classes.AmongUsPlayer;
 import io.papermc.aup.classes.Body;
 import io.papermc.aup.classes.Crewmate;
 import io.papermc.aup.classes.Impostor;
+import io.papermc.aup.classes.TaskBlock;
 import io.papermc.aup.interactions.Vent;
 
 @SuppressWarnings("deprecation")
@@ -44,7 +45,7 @@ public class Game {
     public static AmongUsPlayer[] amongUsPlayers;
     public static ArrayList<Body> bodies = new ArrayList<Body>();
     public static ArrayList<Block> vents = new ArrayList<Block>();
-    public static ArrayList<Block> tasks = new ArrayList<Block>();
+    public static ArrayList<TaskBlock> taskBlocks = new ArrayList<TaskBlock>();
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
@@ -66,8 +67,17 @@ public class Game {
 
     private static int taskBossBarIncrementPercentage = 20;
 
+    public static void restoreTaskBlocks() {
+        if (taskBlocks.size() == 0) { return; }
+        for (TaskBlock t : taskBlocks) {
+            Location l = t.getTaskLocation();
+            l.getBlock().setType(t.getTaskMaterial());
+        }
+    }
+
     public static void deleteTaskBlock(Block b) {
-        tasks.add(b);
+        TaskBlock t = new TaskBlock(b);
+        taskBlocks.add(t);
         b.setType(Material.BEDROCK);
     }
 
@@ -183,6 +193,7 @@ public class Game {
     public static void endGame() {
         gameRunning = false;
         resetGameModes();
+        restoreTaskBlocks();
         Broadcasting.sendSoundToAllPlayers(gameEndSound);
     }
 

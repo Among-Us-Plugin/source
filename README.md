@@ -11,3 +11,4 @@ Project Contributors: [@clkefe](https://github.com/clkefe), [@pairnon](https://g
 ## Notes
 - Java 17 & 1.20.x should be used during development.
 - Teleportation of players for emergency meetings may conflict with some anticheat plugins.
+- Any player in the server can run and configure AUP; consider a permissions plugin for larger servers.

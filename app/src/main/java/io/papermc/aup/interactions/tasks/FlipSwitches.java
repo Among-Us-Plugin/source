@@ -5,6 +5,7 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -32,11 +33,12 @@ public class FlipSwitches {
     private static ItemStack incorrectItemStack = new ItemStack(incorrectMaterial);
     private static ItemStack correctItemStack = new ItemStack(correctMaterial);
 
-    public static void run(Player player) {
+    public static void run(Player player, Block block) {
         setItemStackNames();
         Inventory inv = Bukkit.createInventory(null, inventorySize, inventoryTitle);
         randomizeLocations(inv);
         player.openInventory(inv);
+        Game.deleteTaskBlock(block);
     }
     
     public static void handleClick(InventoryClickEvent event) {

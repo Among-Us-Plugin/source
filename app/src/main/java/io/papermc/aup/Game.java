@@ -44,6 +44,7 @@ public class Game {
     public static AmongUsPlayer[] amongUsPlayers;
     public static ArrayList<Body> bodies = new ArrayList<Body>();
     public static ArrayList<Block> vents = new ArrayList<Block>();
+    public static ArrayList<Block> tasks = new ArrayList<Block>();
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
@@ -64,6 +65,11 @@ public class Game {
     public static BossBar meetingCooldownBossBar;
 
     private static int taskBossBarIncrementPercentage = 20;
+
+    public static void deleteTaskBlock(Block b) {
+        tasks.add(b);
+        b.setType(Material.BEDROCK);
+    }
 
     public static void initializeBossBars() {
         Game.crewmatesBossBar = Bukkit.createBossBar(ChatColor.GREEN + "You are a Crewmate!", BarColor.GREEN, BarStyle.SOLID);

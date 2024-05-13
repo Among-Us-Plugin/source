@@ -39,19 +39,19 @@ public class InteractionHandler implements Listener {
                 sendImpostorTaskError(player);
                 return;
             }
-            FlipSwitches.run(player);
+            FlipSwitches.run(player, block);
         } if (matchingMaterial(block, Colors.blockMaterial)) {
             if (a instanceof Impostor) {
                 sendImpostorTaskError(player);
                 return;
             }
-            Colors.run(player);
+            Colors.run(player, block);
         } if (matchingMaterial(block, PushButton.blockMaterial)) {
             if (a instanceof Impostor) {
                 sendImpostorTaskError(player);
                 return;
             }
-            PushButton.run(player);
+            PushButton.run(player, block);
         } if (matchingMaterial(block, EmergencyMeeting.blockMaterial)) {
             if ( playerIsDead(a) ) { return; }
             EmergencyMeeting.run(player, block, false);

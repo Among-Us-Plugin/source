@@ -2,6 +2,7 @@ package io.papermc.aup.interactions.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -19,11 +20,12 @@ public class PushButton {
 
     public static int buttonIndex = 4;
 
-    public static void run(Player player) {
+    public static void run(Player player, Block block) {
         Inventory inv = Bukkit.createInventory(null, 9, inventoryTitle);
         ItemStack itemStack = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         inv.setItem(buttonIndex, itemStack);
         player.openInventory(inv);
+        Game.deleteTaskBlock(block);
     }
 
     public static void handleClick(InventoryClickEvent event) {

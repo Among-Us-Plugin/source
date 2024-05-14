@@ -65,7 +65,8 @@ public class Game {
 
     public static BossBar meetingCooldownBossBar;
 
-    private static int taskBossBarIncrementPercentage = 20;
+    private static int numberOfTaskCompletionsForWin = 5;
+    private static int taskBossBarIncrementPercentage = 100 / numberOfTaskCompletionsForWin;
 
     public static void restoreTaskBlocks() {
         if (taskBlocks.size() == 0) { return; }

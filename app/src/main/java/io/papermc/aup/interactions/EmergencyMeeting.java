@@ -56,6 +56,7 @@ public class EmergencyMeeting {
         }
         relocatePlayers(centreBlock);
         Game.initializeMeetingBossBar();
+        Game.cleanUpAllCorpses();
         addPlayersToMeetingBossBars();
         Broadcasting.sendSoundToAllPlayers(Game.meetingStartSound);
         startMeetingTimer();

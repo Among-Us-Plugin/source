@@ -16,7 +16,7 @@ import io.papermc.aup.Game;
 public class PushButton {
 
     public static String inventoryTitle = "PushButton";
-    public static Material blockMaterial = Material.TARGET;
+    public static Material blockMaterial = Game.pushButtonMaterial;
 
     public static int buttonIndex = 4;
 

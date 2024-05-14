@@ -29,6 +29,7 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new InteractionHandler(), this);
         getServer().getPluginManager().registerEvents(new MovementHandler(), this);
         getServer().getPluginManager().registerEvents(new SneakHandler(), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakHandler(), this);
 
         // Plugin commands
         // See plugin.yml file

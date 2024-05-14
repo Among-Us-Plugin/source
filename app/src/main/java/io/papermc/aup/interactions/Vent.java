@@ -19,7 +19,7 @@ import io.papermc.aup.classes.Impostor;
 @SuppressWarnings("deprecation")
 public class Vent {
 
-    public static Material blockMaterial = Material.IRON_TRAPDOOR;
+    public static Material blockMaterial = Game.ventMaterial;
     
     public static void run(Player player, Block block) {
 

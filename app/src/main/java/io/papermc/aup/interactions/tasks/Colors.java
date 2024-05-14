@@ -23,7 +23,7 @@ import io.papermc.aup.Game;
 public class Colors {
     
     public static String inventoryTitle = "Colors";
-    public static Material blockMaterial = Material.SCULK;
+    public static Material blockMaterial = Game.colorsMaterial;
 
     private static Sound progressSound = Sound.BLOCK_NOTE_BLOCK_CHIME;
     private static Sound mistakeSound = Sound.ENTITY_GHAST_SCREAM;

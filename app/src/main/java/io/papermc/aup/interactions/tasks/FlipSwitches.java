@@ -21,7 +21,7 @@ import io.papermc.aup.Game;
 public class FlipSwitches {
     
     public static String inventoryTitle = "FlipSwitches";
-    public static Material blockMaterial = Material.LODESTONE;
+    public static Material blockMaterial = Game.flipSwitchesMaterial;
     
     public static int inventorySize = 9;
     

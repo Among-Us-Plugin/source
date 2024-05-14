@@ -47,6 +47,13 @@ public class Game {
     public static ArrayList<Block> vents = new ArrayList<Block>();
     public static ArrayList<TaskBlock> taskBlocks = new ArrayList<TaskBlock>();
     
+    public static Material colorsMaterial = Material.SCULK;
+    public static Material flipSwitchesMaterial = Material.LODESTONE;
+    public static Material pushButtonMaterial = Material.TARGET;
+    public static Material ventMaterial = Material.IRON_TRAPDOOR;
+    public static Material emergencyMeetingMaterial = Material.RED_CONCRETE;
+    public static Material[] protectedMaterials = {colorsMaterial, flipSwitchesMaterial, pushButtonMaterial, ventMaterial, emergencyMeetingMaterial, Material.PLAYER_HEAD};
+    
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
     public static Sound taskCompletionSound = Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE;

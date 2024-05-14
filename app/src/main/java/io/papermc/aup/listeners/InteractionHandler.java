@@ -75,7 +75,7 @@ public class InteractionHandler implements Listener {
                 sendImpostorReportError(player);
                 return;
             }
-            Game.cleanUpCorpse(block);
+            Game.cleanUpBody(block);
             EmergencyMeeting.run(player, block, true);
         }
     }

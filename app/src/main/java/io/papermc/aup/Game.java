@@ -131,18 +131,18 @@ public class Game {
         return false;
     }
 
-    public static void cleanUpCorpse(Block block) {
+    public static void cleanUpBody(Block block) {
         block.setType(Material.AIR);
     }
 
-    public static void cleanUpAllCorpses() {
+    public static void cleanUpAllBodies() {
         for (Body b : bodies) {
             b.getBlock().setType(Material.AIR);
         }
         bodies.clear();
     }
 
-    public static void placeCorpse(Player player) {
+    public static void placeBody(Player player) {
         Location location = player.getLocation();
         Block block = location.getBlock();
         if (!block.getType().equals(Material.AIR)) {
@@ -155,15 +155,15 @@ public class Game {
         skull.setRotation(BlockFace.NORTH);
         skull.setOwningPlayer(player);
         skull.update();
-        runCorpseParticles(block);
+        runBodyParticles(block);
     }
 
-    public static void runCorpseParticles(Block block) {
+    public static void runBodyParticles(Block block) {
         Location location = block.getLocation();
         new BukkitRunnable() {
             @Override
             public void run() {
-                spawnCorpseParticleEffect(location);
+                spawnBodyParticleEffect(location);
                 if (block.getType() != Material.PLAYER_HEAD) { this.cancel(); }
                 if (!Game.gameRunning) { this.cancel(); }
             }
@@ -174,13 +174,13 @@ public class Game {
         if (!gameRunning) { return; }
         player.setGameMode(GameMode.SPECTATOR);
         Location loc = player.getLocation();
-        spawnCorpseParticleEffect(loc);
+        spawnBodyParticleEffect(loc);
         AmongUsPlayer a = AmongUsPlayer.getAmongUsPlayerByDisplayName(player.getDisplayName());
         a.kill();
         checkAmongUsPlayers();
     }
 
-    private static void spawnCorpseParticleEffect(Location loc) {
+    private static void spawnBodyParticleEffect(Location loc) {
         World world = loc.getWorld();
         int count = 100;
         double offsetX = 0;

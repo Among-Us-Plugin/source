@@ -21,7 +21,7 @@ public class GameLogic {
             }
 
             private void cleanUp() {
-                Game.cleanUpAllCorpses();
+                Game.cleanUpAllBodies();
                 Game.closeAllInventories();
                 clearBossBars();
                 this.cancel();

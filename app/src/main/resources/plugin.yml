@@ -19,3 +19,6 @@ commands:
   cooldown:
     description: Configure cooldown durations
     usage: /cooldown <action> <seconds>
+  tasks:
+    description: Configure task win threshold
+    usage: /tasks <amount>

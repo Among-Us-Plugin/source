@@ -65,8 +65,7 @@ public class Game {
 
     public static BossBar meetingCooldownBossBar;
 
-    private static int numberOfTaskCompletionsForWin = 5;
-    private static int taskBossBarIncrementPercentage = 100 / numberOfTaskCompletionsForWin;
+    public static int numberOfTaskCompletionsForWin = 5;
 
     public static void restoreTaskBlocks() {
         if (taskBlocks.size() == 0) { return; }
@@ -232,7 +231,7 @@ public class Game {
         Broadcasting.sendTaskCompletionSound(player);
 
         if (taskBossBar == null) { return; }
-        taskBossBarProgressAsPercentage += taskBossBarIncrementPercentage;
+        taskBossBarProgressAsPercentage += (100 / numberOfTaskCompletionsForWin);
         double updatedProgressAsDouble = 0.01 * taskBossBarProgressAsPercentage;
         taskBossBar.setProgress(updatedProgressAsDouble);
         taskBossBar.setTitle(ChatColor.BLUE + "Crewmate Task Progress: " + taskBossBarProgressAsPercentage + "%");

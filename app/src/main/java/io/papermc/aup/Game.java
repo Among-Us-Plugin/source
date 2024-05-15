@@ -50,7 +50,7 @@ public class Game {
     public static Material colorsMaterial = Material.SCULK;
     public static Material flipSwitchesMaterial = Material.LODESTONE;
     public static Material pushButtonMaterial = Material.TARGET;
-    public static Material ventMaterial = Material.IRON_TRAPDOOR;
+    public static Material ventMaterial = Material.CHERRY_TRAPDOOR;
     public static Material emergencyMeetingMaterial = Material.FLOWER_POT;
     public static Material[] protectedMaterials = {colorsMaterial, flipSwitchesMaterial, pushButtonMaterial, ventMaterial, emergencyMeetingMaterial, Material.PLAYER_HEAD};
     

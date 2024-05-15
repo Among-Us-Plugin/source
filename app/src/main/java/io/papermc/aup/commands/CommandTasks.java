@@ -28,10 +28,10 @@ public class CommandTasks implements CommandExecutor {
             try {
                 input = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                Broadcasting.sendError(player, "Please enter a number from 1 to 20.");
+                Broadcasting.sendError(player, "Please enter a number from 1 to 100.");
                 return true;
             }
-            if (input >= 1 && input <= 20) {
+            if (input >= 1 && input <= 100) {
                 if (Game.numberOfTaskCompletionsForWin == input) {
                     Broadcasting.sendError(player, "Task completion requirement is already set to " + Game.numberOfTaskCompletionsForWin + ".");
                     return true;
@@ -41,7 +41,7 @@ public class CommandTasks implements CommandExecutor {
                 return true;
             }
             else {
-                Broadcasting.sendError(player, "Please enter a number from 1 to 20.");
+                Broadcasting.sendError(player, "Please enter a number from 1 to 100.");
                 return true;
             }
         }

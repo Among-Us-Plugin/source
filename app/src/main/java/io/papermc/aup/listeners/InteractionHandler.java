@@ -55,8 +55,9 @@ public class InteractionHandler implements Listener {
         } if (matchingMaterial(block, EmergencyMeeting.blockMaterial)) {
             if ( playerIsDead(a) ) { return; }
             EmergencyMeeting.run(player, block, false);
-        } if (matchingMaterial(block, Vent.blockMaterial)) {            
+        } if (matchingMaterial(block, Vent.blockMaterial)) {
             if ( a instanceof Crewmate ) {
+                event.setCancelled(true);
                 sendCrewmateVentError(player);
                 return;
             }

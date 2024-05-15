@@ -2,7 +2,7 @@
 
 ## Among Us - Minecraft Java plugin for Paper (Unofficial)
 
-This repo contains the source code for the server-side plugin that integrates Among Us game logic into Java Minecraft. A companion texture pack is also in the works.
+This repo contains the source code for the server-side plugin that integrates Among Us game logic into Java Minecraft. A companion texture pack can be found [here](https://github.com/Among-Us-Plugin/texture-pack).
 
 Project Contributors: [@clkefe](https://github.com/clkefe), [@pairnon](https://github.com/pairnon)
 

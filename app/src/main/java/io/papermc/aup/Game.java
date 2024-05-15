@@ -42,6 +42,8 @@ public class Game {
     public static int ventCooldownInSeconds = 10;
     public static int killCooldownInSeconds = 10;
 
+    public static boolean allowBlockBreakingDuringGame = false;
+
     public static AmongUsPlayer[] amongUsPlayers;
     public static ArrayList<Body> bodies = new ArrayList<Body>();
     public static ArrayList<Block> vents = new ArrayList<Block>();

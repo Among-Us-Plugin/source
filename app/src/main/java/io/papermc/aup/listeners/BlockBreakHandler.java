@@ -13,6 +13,11 @@ public class BlockBreakHandler implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         if (!Game.gameRunning) { return; }
+        if (!Game.allowBlockBreakingDuringGame) {
+            event.setCancelled(true);
+            Broadcasting.sendError(event.getPlayer(),"You cannot break that block during the game!");
+            return;
+        }
         Material m = event.getBlock().getType();
         for (Material protectedMaterial : Game.protectedMaterials) {
             if (protectedMaterial.equals(m)) {

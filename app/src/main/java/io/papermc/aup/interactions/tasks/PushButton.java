@@ -9,6 +9,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import io.papermc.aup.Game;
 
@@ -23,6 +24,9 @@ public class PushButton {
     public static void run(Player player, Block block) {
         Inventory inv = Bukkit.createInventory(null, 9, inventoryTitle);
         ItemStack itemStack = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
+        ItemMeta m = itemStack.getItemMeta();
+        m.setDisplayName("§aClick me!");
+        itemStack.setItemMeta(m);
         inv.setItem(buttonIndex, itemStack);
         player.openInventory(inv);
         Game.deleteTaskBlock(block);

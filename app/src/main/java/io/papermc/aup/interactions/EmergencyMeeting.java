@@ -36,7 +36,8 @@ public class EmergencyMeeting {
     public static ArrayList<Vote> votes = new ArrayList<Vote>();
 
     private static int inventorySize = (((Game.amongUsPlayers.length - 1) / 9) + 1) * 9;
-    private static double playersRadius = 5;
+    private static double meetingPlayersRadius = 5;
+    private static double bodyPlayersRadius = 2;
     private static int meetingDurationCounter = Game.meetingDurationInSeconds;
     private static int discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
 
@@ -51,10 +52,11 @@ public class EmergencyMeeting {
         if (!isBodyReport) {
             Broadcasting.broadcastSignedMessage( player.getName() + " has initiated an emergency meeting!", NamedTextColor.LIGHT_PURPLE);
             startMeetingCooldown();
+            relocatePlayers(centreBlock, meetingPlayersRadius);
         } else {
             Broadcasting.broadcastSignedMessage( player.getName() + " has found a dead body!", NamedTextColor.LIGHT_PURPLE);
+            relocatePlayers(centreBlock, bodyPlayersRadius);
         }
-        relocatePlayers(centreBlock);
         Game.initializeMeetingBossBar();
         Game.cleanUpAllBodies();
         addPlayersToMeetingBossBars();
@@ -245,14 +247,14 @@ public class EmergencyMeeting {
         }
     }
     
-    private static void relocatePlayers(Block centreBlock) {
+    private static void relocatePlayers(Block centreBlock, double radius) {
         int i = 0;
         for (AmongUsPlayer amongUsPlayer : Game.amongUsPlayers) {
             // Evenly spaces the players around a circle
             double angle = 2 * Math.PI * i / Game.amongUsPlayers.length;
             
-            double newX = centreBlock.getX() + playersRadius * Math.cos(angle);
-            double newZ = centreBlock.getZ() + playersRadius * Math.sin(angle);
+            double newX = centreBlock.getX() + radius * Math.cos(angle);
+            double newZ = centreBlock.getZ() + radius * Math.sin(angle);
             float newYaw = getNewYaw(centreBlock, newX, newZ);
             
             Player player = AmongUsPlayer.getPlayerByAmongUsPlayer(amongUsPlayer);

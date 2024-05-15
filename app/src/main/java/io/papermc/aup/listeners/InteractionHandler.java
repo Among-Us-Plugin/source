@@ -79,6 +79,8 @@ public class InteractionHandler implements Listener {
             Game.cleanUpBody(block);
             EmergencyMeeting.run(player, block, true);
         }
+
+        event.setCancelled(true);
     }
 
     private void sendBenignReportError(Player player) {

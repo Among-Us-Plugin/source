@@ -69,6 +69,10 @@ public class EmergencyMeeting {
         new BukkitRunnable() {
             @Override
             public void run() {
+                if (!Game.gameRunning) { 
+                    discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
+                    this.cancel();
+                }
                 discussionPeriodDurationCounter--;
                 if (discussionPeriodDurationCounter <= 0) {
                     discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;

@@ -37,11 +37,7 @@ public class CommandMeetingDuration implements CommandExecutor {
                     Broadcasting.sendError(player, "Meeting duration is already set to " + Game.meetingDurationInSeconds + ".");
                     return true;
                 }
-                Game.meetingCooldownInSeconds -= Game.meetingDurationInSeconds;
-                Game.meetingDurationInSeconds = input;
-                Game.meetingCooldownInSeconds += Game.meetingDurationInSeconds;
-                Game.discussionPeriodDurationInSeconds = Game.meetingDurationInSeconds / 2;
-                EmergencyMeeting.updateMeetingCounters();
+                setNewMeetingConfiguration(input);
                 Broadcasting.sendSignedMessageToPlayer(player, "Set meeting duration to: " + Game.meetingDurationInSeconds, NamedTextColor.AQUA);
                 return true;
             }
@@ -51,5 +47,13 @@ public class CommandMeetingDuration implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    private void setNewMeetingConfiguration(int input) {
+        Game.meetingCooldownInSeconds -= Game.meetingDurationInSeconds;
+        Game.meetingDurationInSeconds = input;
+        Game.meetingCooldownInSeconds += Game.meetingDurationInSeconds;
+        Game.discussionPeriodDurationInSeconds = Game.meetingDurationInSeconds / 2;
+        EmergencyMeeting.updateMeetingCounters();
     }
 }

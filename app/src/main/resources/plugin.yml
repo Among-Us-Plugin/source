@@ -22,3 +22,6 @@ commands:
   tasks:
     description: Configure task win threshold
     usage: /tasks <amount>
+  meetingduration:
+    description: Configure meeting duration
+    usage: /meetingduration <seconds>

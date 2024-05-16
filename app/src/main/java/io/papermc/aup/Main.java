@@ -36,6 +36,7 @@ public class Main extends JavaPlugin implements Listener {
         this.getCommand("impostors").setExecutor(new CommandImpostors());
         this.getCommand("cooldown").setExecutor(new CommandCooldown());
         this.getCommand("tasks").setExecutor(new CommandTasks());
+        this.getCommand("meetingduration").setExecutor(new CommandMeetingDuration());
 
         // Plugin completers
         this.getCommand("cooldown").setTabCompleter(new CooldownCompleter());

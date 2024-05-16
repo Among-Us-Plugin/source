@@ -16,11 +16,6 @@ public class CommandCooldown implements CommandExecutor {
         
         Player player = (Player) sender;
 
-        if (Game.gameRunning) {
-            Broadcasting.sendError(player, "You cannot use this command during a game!");
-            return true;
-        }
-
         if (args.length == 0) {
             return false;
         } else if (args.length == 1) {
@@ -53,6 +48,11 @@ public class CommandCooldown implements CommandExecutor {
             return true;
 
         } else if (args.length == 2) {
+
+            if (Game.gameRunning) {
+                Broadcasting.sendError(player, "Cannot configure while the game is running!");
+                return true;
+            }
 
             String entry = null;
             int input = 0;

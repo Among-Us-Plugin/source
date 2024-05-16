@@ -13,8 +13,6 @@ public class CommandEndGame implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        // Check if game is running
-        // Set gameRunning accordingly
         if (!Game.gameRunning) {
             Broadcasting.sendError((Player) sender, "Game is not running");
             return true;
@@ -23,7 +21,6 @@ public class CommandEndGame implements CommandExecutor {
             Game.endGame();
             Broadcasting.sendManualGameEnding("Game ended manually by " + sender.getName());
         }
-
 
         return true;
     }

@@ -36,25 +36,15 @@ public class Game {
 
     public static boolean gameRunning = false;
     public static boolean emergencyMeetingInProgress = false;
+
     public static int discussionPeriodDurationInSeconds = 2;
     public static int meetingDurationInSeconds = 10;
     public static int meetingCooldownInSeconds = meetingDurationInSeconds + 10;
     public static int ventCooldownInSeconds = 10;
     public static int killCooldownInSeconds = 10;
-
+    public static int numImpostors = 1;
+    public static int numberOfTaskCompletionsForWin = 5;
     public static boolean allowBlockBreakingDuringGame = false;
-
-    public static AmongUsPlayer[] amongUsPlayers;
-    public static ArrayList<Body> bodies = new ArrayList<Body>();
-    public static ArrayList<Block> vents = new ArrayList<Block>();
-    public static ArrayList<TaskBlock> taskBlocks = new ArrayList<TaskBlock>();
-    
-    public static Material colorsMaterial = Material.SCULK;
-    public static Material flipSwitchesMaterial = Material.LODESTONE;
-    public static Material pushButtonMaterial = Material.TARGET;
-    public static Material ventMaterial = Material.CHERRY_TRAPDOOR;
-    public static Material emergencyMeetingMaterial = Material.FLOWER_POT;
-    public static Material[] protectedMaterials = {colorsMaterial, flipSwitchesMaterial, pushButtonMaterial, ventMaterial, emergencyMeetingMaterial, Material.PLAYER_HEAD};
     
     public static Sound alertSound = Sound.BLOCK_NOTE_BLOCK_BIT;
     public static Sound errorSound = Sound.BLOCK_ANVIL_LAND;
@@ -62,19 +52,25 @@ public class Game {
     public static Sound meetingStartSound = Sound.BLOCK_NOTE_BLOCK_HARP;
     public static Sound deathSound = Sound.BLOCK_END_PORTAL_SPAWN;
     public static Sound gameEndSound = Sound.UI_TOAST_CHALLENGE_COMPLETE;
-    
-    public static int numImpostors = 1;
 
+    public static Material colorsMaterial = Material.SCULK;
+    public static Material flipSwitchesMaterial = Material.LODESTONE;
+    public static Material pushButtonMaterial = Material.TARGET;
+    public static Material ventMaterial = Material.CHERRY_TRAPDOOR;
+    public static Material emergencyMeetingMaterial = Material.FLOWER_POT;
+    public static Material[] protectedMaterials = {colorsMaterial, flipSwitchesMaterial, pushButtonMaterial, ventMaterial, emergencyMeetingMaterial, Material.PLAYER_HEAD};
+    
+    public static AmongUsPlayer[] amongUsPlayers;
+    public static ArrayList<Body> bodies = new ArrayList<Body>();
+    public static ArrayList<Block> vents = new ArrayList<Block>();
+    public static ArrayList<TaskBlock> taskBlocks = new ArrayList<TaskBlock>();
+    
     public static BossBar crewmatesBossBar;
     public static BossBar impostorsBossBar;
     public static BossBar taskBossBar;
     public static int taskBossBarProgressAsPercentage;
-
     public static BossBar meetingBossBar;
-
     public static BossBar meetingCooldownBossBar;
-
-    public static int numberOfTaskCompletionsForWin = 5;
 
     public static void restoreTaskBlocks() {
         if (taskBlocks.size() == 0) { return; }

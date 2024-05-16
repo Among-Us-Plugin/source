@@ -1,7 +1,5 @@
 package io.papermc.aup;
 
-import net.kyori.adventure.text.format.NamedTextColor;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,7 +43,6 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        Broadcasting.sendSignedMessageToPlayer(event.getPlayer(), "Hello " + event.getPlayer().getName() + ", welcome to AUP indev!", NamedTextColor.AQUA);
         Game.findVents(event.getPlayer().getWorld());
     }
 

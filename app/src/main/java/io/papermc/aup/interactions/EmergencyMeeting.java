@@ -83,6 +83,11 @@ public class EmergencyMeeting {
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
     }
 
+    public static void updateMeetingCounters() {
+        meetingDurationCounter = Game.meetingDurationInSeconds;
+        discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
+    }
+
     private static void startVoting() {
         Inventory votingMenu = getVotingMenu();
         populateVotingMenu(votingMenu);

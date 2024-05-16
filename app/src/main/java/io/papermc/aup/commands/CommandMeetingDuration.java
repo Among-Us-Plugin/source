@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
+import io.papermc.aup.interactions.EmergencyMeeting;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CommandMeetingDuration implements CommandExecutor {
@@ -36,10 +37,11 @@ public class CommandMeetingDuration implements CommandExecutor {
                     Broadcasting.sendError(player, "Meeting duration is already set to " + Game.meetingDurationInSeconds + ".");
                     return true;
                 }
-                // Game.meetingCooldownInSeconds -= Game.meetingDurationInSeconds;
+                Game.meetingCooldownInSeconds -= Game.meetingDurationInSeconds;
                 Game.meetingDurationInSeconds = input;
-                // Game.meetingCooldownInSeconds += Game.meetingDurationInSeconds;
+                Game.meetingCooldownInSeconds += Game.meetingDurationInSeconds;
                 Game.discussionPeriodDurationInSeconds = Game.meetingDurationInSeconds / 2;
+                EmergencyMeeting.updateMeetingCounters();
                 Broadcasting.sendSignedMessageToPlayer(player, "Set meeting duration to: " + Game.meetingDurationInSeconds, NamedTextColor.AQUA);
                 return true;
             }

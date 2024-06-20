@@ -192,7 +192,7 @@ public class Game {
         double offsetY = 0.5;
         double offsetZ = 0;
         DustOptions dustOptions = new DustOptions(Color.RED, count);
-        world.spawnParticle(Particle.REDSTONE, loc, count, offsetX, offsetY, offsetZ, dustOptions);
+        world.spawnParticle(Particle.DUST, loc, count, offsetX, offsetY, offsetZ, dustOptions);
     }
 
     public static void endGame() {

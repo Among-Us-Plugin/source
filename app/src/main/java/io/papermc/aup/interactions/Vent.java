@@ -102,7 +102,7 @@ public class Vent {
     }
 
     private static void spawnVentParticleEffect(Location location) {
-        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_LARGE, location, 20);
+        location.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION, location, 20);
     }
 
 }

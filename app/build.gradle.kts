@@ -30,12 +30,7 @@ dependencies {
     implementation("com.google.guava:guava:31.1-jre")
 
     // Paper dependency
-    compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
-}
-
-// Required by Paper
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
 }
 
 application {
@@ -53,6 +48,11 @@ tasks {
         // Configure the Minecraft version for our task.
         // This is the only required configuration besides applying the plugin.
         // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.20.2")
+        minecraftVersion("1.20.6")
     }
+}
+
+// Required by Paper
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }

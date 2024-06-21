@@ -13,18 +13,20 @@ public class CommandEndGame implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!sender.hasPermission("minecraft.op")) {
-            Broadcasting.sendError((Player) sender, "You do not have access to this command.");
+        Player player = (Player) sender;
+
+        if (!player.hasPermission("minecraft.op")) {
+            Broadcasting.sendError(player, "You do not have access to this command.");
             return true;
         }
 
         if (!Game.gameRunning) {
-            Broadcasting.sendError((Player) sender, "Game is not running");
+            Broadcasting.sendError(player, "Game is not running");
             return true;
         }
         else {
             Game.endGame();
-            Broadcasting.sendManualGameEnding("Game ended manually by " + sender.getName());
+            Broadcasting.sendManualGameEnding("Game ended manually by " + player.getName());
         }
 
         return true;

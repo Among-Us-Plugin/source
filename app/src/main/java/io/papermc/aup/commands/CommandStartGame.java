@@ -20,13 +20,15 @@ public class CommandStartGame implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!sender.hasPermission("minecraft.op")) {
-            Broadcasting.sendError((Player) sender, "You do not have access to this command.");
+        Player player = (Player) sender;
+
+        if (!player.hasPermission("minecraft.op")) {
+            Broadcasting.sendError(player, "You do not have access to this command.");
             return true;
         }
 
         if (Game.gameRunning) {
-            Broadcasting.sendError((Player) sender, "Game is already running");
+            Broadcasting.sendError(player, "Game is already running");
             return true;
         }
         
@@ -34,7 +36,7 @@ public class CommandStartGame implements CommandExecutor {
        int requiredPlayers = Game.numImpostors + 1;
        if (onlinePlayers < requiredPlayers) {
            String m = "Not enough players! Currently " + onlinePlayers + " online when " + requiredPlayers + " required!";
-           Broadcasting.sendError((Player) sender, m);
+           Broadcasting.sendError(player, m);
            return true;
        }
         
@@ -47,7 +49,7 @@ public class CommandStartGame implements CommandExecutor {
         Game.amongUsPlayers = amongUsPlayers;
         Game.initializeBossBars();
         Game.gameRunning = true;
-        Broadcasting.sendGameStart("Game started by " + sender.getName());
+        Broadcasting.sendGameStart("Game started by " + player.getName());
 
         // Game logic
         GameLogic.run();

@@ -16,7 +16,7 @@ public class CommandCooldown implements CommandExecutor {
         
         Player player = (Player) sender;
 
-        if (!sender.hasPermission("minecraft.op")) {
+        if (!player.hasPermission("minecraft.op")) {
             Broadcasting.sendError(player, "You do not have access to this command.");
             return true;
         }

@@ -17,6 +17,11 @@ public class CommandMeetingDuration implements CommandExecutor {
         
         Player player = (Player) sender;
 
+        if (!sender.hasPermission("minecraft.op")) {
+            Broadcasting.sendError(player, "You do not have access to this command.");
+            return true;
+        }
+
         if (args.length == 0) {
             Broadcasting.sendSignedMessageToPlayer(player, "Current meeting duration: " + Game.meetingDurationInSeconds, NamedTextColor.AQUA);
             return true;

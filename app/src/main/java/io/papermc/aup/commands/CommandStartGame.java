@@ -20,6 +20,11 @@ public class CommandStartGame implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        if (!sender.hasPermission("minecraft.op")) {
+            Broadcasting.sendError((Player) sender, "You do not have access to this command.");
+            return true;
+        }
+
         if (Game.gameRunning) {
             Broadcasting.sendError((Player) sender, "Game is already running");
             return true;

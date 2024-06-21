@@ -16,6 +16,11 @@ public class CommandImpostors implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        if (!sender.hasPermission("minecraft.op")) {
+            Broadcasting.sendError(player, "You do not have access to this command.");
+            return true;
+        }
+
         if (args.length == 0) {
             Broadcasting.sendSignedMessageToPlayer(player, "Number of impostors per game: " + Game.numImpostors, NamedTextColor.AQUA);
             return true;

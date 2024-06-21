@@ -16,6 +16,11 @@ public class CommandTasks implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        if (!sender.hasPermission("minecraft.op")) {
+            Broadcasting.sendError(player, "You do not have access to this command.");
+            return true;
+        }
+
         if (args.length == 0) {
             Broadcasting.sendSignedMessageToPlayer(player, "Task completion requirement: " + Game.numberOfTaskCompletionsForWin, NamedTextColor.AQUA);
             return true;

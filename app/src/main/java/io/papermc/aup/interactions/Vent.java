@@ -28,6 +28,9 @@ public class Vent {
         if ( ventCooldownIsActive(i) ) {
             Broadcasting.sendError(player, "Vent Cooldown: " + i.getVentCooldown() + " seconds left");
             return;
+        } else if (i.isVenting()) {
+            Broadcasting.sendError(player, "You are already inside of a vent!");
+            return;
         }
         i.setVentBlock(block);
         enterVent(player, block);

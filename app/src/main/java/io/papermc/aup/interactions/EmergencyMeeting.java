@@ -66,6 +66,7 @@ public class EmergencyMeeting {
     }
 
     private static void runMeeting() {
+        discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -81,11 +82,6 @@ public class EmergencyMeeting {
                 }
             }
         }.runTaskTimer(JavaPlugin.getPlugin(Main.class), 0L, 20L);
-    }
-
-    public static void updateMeetingCounters() {
-        meetingDurationCounter = Game.meetingDurationInSeconds;
-        discussionPeriodDurationCounter = Game.discussionPeriodDurationInSeconds;
     }
 
     private static void startVoting() {
@@ -121,6 +117,7 @@ public class EmergencyMeeting {
     }
 
     private static void startMeetingTimer() {
+        meetingDurationCounter = Game.meetingDurationInSeconds;
         new BukkitRunnable() {
             @Override
             public void run() {

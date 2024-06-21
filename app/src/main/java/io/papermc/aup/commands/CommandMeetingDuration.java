@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import io.papermc.aup.Broadcasting;
 import io.papermc.aup.Game;
-import io.papermc.aup.interactions.EmergencyMeeting;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CommandMeetingDuration implements CommandExecutor {
@@ -59,6 +58,5 @@ public class CommandMeetingDuration implements CommandExecutor {
         Game.meetingDurationInSeconds = input;
         Game.meetingCooldownInSeconds += Game.meetingDurationInSeconds;
         Game.discussionPeriodDurationInSeconds = Game.meetingDurationInSeconds / 2;
-        EmergencyMeeting.updateMeetingCounters();
     }
 }

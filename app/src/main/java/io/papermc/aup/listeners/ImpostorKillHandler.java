@@ -24,11 +24,12 @@ public class ImpostorKillHandler implements Listener {
 
         Entity damagerEntity = event.getDamager();
         Entity victimEntity = event.getEntity();
-        Player impostorPlayer = (Player) damagerEntity;
 
         if (!Game.gameRunning) { return; }
         if (!(damagerEntity instanceof Player)) { return; }
         if (!(victimEntity instanceof Player)) { return; }
+
+        Player impostorPlayer = (Player) damagerEntity;
             
         AmongUsPlayer damager = AmongUsPlayer.getAmongUsPlayerByDisplayName(damagerEntity.getName());
         AmongUsPlayer victim = AmongUsPlayer.getAmongUsPlayerByDisplayName(victimEntity.getName());
